@@ -2,8 +2,8 @@
 # include <stdio.h>
 # include <time.h>
 
-//# include "mpi.h"
-# include "staticlib.h"
+# include "mpi.h"
+//# include "staticlib.h"
 
 int main ( int argc, char *argv[] );
 void timestamp ( );

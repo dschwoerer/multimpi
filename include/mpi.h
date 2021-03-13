@@ -1,4 +1,5 @@
 typedef void *MPI_Comm;
+typedef double MPI_DOUBLE;
 
 extern MPI_Comm MPI_COMM_WORLD;
 

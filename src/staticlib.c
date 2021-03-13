@@ -1,4 +1,4 @@
-#include "staticlib.h"
+#include "mpi.h"
 #include "dlfcn.h"
 #include "stdio.h"
 
@@ -14,12 +14,12 @@ int MPI_Init(int *argc, char ***argv) {
   handle = dlopen("libmpi.so.40", RTLD_NOW);
   if (handle){
     dlclose(handle);
-    mylib= "./openmpi.so";
+    mylib= "lib/openmpi.so";
   } else {
     handle = dlopen("libmpi.so.12", RTLD_NOW);
     if (handle){
       dlclose(handle);
-      mylib= "./mpich.so";
+      mylib= "lib/mpich.so";
     } else {
       printf("could not find a suitable mpilibrary. Ensure LD_LIBRARY_PATH is correct");
       return 1;

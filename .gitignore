@@ -1,4 +1,7 @@
-/*.o
-/*.so
-/*.a
-/hello
+*.o
+*.so
+*.a
+hello
+*~
+bin/mpicc
+bin/mpic++

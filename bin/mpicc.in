@@ -1,0 +1,2 @@
+#!/bin/bash
+echo 'gcc $@ -I'$(pwd)'/include -L'$(pwd)'/lib -ldl -lmpi'

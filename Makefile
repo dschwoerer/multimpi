@@ -1,20 +1,33 @@
-test: hello openmpi.so
-	./hello
+test: test/hello lib/openmpi.so
+	test/hello
 
-hello:hello_mpi.o static.a
-	cc -o $@ $< static.a -ldl
+bins=mpicc mpic++
 
-static.a: staticlib.o
+.PHONY: test
+
+test/hello:test/hello_mpi.o lib/libmpi.a $(bins:%=bin/%)
+	bin/mpicc -o $@ $<
+
+lib/libmpi.a: src/staticlib.o
+	test -d lib || mkdir lib
 	ar cruU $@ $<
 
-%.o: %.c
-	cc -c $< -fpic -o $@
+%.o: %.c $(bins:%=bin/%)
+	bin/mpicc -c $< -fpic -o $@
 
-openmpi.so: build.so.sh dynlib.c
+lib/openmpi.so: build.so.sh src/dynlib.c
 	sh $<
 
 clean::
-	rm *.o
-	rm *.so
-	rm static.a
-	rm hello
+	rm src/*.o
+	rm lib/*.so
+	rm lib/*.a
+	rm test/hello
+	rm bin/mpic++
+	rm bin/mpicc
+
+%: %.in
+	sh $< > $@.tmp
+	mv $@.tmp $@
+	chmod +x $@
+
