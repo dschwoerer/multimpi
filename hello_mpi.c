@@ -2,7 +2,7 @@
 # include <stdio.h>
 # include <time.h>
 
-# include "mpi.h"
+//# include "mpi.h"
 # include "staticlib.h"
 
 int main ( int argc, char *argv[] );
@@ -19,10 +19,10 @@ int main ( int argc, char *argv[] )
 /*
   Initialize MPI.
 */
-  ierr = mpi_Init ( &argc, &argv );
+  ierr = MPI_Init ( &argc, &argv );
   //ierr = mpi_init(&argc, &argv);
   
-
+  printf("%p\n", MPI_COMM_WORLD);
   if ( ierr != 0 )
   {
     printf ( "\n" );

@@ -2,16 +2,19 @@ test: hello openmpi.so
 	./hello
 
 hello:hello_mpi.o static.a
-	mpicc -o $@ $< static.a -ldl
+	cc -o $@ $< static.a -ldl
 
 static.a: staticlib.o
 	ar cruU $@ $<
 
 %.o: %.c
-	mpicc -c $< -fpic -o $@
+	cc -c $< -fpic -o $@
 
-dynlib.o: dynlib.c
-	mpicc -c $< -fpic -o $@
-openmpi.so: dynlib.o
-	mpicc -shared -o $@ $<
+openmpi.so: build.so.sh dynlib.c
+	sh $<
 
+clean::
+	rm *.o
+	rm *.so
+	rm static.a
+	rm hello

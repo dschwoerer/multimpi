@@ -1,5 +1,13 @@
-typedef void* MPI_Comm;
+typedef void *MPI_Comm;
 
-int mpi_Init(int * argc, char *** argv);
+extern MPI_Comm MPI_COMM_WORLD;
 
-int mpi_Comm_size(MPI_Comm comm, int * size);
+int MPI_Init(int *argc, char ***argv);
+
+int MPI_Comm_size(MPI_Comm comm, int *size);
+
+int MPI_Comm_rank(MPI_Comm comm, int *rank);
+
+double MPI_Wtime();
+
+int MPI_Finalize();
