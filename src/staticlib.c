@@ -4,12 +4,12 @@
 
 void *handle = 0;
 MPI_Comm MPI_COMM_WORLD;
+MPI_Comm MPI_COMM_NULL;
+int MPI_SUCCESS = 0;
 
-int MPI_Init(int *argc, char ***argv) {
-  if (handle) {
-    printf("MPI_Init has been called - ignoring");
+int myinit(){
+  if (handle)
     return 0;
-  }
   const char * mylib;
   handle = dlopen("libmpi.so.40", RTLD_NOW);
   if (handle){
@@ -30,7 +30,14 @@ int MPI_Init(int *argc, char ***argv) {
     printf("could not dlopen: %s\n", dlerror());
     return 1;
   }
+  return 0;
+}
 
+int MPI_Init(int *argc, char ***argv) {
+  if (myinit()){
+    printf("return early");
+    return 1;
+  }
   typedef int (*mpiinit)(int *, char ***);
   mpiinit func = (mpiinit)dlsym(handle, "mpi_Init");
   const char *err = dlerror();
@@ -38,8 +45,8 @@ int MPI_Init(int *argc, char ***argv) {
     printf("could not dlsym: %s\n", err);
     return 1;
   }
-  MPI_COMM_WORLD = dlsym(handle, "mpi_COMM_WORLD");
-  MPI_COMM_WORLD = *((MPI_Comm *)MPI_COMM_WORLD);
+  MPI_COMM_WORLD = *((MPI_Comm *)dlsym(handle, "mpi_COMM_WORLD"));
+  MPI_COMM_NULL = *((MPI_Comm *)dlsym(handle, "mpi_COMM_NULL"));
 
   err = dlerror();
   if (err) {
@@ -49,8 +56,26 @@ int MPI_Init(int *argc, char ***argv) {
   return func(argc, argv);
 }
 
+
+int MPI_Initialized(int *flag) {
+  if (myinit()){
+    return 1;
+  }
+  typedef int (*wrap)(int *);
+  wrap func = (wrap)dlsym(handle, "mpi_Initialized");
+  const char *err = dlerror();
+  if (err) {
+    printf("could not dlsym: %s\n", err);
+    return 1;
+  }
+  return func(flag);
+}
+
 int MPI_Comm_size(MPI_Comm comm, int *size) {
-  typedef int (*wrap)(MPI_Comm, int *);
+  if (myinit()){
+    return 1;
+  }
+  typedef int (*wrap)(MPI_Comm , int *);
   wrap func = (wrap)dlsym(handle, "mpi_Comm_size");
   const char *err = dlerror();
   if (err) {
@@ -61,7 +86,10 @@ int MPI_Comm_size(MPI_Comm comm, int *size) {
 }
 
 int MPI_Comm_rank(MPI_Comm comm, int *rank) {
-  typedef int (*wrap)(MPI_Comm, int *);
+  if (myinit()){
+    return 1;
+  }
+  typedef int (*wrap)(MPI_Comm , int *);
   wrap func = (wrap)dlsym(handle, "mpi_Comm_rank");
   const char *err = dlerror();
   if (err) {
@@ -72,6 +100,9 @@ int MPI_Comm_rank(MPI_Comm comm, int *rank) {
 }
 
 double MPI_Wtime() {
+  if (myinit()){
+    return 1;
+  }
   typedef double (*wrap)();
   wrap func = (wrap)dlsym(handle, "mpi_Wtime");
   const char *err = dlerror();
@@ -83,6 +114,9 @@ double MPI_Wtime() {
 }
 
 int MPI_Finalize() {
+  if (myinit()){
+    return 1;
+  }
   typedef int (*wrap)();
   wrap func = (wrap)dlsym(handle, "mpi_Finalize");
   const char *err = dlerror();

@@ -5,3 +5,4 @@ hello
 *~
 bin/mpicc
 bin/mpic++
+__pycache__
