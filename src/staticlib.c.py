@@ -56,6 +56,7 @@ int MPI_Init(int *argc, char ***argv) {
 """
 )
 for a, b in vars:
+    assert b[:4] == "MPI_"
     bl = "mpi_" + b[4:]
     print(f'  {b} = *(({a} *)dlsym(handle, "{bl}"));')
 print(
@@ -71,6 +72,8 @@ print(
 )
 
 for fun in funcs:
+    if fun.funn == "MPI_Init":
+        continue
     print(
         f"""
 {fun.ret} {fun.funn}({fun.args}) {{
