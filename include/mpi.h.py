@@ -1,15 +1,20 @@
-from funcs import funcs
+from funcs import funcs, vars, mappings
+print("""#ifdef __cplusplus
+extern "C" {
+#endif""")
 
-print("""typedef void *MPI_Comm;
-typedef double MPI_DOUBLE;
-typedef int MPI_INT;
-extern int MPI_SUCCESS;
+for a,b in mappings:
+    print(f"typedef {a} {b};")
+for a,b in vars:
+    print(f"extern {a} {b};")
 
-extern MPI_Comm MPI_COMM_WORLD;
-extern MPI_Comm MPI_COMM_NULL;
-
+print("""
 int MPI_Init(int *argc, char ***argv);""")
 for f in funcs:
     print(f"""
 {f.ret} {f.funn}({f.args});""")
-
+print("""
+#ifdef __cplusplus
+}
+#endif
+""")

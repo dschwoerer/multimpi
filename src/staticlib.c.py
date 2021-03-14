@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from funcs import funcs
+from funcs import funcs, vars
 
 print(
     r"""#include "mpi.h"
@@ -8,10 +8,13 @@ print(
 #include "stdio.h"
 
 void *handle = 0;
-MPI_Comm MPI_COMM_WORLD;
-MPI_Comm MPI_COMM_NULL;
-int MPI_SUCCESS = 0;
+"""
+)
+for a, b in vars:
+    print(f"{a} {b};")
 
+print(
+    r"""
 int myinit(){
   if (handle)
     return 0;
@@ -50,9 +53,13 @@ int MPI_Init(int *argc, char ***argv) {
     printf("could not dlsym: %s\n", err);
     return 1;
   }
-  MPI_COMM_WORLD = *((MPI_Comm *)dlsym(handle, "mpi_COMM_WORLD"));
-  MPI_COMM_NULL = *((MPI_Comm *)dlsym(handle, "mpi_COMM_NULL"));
-
+"""
+)
+for a, b in vars:
+    bl = "mpi_" + b[4:]
+    print(f'  {b} = *(({a} *)dlsym(handle, "{bl}"));')
+print(
+    r"""
   err = dlerror();
   if (err) {
     printf("could not dlsym: %s\n", err);

@@ -3,7 +3,6 @@ from funcs import funcs, vars
 print(
     """#include "mpi.h"
 #include <stdio.h>
-
 """)
 
 for a,b in vars:
