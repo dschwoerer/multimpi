@@ -15,21 +15,21 @@ for a, b in vars:
 
 print(
     r"""
-int myinit(){
+int multimpi_static_init(){
   if (handle)
     return 0;
   const char * mylib;
   handle = dlopen("libmpi.so.40", RTLD_NOW);
   if (handle){
     dlclose(handle);
-    mylib= "lib/openmpi.so";
+    mylib= "openmpi.so";
   } else {
     handle = dlopen("libmpi.so.12", RTLD_NOW);
     if (handle){
       dlclose(handle);
-      mylib= "lib/mpich.so";
+      mylib= "mpich.so";
     } else {
-      printf("could not find a suitable mpilibrary. Ensure LD_LIBRARY_PATH is correct");
+      printf("could not find a suitable mpilibrary. Ensure LD_LIBRARY_PATH is correct\n");
       return 1;
     }
   }
@@ -38,12 +38,15 @@ int myinit(){
     printf("could not dlopen: %s\n", dlerror());
     return 1;
   }
+  typedef void (*dyn_init)(void);
+  dyn_init func = (dyn_init)dlsym(handle, "multimpi_init");
+  func();
   return 0;
 }
 
-int MPI_Init(int *argc, char ***argv) {
-  if (myinit()){
-    printf("return early");
+int multimpi_MPI_Init(int *argc, char ***argv) {
+  if (multimpi_static_init()){
+    printf("return early\n");
     return 1;
   }
   typedef int (*mpiinit)(int *, char ***);
@@ -72,20 +75,29 @@ print(
 )
 
 for fun in funcs:
-    if fun.funn == "MPI_Init":
+    if fun.name == "MPI_Init":
         continue
+    errrets = {"int":1,
+               "void *": "NULL",
+               "MPI_Fint": "NULL",
+               "MPI_File": "NULL",
+               "double":0}
+    try:
+        errret = errrets[fun.ret]
+    except:
+        errret = 0;
     print(
         f"""
-{fun.ret} {fun.funn}({fun.args}) {{
-  if (myinit()){{
-    return 1;
+{fun.ret} multimpi_{fun.name}({fun.args}) {{
+  if (multimpi_static_init()){{
+    return {errret};
   }}
   typedef {fun.ret} (*wrap)({fun.argt});
   wrap func = (wrap)dlsym(handle, "{fun.funl}");
   const char *err = dlerror();
   if (err) {{
     printf("could not dlsym: %s\\n", err);
-    return 1;
+    return {errret};
   }}
   return func({fun.argn});
 }}"""

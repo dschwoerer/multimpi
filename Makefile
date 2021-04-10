@@ -1,9 +1,16 @@
 test: test/hello lib/openmpi.so
-	test/hello
+	module load mpi && LD_LIBRARY_PATH=$$LD_LIBRARY_PATH:lib/ test/hello
 
 bins=mpicc mpic++
 
-.PHONY: test dirs
+.PHONY: test dirs src include check install
+check:test
+
+src:
+	$(MAKE) -C $@ $@
+include:
+	$(MAKE) -C $@ $@
+
 
 dirs:
 	$(MAKE) -C src src
