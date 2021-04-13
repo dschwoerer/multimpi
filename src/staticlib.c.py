@@ -13,26 +13,34 @@ void *handle = 0;
 for a, b in vars:
     print(f"{a} {b};")
 
+libs = (("libmpich.so.12", "mpichv31"),
+        ("libmpi.so.12", "mpichv3x"),
+        ("libmpi.so.0", "openmpiv13"),
+        ("libmpi.so.1", "openmpiv17"),
+        ("libmpi.so.1", "openmpiv15"),
+        ("libmpi.so.20", "openmpiv20"),
+        ("libmpi.so.40", "openmpiv30"),)
 print(
     r"""
 int multimpi_static_init(){
   if (handle)
     return 0;
   const char * mylib;
-  handle = dlopen("libmpi.so.40", RTLD_NOW);
-  if (handle){
+""")
+for so, my in libs:
+    print(fr"""
+  handle = dlopen("{so}", RTLD_NOW);
+  if (handle){{
     dlclose(handle);
-    mylib= "openmpi.so";
-  } else {
-    handle = dlopen("libmpi.so.12", RTLD_NOW);
-    if (handle){
-      dlclose(handle);
-      mylib= "mpich.so";
-    } else {
+    mylib= "multimpi_{my}.so";
+  }} else {{
+""")
+print(r"""
       printf("could not find a suitable mpilibrary. Ensure LD_LIBRARY_PATH is correct\n");
       return 1;
-    }
-  }
+""")
+print("}"*len(libs))
+print(r"""
   handle = dlopen(mylib, RTLD_NOW);
   if (!handle) {
     printf("could not dlopen: %s\n", dlerror());

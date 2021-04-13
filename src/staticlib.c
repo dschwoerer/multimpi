@@ -28,20 +28,62 @@ int multimpi_static_init(){
   if (handle)
     return 0;
   const char * mylib;
+
+
+  handle = dlopen("libmpich.so.12", RTLD_NOW);
+  if (handle){
+    dlclose(handle);
+    mylib= "multimpi_mpichv31.so";
+  } else {
+
+
+  handle = dlopen("libmpi.so.12", RTLD_NOW);
+  if (handle){
+    dlclose(handle);
+    mylib= "multimpi_mpichv3x.so";
+  } else {
+
+
+  handle = dlopen("libmpi.so.0", RTLD_NOW);
+  if (handle){
+    dlclose(handle);
+    mylib= "multimpi_openmpiv13.so";
+  } else {
+
+
+  handle = dlopen("libmpi.so.1", RTLD_NOW);
+  if (handle){
+    dlclose(handle);
+    mylib= "multimpi_openmpiv17.so";
+  } else {
+
+
+  handle = dlopen("libmpi.so.1", RTLD_NOW);
+  if (handle){
+    dlclose(handle);
+    mylib= "multimpi_openmpiv15.so";
+  } else {
+
+
+  handle = dlopen("libmpi.so.20", RTLD_NOW);
+  if (handle){
+    dlclose(handle);
+    mylib= "multimpi_openmpiv20.so";
+  } else {
+
+
   handle = dlopen("libmpi.so.40", RTLD_NOW);
   if (handle){
     dlclose(handle);
-    mylib= "openmpi.so";
+    mylib= "multimpi_openmpiv30.so";
   } else {
-    handle = dlopen("libmpi.so.12", RTLD_NOW);
-    if (handle){
-      dlclose(handle);
-      mylib= "mpich.so";
-    } else {
+
+
       printf("could not find a suitable mpilibrary. Ensure LD_LIBRARY_PATH is correct\n");
       return 1;
-    }
-  }
+
+}}}}}}}
+
   handle = dlopen(mylib, RTLD_NOW);
   if (!handle) {
     printf("could not dlopen: %s\n", dlerror());
