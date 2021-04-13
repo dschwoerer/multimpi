@@ -3,6 +3,9 @@ test: test/hello lib/openmpi.so
 
 bins=mpicc mpic++
 
+PREFIX ?= /opt/local/multmpi/
+PWD:=$(shell pwd)
+
 .PHONY: test dirs src include check install
 check:test
 
@@ -26,8 +29,16 @@ lib/libmpi.a: src/staticlib.o
 %.o: %.c $(bins:%=bin/%) dirs
 	bin/mpicc -c $< -fpic -o $@
 
-lib/openmpi.so: build.so.sh src/dynlib.c
+lib/openmpi.so: build.so.2.sh src/dynlib.c
 	sh $<
+
+install:
+	mkdir -p $(PREFIX)/lib
+	mkdir -p $(PREFIX)/bin
+	mkdir -p $(PREFIX)/include
+	cd $(PREFIX)/bin ; for bin in $(bins) ; do $(PWD)/bin/$$bin.in > $$bin ; done
+	install lib/* $(PREFIX)/lib/
+	install include/*.h $(PREFIX)/include/
 
 clean::
 	rm src/*.o
