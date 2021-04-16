@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from funcs import funcs, vars
+from libs import libs
 
 print(
     r"""#include "mpi.h"
@@ -13,13 +14,6 @@ void *handle = 0;
 for a, b in vars:
     print(f"{a} {b};")
 
-libs = (("libmpich.so.12", "mpichv31"),
-        ("libmpi.so.12", "mpichv3x"),
-        ("libmpi.so.0", "openmpiv13"),
-        ("libmpi.so.1", "openmpiv17"),
-        ("libmpi.so.1", "openmpiv15"),
-        ("libmpi.so.20", "openmpiv20"),
-        ("libmpi.so.40", "openmpiv30"),)
 print(
     r"""
 int multimpi_static_init(){

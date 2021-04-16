@@ -1,2 +1,3 @@
 #!/bin/bash
+echo '#!/usr/bin/env sh'
 echo 'gcc $@ -I'$(pwd)'/include -L'$(pwd)'/lib -ldl -lmpi'

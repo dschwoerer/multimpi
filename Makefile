@@ -36,7 +36,7 @@ install:
 	mkdir -p $(PREFIX)/lib
 	mkdir -p $(PREFIX)/bin
 	mkdir -p $(PREFIX)/include
-	cd $(PREFIX)/bin ; for bin in $(bins) ; do $(PWD)/bin/$$bin.in > $$bin ; done
+	cd $(PREFIX)/bin ; for bin in $(bins) ; do sh $(PWD)/bin/$$bin.in > $$bin; chmod +x $$bin ; done
 	install lib/* $(PREFIX)/lib/
 	install include/*.h $(PREFIX)/include/
 
