@@ -17,9 +17,9 @@ for a, b in vars:
     if a in mapdict:
         print(f"""{mapdict[a]} {bl} = {b};""")
     else:
-         print(f"{a} {bl} = {b};")
+        print(f"{a} {bl} = {b};")
 
-              
+
 some = {
     "array_of_requests": "incount",
     "array_of_indices": "*outcount",
@@ -42,7 +42,8 @@ print("void multimpi_init(){")
 for a, b in vars:
     bl = "mpi_" + b[4:]
     if a in mapdict:
-        print(f"""
+        print(
+            f"""
   if (sizeof({a}) != sizeof({mapdict[a]})){{
     char * t = & {bl};
     for (int i=0; i< sizeof({mapdict[a]}) ; ++i) {{
@@ -50,7 +51,8 @@ for a, b in vars:
     }}
     {bl} = {b};
   }}
-""")
+"""
+        )
 print("}")
 
 for f in funcs:

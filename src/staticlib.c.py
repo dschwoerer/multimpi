@@ -20,21 +20,27 @@ int multimpi_static_init(){
   if (handle)
     return 0;
   const char * mylib;
-""")
+"""
+)
 for so, my in libs:
-    print(fr"""
+    print(
+        fr"""
   handle = dlopen("{so}", RTLD_NOW);
   if (handle){{
     dlclose(handle);
     mylib= "multimpi_{my}.so";
   }} else {{
-""")
-print(r"""
+"""
+    )
+print(
+    r"""
       printf("could not find a suitable mpilibrary. Ensure LD_LIBRARY_PATH is correct\n");
       return 1;
-""")
-print("}"*len(libs))
-print(r"""
+"""
+)
+print("}" * len(libs))
+print(
+    r"""
   handle = dlopen(mylib, RTLD_NOW);
   if (!handle) {
     printf("could not dlopen: %s\n", dlerror());
@@ -79,15 +85,17 @@ print(
 for fun in funcs:
     if fun.name == "MPI_Init":
         continue
-    errrets = {"int":1,
-               "void *": "NULL",
-               "MPI_Fint": "NULL",
-               "MPI_File": "NULL",
-               "double":0}
+    errrets = {
+        "int": 1,
+        "void *": "NULL",
+        "MPI_Fint": "NULL",
+        "MPI_File": "NULL",
+        "double": 0,
+    }
     try:
         errret = errrets[fun.ret]
     except:
-        errret = 0;
+        errret = 0
     print(
         f"""
 {fun.ret} multimpi_{fun.name}({fun.args}) {{

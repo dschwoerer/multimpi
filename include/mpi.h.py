@@ -1,22 +1,29 @@
 from funcs import funcs, vars, mappings
-print("""#pragma once
+
+print(
+    """#pragma once
 #ifdef __cplusplus
 extern "C" {
-#endif""")
+#endif"""
+)
 
-for a,b in mappings:
+for a, b in mappings:
     print(f"typedef {a} {b};")
-for a,b in vars:
+for a, b in vars:
     print(f"extern {a} {b};")
 
 
 for f in funcs:
-    print(f"""
+    print(
+        f"""
 {f.ret} multimpi_{f.name}({f.args});
 static inline {f.ret} {f.name}({f.args}) {{ return multimpi_{f.name}({f.argn}); }}
-""")
-print("""
+"""
+    )
+print(
+    """
 #ifdef __cplusplus
 }
 #endif
-""")
+"""
+)
