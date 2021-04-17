@@ -1,3 +1,4 @@
 #!/bin/bash
 echo '#!/usr/bin/env sh'
-echo 'g++ $@ -I'$(pwd)'/include -L'$(pwd)'/lib -ldl -lmpi'
+echo 'DIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ;cd .. >/dev/null 2>&1; pwd -P )"'
+echo 'g++ $@ "-I$DIR/include" "-L$DIR/lib" -ldl -lmpi'
