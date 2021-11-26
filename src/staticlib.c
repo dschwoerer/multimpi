@@ -6,12 +6,28 @@ void *handle = 0;
 
 MPI_Comm MPI_COMM_WORLD;
 MPI_Comm MPI_COMM_NULL;
+MPI_Comm MPI_COMM_SELF;
 MPI_Datatype MPI_DOUBLE;
 MPI_Datatype MPI_INT;
 MPI_Datatype MPI_BYTE;
 MPI_Datatype MPI_CHAR;
 MPI_Datatype MPI_C_BOOL;
 MPI_Datatype MPI_DOUBLE_COMPLEX;
+MPI_Datatype *MPI_DATATYPE_NULL;
+MPI_Datatype MPI_UNSIGNED_CHAR;
+MPI_Datatype MPI_SHORT;
+MPI_Datatype MPI_UNSIGNED_SHORT;
+MPI_Datatype MPI_UNSIGNED;
+MPI_Datatype MPI_LONG;
+MPI_Datatype MPI_UNSIGNED_LONG;
+MPI_Datatype MPI_FLOAT;
+MPI_Datatype MPI_FLOAT_INT;
+MPI_Datatype MPI_DOUBLE_INT;
+MPI_Datatype MPI_LONG_INT;
+MPI_Datatype MPI_SHORT_INT;
+MPI_Datatype MPI_2INT;
+MPI_Datatype MPI_LB;
+MPI_Datatype MPI_UB;
 MPI_Op MPI_MAX;
 MPI_Op MPI_MIN;
 MPI_Op MPI_SUM;
@@ -23,6 +39,28 @@ MPI_Group MPI_GROUP_EMPTY;
 int MPI_SUCCESS;
 int MPI_UNDEFINED;
 MPI_Status *MPI_STATUS_IGNORE;
+void *MPI_IN_PLACE;
+int MPI_ANY_SOURCE;
+int MPI_ANY_TAG;
+int MPI_PROC_NULL;
+int MPI_TAG_UB;
+int MPI_HOST;
+int MPI_IO;
+int MPI_WTIME_IS_GLOBAL;
+int MPI_UNIVERSE_SIZE;
+int MPI_LASTUSEDCODE;
+int MPI_APPNUM;
+int MPI_WIN_BASE;
+int MPI_WIN_SIZE;
+int MPI_WIN_DISP_UNIT;
+int MPI_WIN_CREATE_FLAVOR;
+int MPI_WIN_MODEL;
+MPI_Info MPI_INFO_NULL;
+int MPI_LOCK_EXCLUSIVE;
+int MPI_LOCK_SHARED;
+int MPI_BSEND_OVERHEAD;
+void *MPI_BOTTOM;
+MPI_Datatype MPI_PACKED;
 
 int multimpi_static_init() {
   if (handle)
@@ -38,45 +76,24 @@ int multimpi_static_init() {
     handle = dlopen("libmpi.so.12", RTLD_NOW);
     if (handle) {
       dlclose(handle);
-      mylib = "multimpi_mpichv3x.so";
+      mylib = "multimpi_mpichv32.so";
     } else {
 
-      handle = dlopen("libmpi.so.0", RTLD_NOW);
+      handle = dlopen("libmpi.so.20", RTLD_NOW);
       if (handle) {
         dlclose(handle);
-        mylib = "multimpi_openmpiv13.so";
+        mylib = "multimpi_openmpiv20.so";
       } else {
 
-        handle = dlopen("libmpi.so.1", RTLD_NOW);
+        handle = dlopen("libmpi.so.40", RTLD_NOW);
         if (handle) {
           dlclose(handle);
-          mylib = "multimpi_openmpiv17.so";
+          mylib = "multimpi_openmpiv30.so";
         } else {
 
-          handle = dlopen("libmpi.so.1", RTLD_NOW);
-          if (handle) {
-            dlclose(handle);
-            mylib = "multimpi_openmpiv15.so";
-          } else {
-
-            handle = dlopen("libmpi.so.20", RTLD_NOW);
-            if (handle) {
-              dlclose(handle);
-              mylib = "multimpi_openmpiv20.so";
-            } else {
-
-              handle = dlopen("libmpi.so.40", RTLD_NOW);
-              if (handle) {
-                dlclose(handle);
-                mylib = "multimpi_openmpiv30.so";
-              } else {
-
-                printf("could not find a suitable mpilibrary. Ensure "
-                       "LD_LIBRARY_PATH is correct\n");
-                return 1;
-              }
-            }
-          }
+          printf("could not find a suitable mpilibrary. Ensure LD_LIBRARY_PATH "
+                 "is correct\n");
+          return 1;
         }
       }
     }
@@ -84,7 +101,7 @@ int multimpi_static_init() {
 
   handle = dlopen(mylib, RTLD_NOW);
   if (!handle) {
-    printf("could not dlopen: %s\n", dlerror());
+    printf("could not dlopen (%s): %s\n", mylib, dlerror());
     return 1;
   }
   typedef void (*dyn_init)(void);
@@ -108,12 +125,28 @@ int multimpi_MPI_Init(int *argc, char ***argv) {
 
   MPI_COMM_WORLD = *((MPI_Comm *)dlsym(handle, "mpi_COMM_WORLD"));
   MPI_COMM_NULL = *((MPI_Comm *)dlsym(handle, "mpi_COMM_NULL"));
+  MPI_COMM_SELF = *((MPI_Comm *)dlsym(handle, "mpi_COMM_SELF"));
   MPI_DOUBLE = *((MPI_Datatype *)dlsym(handle, "mpi_DOUBLE"));
   MPI_INT = *((MPI_Datatype *)dlsym(handle, "mpi_INT"));
   MPI_BYTE = *((MPI_Datatype *)dlsym(handle, "mpi_BYTE"));
   MPI_CHAR = *((MPI_Datatype *)dlsym(handle, "mpi_CHAR"));
   MPI_C_BOOL = *((MPI_Datatype *)dlsym(handle, "mpi_C_BOOL"));
   MPI_DOUBLE_COMPLEX = *((MPI_Datatype *)dlsym(handle, "mpi_DOUBLE_COMPLEX"));
+  MPI_DATATYPE_NULL = *((MPI_Datatype **)dlsym(handle, "mpi_DATATYPE_NULL"));
+  MPI_UNSIGNED_CHAR = *((MPI_Datatype *)dlsym(handle, "mpi_UNSIGNED_CHAR"));
+  MPI_SHORT = *((MPI_Datatype *)dlsym(handle, "mpi_SHORT"));
+  MPI_UNSIGNED_SHORT = *((MPI_Datatype *)dlsym(handle, "mpi_UNSIGNED_SHORT"));
+  MPI_UNSIGNED = *((MPI_Datatype *)dlsym(handle, "mpi_UNSIGNED"));
+  MPI_LONG = *((MPI_Datatype *)dlsym(handle, "mpi_LONG"));
+  MPI_UNSIGNED_LONG = *((MPI_Datatype *)dlsym(handle, "mpi_UNSIGNED_LONG"));
+  MPI_FLOAT = *((MPI_Datatype *)dlsym(handle, "mpi_FLOAT"));
+  MPI_FLOAT_INT = *((MPI_Datatype *)dlsym(handle, "mpi_FLOAT_INT"));
+  MPI_DOUBLE_INT = *((MPI_Datatype *)dlsym(handle, "mpi_DOUBLE_INT"));
+  MPI_LONG_INT = *((MPI_Datatype *)dlsym(handle, "mpi_LONG_INT"));
+  MPI_SHORT_INT = *((MPI_Datatype *)dlsym(handle, "mpi_SHORT_INT"));
+  MPI_2INT = *((MPI_Datatype *)dlsym(handle, "mpi_2INT"));
+  MPI_LB = *((MPI_Datatype *)dlsym(handle, "mpi_LB"));
+  MPI_UB = *((MPI_Datatype *)dlsym(handle, "mpi_UB"));
   MPI_MAX = *((MPI_Op *)dlsym(handle, "mpi_MAX"));
   MPI_MIN = *((MPI_Op *)dlsym(handle, "mpi_MIN"));
   MPI_SUM = *((MPI_Op *)dlsym(handle, "mpi_SUM"));
@@ -125,6 +158,28 @@ int multimpi_MPI_Init(int *argc, char ***argv) {
   MPI_SUCCESS = *((int *)dlsym(handle, "mpi_SUCCESS"));
   MPI_UNDEFINED = *((int *)dlsym(handle, "mpi_UNDEFINED"));
   MPI_STATUS_IGNORE = *((MPI_Status **)dlsym(handle, "mpi_STATUS_IGNORE"));
+  MPI_IN_PLACE = *((void **)dlsym(handle, "mpi_IN_PLACE"));
+  MPI_ANY_SOURCE = *((int *)dlsym(handle, "mpi_ANY_SOURCE"));
+  MPI_ANY_TAG = *((int *)dlsym(handle, "mpi_ANY_TAG"));
+  MPI_PROC_NULL = *((int *)dlsym(handle, "mpi_PROC_NULL"));
+  MPI_TAG_UB = *((int *)dlsym(handle, "mpi_TAG_UB"));
+  MPI_HOST = *((int *)dlsym(handle, "mpi_HOST"));
+  MPI_IO = *((int *)dlsym(handle, "mpi_IO"));
+  MPI_WTIME_IS_GLOBAL = *((int *)dlsym(handle, "mpi_WTIME_IS_GLOBAL"));
+  MPI_UNIVERSE_SIZE = *((int *)dlsym(handle, "mpi_UNIVERSE_SIZE"));
+  MPI_LASTUSEDCODE = *((int *)dlsym(handle, "mpi_LASTUSEDCODE"));
+  MPI_APPNUM = *((int *)dlsym(handle, "mpi_APPNUM"));
+  MPI_WIN_BASE = *((int *)dlsym(handle, "mpi_WIN_BASE"));
+  MPI_WIN_SIZE = *((int *)dlsym(handle, "mpi_WIN_SIZE"));
+  MPI_WIN_DISP_UNIT = *((int *)dlsym(handle, "mpi_WIN_DISP_UNIT"));
+  MPI_WIN_CREATE_FLAVOR = *((int *)dlsym(handle, "mpi_WIN_CREATE_FLAVOR"));
+  MPI_WIN_MODEL = *((int *)dlsym(handle, "mpi_WIN_MODEL"));
+  MPI_INFO_NULL = *((MPI_Info *)dlsym(handle, "mpi_INFO_NULL"));
+  MPI_LOCK_EXCLUSIVE = *((int *)dlsym(handle, "mpi_LOCK_EXCLUSIVE"));
+  MPI_LOCK_SHARED = *((int *)dlsym(handle, "mpi_LOCK_SHARED"));
+  MPI_BSEND_OVERHEAD = *((int *)dlsym(handle, "mpi_BSEND_OVERHEAD"));
+  MPI_BOTTOM = *((void **)dlsym(handle, "mpi_BOTTOM"));
+  MPI_PACKED = *((MPI_Datatype *)dlsym(handle, "mpi_PACKED"));
 
   err = dlerror();
   if (err) {

@@ -2,12 +2,14 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#define MPI_MAX_ERROR_STRING 1024
+
 typedef void *MPI_Comm;
 typedef void *MPI_Datatype;
 typedef void *MPI_Op;
 typedef void *MPI_Request;
 typedef struct {
-  long a, b, c;
+  int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c;
 } MPI_Status;
 typedef void *MPI_Group;
 typedef void *MPI_File;
@@ -44,12 +46,28 @@ typedef void *MPI_Win_delete_attr_function;
 typedef void *MPI_Win_errhandler_function;
 extern MPI_Comm MPI_COMM_WORLD;
 extern MPI_Comm MPI_COMM_NULL;
+extern MPI_Comm MPI_COMM_SELF;
 extern MPI_Datatype MPI_DOUBLE;
 extern MPI_Datatype MPI_INT;
 extern MPI_Datatype MPI_BYTE;
 extern MPI_Datatype MPI_CHAR;
 extern MPI_Datatype MPI_C_BOOL;
 extern MPI_Datatype MPI_DOUBLE_COMPLEX;
+extern MPI_Datatype *MPI_DATATYPE_NULL;
+extern MPI_Datatype MPI_UNSIGNED_CHAR;
+extern MPI_Datatype MPI_SHORT;
+extern MPI_Datatype MPI_UNSIGNED_SHORT;
+extern MPI_Datatype MPI_UNSIGNED;
+extern MPI_Datatype MPI_LONG;
+extern MPI_Datatype MPI_UNSIGNED_LONG;
+extern MPI_Datatype MPI_FLOAT;
+extern MPI_Datatype MPI_FLOAT_INT;
+extern MPI_Datatype MPI_DOUBLE_INT;
+extern MPI_Datatype MPI_LONG_INT;
+extern MPI_Datatype MPI_SHORT_INT;
+extern MPI_Datatype MPI_2INT;
+extern MPI_Datatype MPI_LB;
+extern MPI_Datatype MPI_UB;
 extern MPI_Op MPI_MAX;
 extern MPI_Op MPI_MIN;
 extern MPI_Op MPI_SUM;
@@ -61,6 +79,28 @@ extern MPI_Group MPI_GROUP_EMPTY;
 extern int MPI_SUCCESS;
 extern int MPI_UNDEFINED;
 extern MPI_Status *MPI_STATUS_IGNORE;
+extern void *MPI_IN_PLACE;
+extern int MPI_ANY_SOURCE;
+extern int MPI_ANY_TAG;
+extern int MPI_PROC_NULL;
+extern int MPI_TAG_UB;
+extern int MPI_HOST;
+extern int MPI_IO;
+extern int MPI_WTIME_IS_GLOBAL;
+extern int MPI_UNIVERSE_SIZE;
+extern int MPI_LASTUSEDCODE;
+extern int MPI_APPNUM;
+extern int MPI_WIN_BASE;
+extern int MPI_WIN_SIZE;
+extern int MPI_WIN_DISP_UNIT;
+extern int MPI_WIN_CREATE_FLAVOR;
+extern int MPI_WIN_MODEL;
+extern MPI_Info MPI_INFO_NULL;
+extern int MPI_LOCK_EXCLUSIVE;
+extern int MPI_LOCK_SHARED;
+extern int MPI_BSEND_OVERHEAD;
+extern void *MPI_BOTTOM;
+extern MPI_Datatype MPI_PACKED;
 
 int multimpi_MPI_File_write_all(MPI_File fh, void *buf, int count,
                                 MPI_Datatype datatype, MPI_Status *status);

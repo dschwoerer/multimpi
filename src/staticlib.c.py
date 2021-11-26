@@ -28,7 +28,7 @@ for so, my in libs:
   handle = dlopen("{so}", RTLD_NOW);
   if (handle){{
     dlclose(handle);
-    mylib= "multimpi_{my}.so";
+    mylib = "multimpi_{my}.so";
   }} else {{
 """
     )
@@ -43,7 +43,7 @@ print(
     r"""
   handle = dlopen(mylib, RTLD_NOW);
   if (!handle) {
-    printf("could not dlopen: %s\n", dlerror());
+    printf("could not dlopen (%s): %s\n", mylib, dlerror());
     return 1;
   }
   typedef void (*dyn_init)(void);

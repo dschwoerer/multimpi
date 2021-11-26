@@ -9,7 +9,9 @@ _Static_assert(sizeof(void *) >= sizeof(MPI_Op),
                "Naive mapping for MPI_Op not working!");
 _Static_assert(sizeof(void *) >= sizeof(MPI_Request),
                "Naive mapping for MPI_Request not working!");
-_Static_assert(sizeof(struct { long a, b, c; }) >= sizeof(MPI_Status),
+_Static_assert(sizeof(struct {
+                 int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c;
+               }) >= sizeof(MPI_Status),
                "Naive mapping for MPI_Status not working!");
 _Static_assert(sizeof(void *) >= sizeof(MPI_Group),
                "Naive mapping for MPI_Group not working!");
@@ -80,12 +82,28 @@ _Static_assert(sizeof(void *) >= sizeof(MPI_Win_errhandler_function),
                "Naive mapping for MPI_Win_errhandler_function not working!");
 void *mpi_COMM_WORLD = MPI_COMM_WORLD;
 void *mpi_COMM_NULL = MPI_COMM_NULL;
+void *mpi_COMM_SELF = MPI_COMM_SELF;
 void *mpi_DOUBLE = MPI_DOUBLE;
 void *mpi_INT = MPI_INT;
 void *mpi_BYTE = MPI_BYTE;
 void *mpi_CHAR = MPI_CHAR;
 void *mpi_C_BOOL = MPI_C_BOOL;
 void *mpi_DOUBLE_COMPLEX = MPI_DOUBLE_COMPLEX;
+MPI_Datatype *mpi_DATATYPE_NULL = MPI_DATATYPE_NULL;
+void *mpi_UNSIGNED_CHAR = MPI_UNSIGNED_CHAR;
+void *mpi_SHORT = MPI_SHORT;
+void *mpi_UNSIGNED_SHORT = MPI_UNSIGNED_SHORT;
+void *mpi_UNSIGNED = MPI_UNSIGNED;
+void *mpi_LONG = MPI_LONG;
+void *mpi_UNSIGNED_LONG = MPI_UNSIGNED_LONG;
+void *mpi_FLOAT = MPI_FLOAT;
+void *mpi_FLOAT_INT = MPI_FLOAT_INT;
+void *mpi_DOUBLE_INT = MPI_DOUBLE_INT;
+void *mpi_LONG_INT = MPI_LONG_INT;
+void *mpi_SHORT_INT = MPI_SHORT_INT;
+void *mpi_2INT = MPI_2INT;
+void *mpi_LB = MPI_LB;
+void *mpi_UB = MPI_UB;
 void *mpi_MAX = MPI_MAX;
 void *mpi_MIN = MPI_MIN;
 void *mpi_SUM = MPI_SUM;
@@ -97,6 +115,28 @@ void *mpi_GROUP_EMPTY = MPI_GROUP_EMPTY;
 int mpi_SUCCESS = MPI_SUCCESS;
 int mpi_UNDEFINED = MPI_UNDEFINED;
 MPI_Status *mpi_STATUS_IGNORE = MPI_STATUS_IGNORE;
+void *mpi_IN_PLACE = MPI_IN_PLACE;
+int mpi_ANY_SOURCE = MPI_ANY_SOURCE;
+int mpi_ANY_TAG = MPI_ANY_TAG;
+int mpi_PROC_NULL = MPI_PROC_NULL;
+int mpi_TAG_UB = MPI_TAG_UB;
+int mpi_HOST = MPI_HOST;
+int mpi_IO = MPI_IO;
+int mpi_WTIME_IS_GLOBAL = MPI_WTIME_IS_GLOBAL;
+int mpi_UNIVERSE_SIZE = MPI_UNIVERSE_SIZE;
+int mpi_LASTUSEDCODE = MPI_LASTUSEDCODE;
+int mpi_APPNUM = MPI_APPNUM;
+int mpi_WIN_BASE = MPI_WIN_BASE;
+int mpi_WIN_SIZE = MPI_WIN_SIZE;
+int mpi_WIN_DISP_UNIT = MPI_WIN_DISP_UNIT;
+int mpi_WIN_CREATE_FLAVOR = MPI_WIN_CREATE_FLAVOR;
+int mpi_WIN_MODEL = MPI_WIN_MODEL;
+void *mpi_INFO_NULL = MPI_INFO_NULL;
+int mpi_LOCK_EXCLUSIVE = MPI_LOCK_EXCLUSIVE;
+int mpi_LOCK_SHARED = MPI_LOCK_SHARED;
+int mpi_BSEND_OVERHEAD = MPI_BSEND_OVERHEAD;
+void *mpi_BOTTOM = MPI_BOTTOM;
+void *mpi_PACKED = MPI_PACKED;
 void multimpi_init() {
 
   if (sizeof(MPI_Comm) != sizeof(void *)) {
@@ -113,6 +153,14 @@ void multimpi_init() {
       t[i] = 0;
     }
     mpi_COMM_NULL = MPI_COMM_NULL;
+  }
+
+  if (sizeof(MPI_Comm) != sizeof(void *)) {
+    char *t = &mpi_COMM_SELF;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_COMM_SELF = MPI_COMM_SELF;
   }
 
   if (sizeof(MPI_Datatype) != sizeof(void *)) {
@@ -161,6 +209,118 @@ void multimpi_init() {
       t[i] = 0;
     }
     mpi_DOUBLE_COMPLEX = MPI_DOUBLE_COMPLEX;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_UNSIGNED_CHAR;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_UNSIGNED_CHAR = MPI_UNSIGNED_CHAR;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_SHORT;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_SHORT = MPI_SHORT;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_UNSIGNED_SHORT;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_UNSIGNED_SHORT = MPI_UNSIGNED_SHORT;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_UNSIGNED;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_UNSIGNED = MPI_UNSIGNED;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_LONG;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_LONG = MPI_LONG;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_UNSIGNED_LONG;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_UNSIGNED_LONG = MPI_UNSIGNED_LONG;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_FLOAT;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_FLOAT = MPI_FLOAT;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_FLOAT_INT;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_FLOAT_INT = MPI_FLOAT_INT;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_DOUBLE_INT;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_DOUBLE_INT = MPI_DOUBLE_INT;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_LONG_INT;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_LONG_INT = MPI_LONG_INT;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_SHORT_INT;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_SHORT_INT = MPI_SHORT_INT;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_2INT;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_2INT = MPI_2INT;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_LB;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_LB = MPI_LB;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_UB;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_UB = MPI_UB;
   }
 
   if (sizeof(MPI_Op) != sizeof(void *)) {
@@ -226,11 +386,27 @@ void multimpi_init() {
     }
     mpi_GROUP_EMPTY = MPI_GROUP_EMPTY;
   }
+
+  if (sizeof(MPI_Info) != sizeof(void *)) {
+    char *t = &mpi_INFO_NULL;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_INFO_NULL = MPI_INFO_NULL;
+  }
+
+  if (sizeof(MPI_Datatype) != sizeof(void *)) {
+    char *t = &mpi_PACKED;
+    for (int i = 0; i < sizeof(void *); ++i) {
+      t[i] = 0;
+    }
+    mpi_PACKED = MPI_PACKED;
+  }
 }
 
 int mpi_File_write_all(
     void *fh, void *buf, int count, void *datatype,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Datatype datatype_ = datatype;
   MPI_Status *status_ = status;
@@ -275,7 +451,8 @@ int mpi_Send(const void *buf, int count, void *datatype, int dest, int tag,
 }
 
 int mpi_File_write_all_end(
-    void *fh, void *buf, struct { long a, b, c; } * status) {
+    void *fh, void *buf,
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Status *status_ = status;
   int ret = MPI_File_write_all_end(fh_, buf, status_);
@@ -305,7 +482,7 @@ int mpi_Abort(void *comm, int errorcode) {
 
 int mpi_File_write_at(
     void *fh, void *offset, void *buf, int count, void *datatype,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Offset offset_ = offset;
   MPI_Datatype datatype_ = datatype;
@@ -321,7 +498,8 @@ int mpi_File_write_at(
 int mpi_Sendrecv(
     const void *sendbuf, int sendcount, void *sendtype, int dest, int sendtag,
     void *recvbuf, int recvcount, void *recvtype, int source, int recvtag,
-    void *comm, struct { long a, b, c; } * status) {
+    void *comm,
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Datatype sendtype_ = sendtype;
   MPI_Datatype recvtype_ = recvtype;
   MPI_Comm comm_ = comm;
@@ -357,7 +535,7 @@ int mpi_Accumulate(const void *origin_addr, int origin_count,
 
 int mpi_File_write_at_all(
     void *fh, void *offset, void *buf, int count, void *datatype,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Offset offset_ = offset;
   MPI_Datatype datatype_ = datatype;
@@ -372,7 +550,8 @@ int mpi_File_write_at_all(
 
 int mpi_Sendrecv_replace(
     void *buf, int count, void *datatype, int dest, int sendtag, int source,
-    int recvtag, void *comm, struct { long a, b, c; } * status) {
+    int recvtag, void *comm,
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Datatype datatype_ = datatype;
   MPI_Comm comm_ = comm;
   MPI_Status *status_ = status;
@@ -417,7 +596,8 @@ int mpi_Add_error_code(int errorclass, int *errorcode) {
 }
 
 int mpi_File_write_at_all_end(
-    void *fh, void *buf, struct { long a, b, c; } * status) {
+    void *fh, void *buf,
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Status *status_ = status;
   int ret = MPI_File_write_at_all_end(fh_, buf, status_);
@@ -445,7 +625,7 @@ int mpi_Add_error_string(int errorcode, const char *string) {
 
 int mpi_File_write_ordered(
     void *fh, void *buf, int count, void *datatype,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Datatype datatype_ = datatype;
   MPI_Status *status_ = status;
@@ -506,7 +686,8 @@ int mpi_Allgather(const void *sendbuf, int sendcount, void *sendtype,
 }
 
 int mpi_File_write_ordered_end(
-    void *fh, void *buf, struct { long a, b, c; } * status) {
+    void *fh, void *buf,
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Status *status_ = status;
   int ret = MPI_File_write_ordered_end(fh_, buf, status_);
@@ -516,7 +697,8 @@ int mpi_File_write_ordered_end(
 }
 
 int mpi_Status_set_cancelled(
-    struct { long a, b, c; } * status, int flag) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status,
+    int flag) {
   MPI_Status *status_ = status;
   int ret = MPI_Status_set_cancelled(status_, flag);
   status = status_;
@@ -539,7 +721,7 @@ int mpi_Allgatherv(const void *sendbuf, int sendcount, void *sendtype,
 
 int mpi_File_write_shared(
     void *fh, void *buf, int count, void *datatype,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Datatype datatype_ = datatype;
   MPI_Status *status_ = status;
@@ -551,7 +733,8 @@ int mpi_File_write_shared(
 }
 
 int mpi_Status_set_elements(
-    struct { long a, b, c; } * status, void *datatype, int count) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status,
+    void *datatype, int count) {
   MPI_Status *status_ = status;
   MPI_Datatype datatype_ = datatype;
   int ret = MPI_Status_set_elements(status_, datatype_, count);
@@ -575,7 +758,8 @@ int mpi_Finalize() {
 }
 
 int mpi_Status_set_elements_x(
-    struct { long a, b, c; } * status, void *datatype, void *count) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status,
+    void *datatype, void *count) {
   MPI_Status *status_ = status;
   MPI_Datatype datatype_ = datatype;
   MPI_Count count_ = count;
@@ -805,7 +989,8 @@ int mpi_Barrier(void *comm) {
 }
 
 int mpi_Get_count(
-    const struct { long a, b, c; } * status, void *datatype, int *count) {
+    const struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status,
+    void *datatype, int *count) {
   const MPI_Status *status_ = status;
   MPI_Datatype datatype_ = datatype;
   int ret = MPI_Get_count(status_, datatype_, count);
@@ -829,7 +1014,8 @@ int mpi_Bcast(void *buffer, int count, void *datatype, int root, void *comm) {
 }
 
 int mpi_Get_elements(
-    const struct { long a, b, c; } * status, void *datatype, int *count) {
+    const struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status,
+    void *datatype, int *count) {
   const MPI_Status *status_ = status;
   MPI_Datatype datatype_ = datatype;
   int ret = MPI_Get_elements(status_, datatype_, count);
@@ -857,7 +1043,8 @@ int mpi_Bsend(const void *buf, int count, void *datatype, int dest, int tag,
 }
 
 int mpi_Get_elements_x(
-    const struct { long a, b, c; } * status, void *datatype, void **count) {
+    const struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status,
+    void *datatype, void **count) {
   const MPI_Status *status_ = status;
   MPI_Datatype datatype_ = datatype;
   MPI_Count *count_ = count;
@@ -1342,7 +1529,8 @@ int mpi_Group_range_incl(void *group, int n, int ranges[][3], void **newgroup) {
 }
 
 int mpi_Test(
-    void **request, int *flag, struct { long a, b, c; } * status) {
+    void **request, int *flag,
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Request *request_ = request;
   MPI_Status *status_ = status;
   int ret = MPI_Test(request_, flag, status_);
@@ -1370,7 +1558,8 @@ int mpi_Group_rank(void *group, int *rank) {
 }
 
 int mpi_Test_cancelled(
-    const struct { long a, b, c; } * status, int *flag) {
+    const struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status,
+    int *flag) {
   const MPI_Status *status_ = status;
   int ret = MPI_Test_cancelled(status_, flag);
   status = status_;
@@ -1396,8 +1585,9 @@ int mpi_Group_size(void *group, int *size) {
 }
 
 int mpi_Testall(
-    int count, void *array_of_requests[], int *flag,
-    struct { long a, b, c; } array_of_statuses[]) {
+    int count, void *array_of_requests[], int *flag, struct {
+      int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c;
+    } array_of_statuses[]) {
   MPI_Request array_of_requests_[count];
   MPI_Status array_of_statuses_[count];
   for (int i = 0; i < count; ++i) {
@@ -1422,7 +1612,7 @@ int mpi_Testall(
     }
 
     for (; j < sizeof(
-                   struct { long a, b, c; });
+                   struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; });
          ++j) {
       a[j] = b[j];
     }
@@ -1449,7 +1639,7 @@ int mpi_Group_translate_ranks(void *group1, int n, const int ranks1[],
 
 int mpi_Testany(
     int count, void *array_of_requests[], int *indx, int *flag,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Request array_of_requests_[count];
   MPI_Status *status_ = status;
   for (int i = 0; i < count; ++i) {
@@ -1483,7 +1673,9 @@ int mpi_Group_union(void *group1, void *group2, void **newgroup) {
 
 int mpi_Testsome(
     int incount, void *array_of_requests[], int *outcount,
-    int array_of_indices[], struct { long a, b, c; } array_of_statuses[]) {
+    int array_of_indices[], struct {
+      int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c;
+    } array_of_statuses[]) {
   MPI_Request array_of_requests_[incount];
   MPI_Status array_of_statuses_[*outcount];
   for (int i = 0; i < incount; ++i) {
@@ -1513,7 +1705,7 @@ int mpi_Testsome(
     }
 
     for (; j < sizeof(
-                   struct { long a, b, c; });
+                   struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; });
          ++j) {
       a[j] = b[j];
     }
@@ -1945,7 +2137,7 @@ int mpi_Comm_rank(void *comm, int *rank) {
 
 int mpi_Improbe(
     int source, int tag, void *comm, int *flag, void **message,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Comm comm_ = comm;
   MPI_Message *message_ = message;
   MPI_Status *status_ = status;
@@ -2625,7 +2817,7 @@ int mpi_Errhandler_get(void *comm, void **errhandler) {
 
 int mpi_Iprobe(
     int source, int tag, void *comm, int *flag,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Comm comm_ = comm;
   MPI_Status *status_ = status;
   int ret = MPI_Iprobe(source, tag, comm_, flag, status_);
@@ -2955,7 +3147,8 @@ int mpi_Isend(const void *buf, int count, void *datatype, int dest, int tag,
 }
 
 int mpi_Wait(
-    void **request, struct { long a, b, c; } * status) {
+    void **request,
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Request *request_ = request;
   MPI_Status *status_ = status;
   int ret = MPI_Wait(request_, status_);
@@ -2984,8 +3177,9 @@ int mpi_Issend(const void *buf, int count, void *datatype, int dest, int tag,
 }
 
 int mpi_Waitall(
-    int count, void *array_of_requests[],
-    struct { long a, b, c; } array_of_statuses[]) {
+    int count, void *array_of_requests[], struct {
+      int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c;
+    } array_of_statuses[]) {
   MPI_Request array_of_requests_[count];
   MPI_Status array_of_statuses_[count];
   for (int i = 0; i < count; ++i) {
@@ -3010,7 +3204,7 @@ int mpi_Waitall(
     }
 
     for (; j < sizeof(
-                   struct { long a, b, c; });
+                   struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; });
          ++j) {
       a[j] = b[j];
     }
@@ -3037,7 +3231,7 @@ int mpi_Keyval_create(void **copy_fn, void **delete_fn, int *keyval,
 
 int mpi_Waitany(
     int count, void *array_of_requests[], int *indx,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Request array_of_requests_[count];
   MPI_Status *status_ = status;
   for (int i = 0; i < count; ++i) {
@@ -3065,7 +3259,9 @@ int mpi_Keyval_free(int *keyval) {
 
 int mpi_Waitsome(
     int incount, void *array_of_requests[], int *outcount,
-    int array_of_indices[], struct { long a, b, c; } array_of_statuses[]) {
+    int array_of_indices[], struct {
+      int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c;
+    } array_of_statuses[]) {
   MPI_Request array_of_requests_[incount];
   MPI_Status array_of_statuses_[*outcount];
   for (int i = 0; i < incount; ++i) {
@@ -3095,7 +3291,7 @@ int mpi_Waitsome(
     }
 
     for (; j < sizeof(
-                   struct { long a, b, c; });
+                   struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; });
          ++j) {
       a[j] = b[j];
     }
@@ -3146,7 +3342,7 @@ int mpi_File_get_errhandler(void *file, void **errhandler) {
 
 int mpi_Mprobe(
     int source, int tag, void *comm, void **message,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Comm comm_ = comm;
   MPI_Message *message_ = message;
   MPI_Status *status_ = status;
@@ -3183,7 +3379,7 @@ int mpi_File_get_group(void *fh, void **group) {
 
 int mpi_Mrecv(
     void *buf, int count, void *datatype, void **message,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Datatype datatype_ = datatype;
   MPI_Message *message_ = message;
   MPI_Status *status_ = status;
@@ -3635,7 +3831,7 @@ int mpi_Win_free(void **win) {
 
 int mpi_File_read(
     void *fh, void *buf, int count, void *datatype,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Datatype datatype_ = datatype;
   MPI_Status *status_ = status;
@@ -3647,7 +3843,8 @@ int mpi_File_read(
 }
 
 int mpi_Probe(
-    int source, int tag, void *comm, struct { long a, b, c; } * status) {
+    int source, int tag, void *comm,
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Comm comm_ = comm;
   MPI_Status *status_ = status;
   int ret = MPI_Probe(source, tag, comm_, status_);
@@ -3663,7 +3860,7 @@ int mpi_Win_free_keyval(int *win_keyval) {
 
 int mpi_File_read_all(
     void *fh, void *buf, int count, void *datatype,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Datatype datatype_ = datatype;
   MPI_Status *status_ = status;
@@ -3725,7 +3922,8 @@ int mpi_Win_get_errhandler(void *win, void **errhandler) {
 }
 
 int mpi_File_read_all_end(
-    void *fh, void *buf, struct { long a, b, c; } * status) {
+    void *fh, void *buf,
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Status *status_ = status;
   int ret = MPI_File_read_all_end(fh_, buf, status_);
@@ -3750,7 +3948,7 @@ int mpi_Win_get_group(void *win, void **group) {
 
 int mpi_File_read_at(
     void *fh, void *offset, void *buf, int count, void *datatype,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Offset offset_ = offset;
   MPI_Datatype datatype_ = datatype;
@@ -3797,7 +3995,7 @@ int mpi_Win_get_info(void *win, void **info_used) {
 
 int mpi_File_read_at_all(
     void *fh, void *offset, void *buf, int count, void *datatype,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Offset offset_ = offset;
   MPI_Datatype datatype_ = datatype;
@@ -3812,7 +4010,7 @@ int mpi_File_read_at_all(
 
 int mpi_Recv(
     void *buf, int count, void *datatype, int source, int tag, void *comm,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Datatype datatype_ = datatype;
   MPI_Comm comm_ = comm;
   MPI_Status *status_ = status;
@@ -3862,7 +4060,8 @@ int mpi_Win_lock(int lock_type, int rank, int assert, void *win) {
 }
 
 int mpi_File_read_at_all_end(
-    void *fh, void *buf, struct { long a, b, c; } * status) {
+    void *fh, void *buf,
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Status *status_ = status;
   int ret = MPI_File_read_at_all_end(fh_, buf, status_);
@@ -3892,7 +4091,7 @@ int mpi_Win_lock_all(int assert, void *win) {
 
 int mpi_File_read_ordered(
     void *fh, void *buf, int count, void *datatype,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Datatype datatype_ = datatype;
   MPI_Status *status_ = status;
@@ -3954,7 +4153,8 @@ int mpi_Win_set_attr(void *win, int win_keyval, void *attribute_val) {
 }
 
 int mpi_File_read_ordered_end(
-    void *fh, void *buf, struct { long a, b, c; } * status) {
+    void *fh, void *buf,
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Status *status_ = status;
   int ret = MPI_File_read_ordered_end(fh_, buf, status_);
@@ -3987,7 +4187,7 @@ int mpi_Win_set_errhandler(void *win, void *errhandler) {
 
 int mpi_File_read_shared(
     void *fh, void *buf, int count, void *datatype,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Datatype datatype_ = datatype;
   MPI_Status *status_ = status;
@@ -4055,7 +4255,8 @@ int mpi_File_seek_shared(void *fh, void *offset, int whence) {
 }
 
 int mpi_Request_get_status(
-    void *request, int *flag, struct { long a, b, c; } * status) {
+    void *request, int *flag,
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_Request request_ = request;
   MPI_Status *status_ = status;
   int ret = MPI_Request_get_status(request_, flag, status_);
@@ -4277,7 +4478,7 @@ int mpi_Win_wait(void *win) {
 
 int mpi_File_write(
     void *fh, void *buf, int count, void *datatype,
-    struct { long a, b, c; } * status) {
+    struct { int MPI_SOURCE, MPI_TAG, MPI_ERROR, _a, _b, _c; } * status) {
   MPI_File fh_ = fh;
   MPI_Datatype datatype_ = datatype;
   MPI_Status *status_ = status;

@@ -4,7 +4,9 @@ print(
     """#pragma once
 #ifdef __cplusplus
 extern "C" {
-#endif"""
+#endif
+#define MPI_MAX_ERROR_STRING 1024
+"""
 )
 
 for a, b in mappings:
