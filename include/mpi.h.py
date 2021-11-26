@@ -18,8 +18,7 @@ for a, b in vars:
 for f in funcs:
     print(
         f"""
-{f.ret} multimpi_{f.name}({f.args});
-static inline {f.ret} {f.name}({f.args}) {{ return multimpi_{f.name}({f.argn}); }}
+{f.ret} {f.name}({f.args});
 """
     )
 print(

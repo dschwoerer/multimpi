@@ -110,7 +110,7 @@ int multimpi_static_init() {
   return 0;
 }
 
-int multimpi_MPI_Init(int *argc, char ***argv) {
+int MPI_Init(int *argc, char ***argv) {
   if (multimpi_static_init()) {
     printf("return early\n");
     return 1;
@@ -189,8 +189,8 @@ int multimpi_MPI_Init(int *argc, char ***argv) {
   return func(argc, argv);
 }
 
-int multimpi_MPI_File_write_all(MPI_File fh, void *buf, int count,
-                                MPI_Datatype datatype, MPI_Status *status) {
+int MPI_File_write_all(MPI_File fh, void *buf, int count, MPI_Datatype datatype,
+                       MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -204,10 +204,9 @@ int multimpi_MPI_File_write_all(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype, status);
 }
 
-int multimpi_MPI_Scatterv(const void *sendbuf, const int *sendcounts,
-                          const int *displs, MPI_Datatype sendtype,
-                          void *recvbuf, int recvcount, MPI_Datatype recvtype,
-                          int root, MPI_Comm comm) {
+int MPI_Scatterv(const void *sendbuf, const int *sendcounts, const int *displs,
+                 MPI_Datatype sendtype, void *recvbuf, int recvcount,
+                 MPI_Datatype recvtype, int root, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -223,8 +222,8 @@ int multimpi_MPI_Scatterv(const void *sendbuf, const int *sendcounts,
               recvtype, root, comm);
 }
 
-int multimpi_MPI_File_write_all_begin(MPI_File fh, void *buf, int count,
-                                      MPI_Datatype datatype) {
+int MPI_File_write_all_begin(MPI_File fh, void *buf, int count,
+                             MPI_Datatype datatype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -238,8 +237,8 @@ int multimpi_MPI_File_write_all_begin(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype);
 }
 
-int multimpi_MPI_Send(const void *buf, int count, MPI_Datatype datatype,
-                      int dest, int tag, MPI_Comm comm) {
+int MPI_Send(const void *buf, int count, MPI_Datatype datatype, int dest,
+             int tag, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -253,8 +252,7 @@ int multimpi_MPI_Send(const void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, dest, tag, comm);
 }
 
-int multimpi_MPI_File_write_all_end(MPI_File fh, void *buf,
-                                    MPI_Status *status) {
+int MPI_File_write_all_end(MPI_File fh, void *buf, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -268,9 +266,8 @@ int multimpi_MPI_File_write_all_end(MPI_File fh, void *buf,
   return func(fh, buf, status);
 }
 
-int multimpi_MPI_Send_init(const void *buf, int count, MPI_Datatype datatype,
-                           int dest, int tag, MPI_Comm comm,
-                           MPI_Request *request) {
+int MPI_Send_init(const void *buf, int count, MPI_Datatype datatype, int dest,
+                  int tag, MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -285,7 +282,7 @@ int multimpi_MPI_Send_init(const void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, dest, tag, comm, request);
 }
 
-int multimpi_MPI_Abort(MPI_Comm comm, int errorcode) {
+int MPI_Abort(MPI_Comm comm, int errorcode) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -299,9 +296,8 @@ int multimpi_MPI_Abort(MPI_Comm comm, int errorcode) {
   return func(comm, errorcode);
 }
 
-int multimpi_MPI_File_write_at(MPI_File fh, MPI_Offset offset, void *buf,
-                               int count, MPI_Datatype datatype,
-                               MPI_Status *status) {
+int MPI_File_write_at(MPI_File fh, MPI_Offset offset, void *buf, int count,
+                      MPI_Datatype datatype, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -316,11 +312,10 @@ int multimpi_MPI_File_write_at(MPI_File fh, MPI_Offset offset, void *buf,
   return func(fh, offset, buf, count, datatype, status);
 }
 
-int multimpi_MPI_Sendrecv(const void *sendbuf, int sendcount,
-                          MPI_Datatype sendtype, int dest, int sendtag,
-                          void *recvbuf, int recvcount, MPI_Datatype recvtype,
-                          int source, int recvtag, MPI_Comm comm,
-                          MPI_Status *status) {
+int MPI_Sendrecv(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                 int dest, int sendtag, void *recvbuf, int recvcount,
+                 MPI_Datatype recvtype, int source, int recvtag, MPI_Comm comm,
+                 MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -336,11 +331,10 @@ int multimpi_MPI_Sendrecv(const void *sendbuf, int sendcount,
               recvtype, source, recvtag, comm, status);
 }
 
-int multimpi_MPI_Accumulate(const void *origin_addr, int origin_count,
-                            MPI_Datatype origin_datatype, int target_rank,
-                            MPI_Aint target_disp, int target_count,
-                            MPI_Datatype target_datatype, MPI_Op op,
-                            MPI_Win win) {
+int MPI_Accumulate(const void *origin_addr, int origin_count,
+                   MPI_Datatype origin_datatype, int target_rank,
+                   MPI_Aint target_disp, int target_count,
+                   MPI_Datatype target_datatype, MPI_Op op, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -356,9 +350,8 @@ int multimpi_MPI_Accumulate(const void *origin_addr, int origin_count,
               target_disp, target_count, target_datatype, op, win);
 }
 
-int multimpi_MPI_File_write_at_all(MPI_File fh, MPI_Offset offset, void *buf,
-                                   int count, MPI_Datatype datatype,
-                                   MPI_Status *status) {
+int MPI_File_write_at_all(MPI_File fh, MPI_Offset offset, void *buf, int count,
+                          MPI_Datatype datatype, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -373,10 +366,9 @@ int multimpi_MPI_File_write_at_all(MPI_File fh, MPI_Offset offset, void *buf,
   return func(fh, offset, buf, count, datatype, status);
 }
 
-int multimpi_MPI_Sendrecv_replace(void *buf, int count, MPI_Datatype datatype,
-                                  int dest, int sendtag, int source,
-                                  int recvtag, MPI_Comm comm,
-                                  MPI_Status *status) {
+int MPI_Sendrecv_replace(void *buf, int count, MPI_Datatype datatype, int dest,
+                         int sendtag, int source, int recvtag, MPI_Comm comm,
+                         MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -392,7 +384,7 @@ int multimpi_MPI_Sendrecv_replace(void *buf, int count, MPI_Datatype datatype,
               status);
 }
 
-int multimpi_MPI_Add_error_class(int *errorclass) {
+int MPI_Add_error_class(int *errorclass) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -406,9 +398,8 @@ int multimpi_MPI_Add_error_class(int *errorclass) {
   return func(errorclass);
 }
 
-int multimpi_MPI_File_write_at_all_begin(MPI_File fh, MPI_Offset offset,
-                                         void *buf, int count,
-                                         MPI_Datatype datatype) {
+int MPI_File_write_at_all_begin(MPI_File fh, MPI_Offset offset, void *buf,
+                                int count, MPI_Datatype datatype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -422,8 +413,8 @@ int multimpi_MPI_File_write_at_all_begin(MPI_File fh, MPI_Offset offset,
   return func(fh, offset, buf, count, datatype);
 }
 
-int multimpi_MPI_Ssend(const void *buf, int count, MPI_Datatype datatype,
-                       int dest, int tag, MPI_Comm comm) {
+int MPI_Ssend(const void *buf, int count, MPI_Datatype datatype, int dest,
+              int tag, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -437,7 +428,7 @@ int multimpi_MPI_Ssend(const void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, dest, tag, comm);
 }
 
-int multimpi_MPI_Add_error_code(int errorclass, int *errorcode) {
+int MPI_Add_error_code(int errorclass, int *errorcode) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -451,8 +442,7 @@ int multimpi_MPI_Add_error_code(int errorclass, int *errorcode) {
   return func(errorclass, errorcode);
 }
 
-int multimpi_MPI_File_write_at_all_end(MPI_File fh, void *buf,
-                                       MPI_Status *status) {
+int MPI_File_write_at_all_end(MPI_File fh, void *buf, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -466,9 +456,8 @@ int multimpi_MPI_File_write_at_all_end(MPI_File fh, void *buf,
   return func(fh, buf, status);
 }
 
-int multimpi_MPI_Ssend_init(const void *buf, int count, MPI_Datatype datatype,
-                            int dest, int tag, MPI_Comm comm,
-                            MPI_Request *request) {
+int MPI_Ssend_init(const void *buf, int count, MPI_Datatype datatype, int dest,
+                   int tag, MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -483,7 +472,7 @@ int multimpi_MPI_Ssend_init(const void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, dest, tag, comm, request);
 }
 
-int multimpi_MPI_Add_error_string(int errorcode, const char *string) {
+int MPI_Add_error_string(int errorcode, const char *string) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -497,8 +486,8 @@ int multimpi_MPI_Add_error_string(int errorcode, const char *string) {
   return func(errorcode, string);
 }
 
-int multimpi_MPI_File_write_ordered(MPI_File fh, void *buf, int count,
-                                    MPI_Datatype datatype, MPI_Status *status) {
+int MPI_File_write_ordered(MPI_File fh, void *buf, int count,
+                           MPI_Datatype datatype, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -512,7 +501,7 @@ int multimpi_MPI_File_write_ordered(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype, status);
 }
 
-int multimpi_MPI_Start(MPI_Request *request) {
+int MPI_Start(MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -526,7 +515,7 @@ int multimpi_MPI_Start(MPI_Request *request) {
   return func(request);
 }
 
-int multimpi_MPI_Address(const void *location, MPI_Aint *address) {
+int MPI_Address(const void *location, MPI_Aint *address) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -540,8 +529,8 @@ int multimpi_MPI_Address(const void *location, MPI_Aint *address) {
   return func(location, address);
 }
 
-int multimpi_MPI_File_write_ordered_begin(MPI_File fh, void *buf, int count,
-                                          MPI_Datatype datatype) {
+int MPI_File_write_ordered_begin(MPI_File fh, void *buf, int count,
+                                 MPI_Datatype datatype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -555,7 +544,7 @@ int multimpi_MPI_File_write_ordered_begin(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype);
 }
 
-int multimpi_MPI_Startall(int count, MPI_Request array_of_requests[]) {
+int MPI_Startall(int count, MPI_Request array_of_requests[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -569,9 +558,9 @@ int multimpi_MPI_Startall(int count, MPI_Request array_of_requests[]) {
   return func(count, array_of_requests);
 }
 
-int multimpi_MPI_Allgather(const void *sendbuf, int sendcount,
-                           MPI_Datatype sendtype, void *recvbuf, int recvcount,
-                           MPI_Datatype recvtype, MPI_Comm comm) {
+int MPI_Allgather(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                  void *recvbuf, int recvcount, MPI_Datatype recvtype,
+                  MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -586,8 +575,7 @@ int multimpi_MPI_Allgather(const void *sendbuf, int sendcount,
   return func(sendbuf, sendcount, sendtype, recvbuf, recvcount, recvtype, comm);
 }
 
-int multimpi_MPI_File_write_ordered_end(MPI_File fh, void *buf,
-                                        MPI_Status *status) {
+int MPI_File_write_ordered_end(MPI_File fh, void *buf, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -601,7 +589,7 @@ int multimpi_MPI_File_write_ordered_end(MPI_File fh, void *buf,
   return func(fh, buf, status);
 }
 
-int multimpi_MPI_Status_set_cancelled(MPI_Status *status, int flag) {
+int MPI_Status_set_cancelled(MPI_Status *status, int flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -615,10 +603,9 @@ int multimpi_MPI_Status_set_cancelled(MPI_Status *status, int flag) {
   return func(status, flag);
 }
 
-int multimpi_MPI_Allgatherv(const void *sendbuf, int sendcount,
-                            MPI_Datatype sendtype, void *recvbuf,
-                            const int *recvcounts, const int *displs,
-                            MPI_Datatype recvtype, MPI_Comm comm) {
+int MPI_Allgatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                   void *recvbuf, const int *recvcounts, const int *displs,
+                   MPI_Datatype recvtype, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -634,8 +621,8 @@ int multimpi_MPI_Allgatherv(const void *sendbuf, int sendcount,
               recvtype, comm);
 }
 
-int multimpi_MPI_File_write_shared(MPI_File fh, void *buf, int count,
-                                   MPI_Datatype datatype, MPI_Status *status) {
+int MPI_File_write_shared(MPI_File fh, void *buf, int count,
+                          MPI_Datatype datatype, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -649,8 +636,8 @@ int multimpi_MPI_File_write_shared(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype, status);
 }
 
-int multimpi_MPI_Status_set_elements(MPI_Status *status, MPI_Datatype datatype,
-                                     int count) {
+int MPI_Status_set_elements(MPI_Status *status, MPI_Datatype datatype,
+                            int count) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -664,7 +651,7 @@ int multimpi_MPI_Status_set_elements(MPI_Status *status, MPI_Datatype datatype,
   return func(status, datatype, count);
 }
 
-int multimpi_MPI_Alloc_mem(MPI_Aint size, MPI_Info info, void *baseptr) {
+int MPI_Alloc_mem(MPI_Aint size, MPI_Info info, void *baseptr) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -678,7 +665,7 @@ int multimpi_MPI_Alloc_mem(MPI_Aint size, MPI_Info info, void *baseptr) {
   return func(size, info, baseptr);
 }
 
-int multimpi_MPI_Finalize() {
+int MPI_Finalize() {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -692,8 +679,8 @@ int multimpi_MPI_Finalize() {
   return func();
 }
 
-int multimpi_MPI_Status_set_elements_x(MPI_Status *status,
-                                       MPI_Datatype datatype, MPI_Count count) {
+int MPI_Status_set_elements_x(MPI_Status *status, MPI_Datatype datatype,
+                              MPI_Count count) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -707,8 +694,8 @@ int multimpi_MPI_Status_set_elements_x(MPI_Status *status,
   return func(status, datatype, count);
 }
 
-int multimpi_MPI_Allreduce(const void *sendbuf, void *recvbuf, int count,
-                           MPI_Datatype datatype, MPI_Op op, MPI_Comm comm) {
+int MPI_Allreduce(const void *sendbuf, void *recvbuf, int count,
+                  MPI_Datatype datatype, MPI_Op op, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -723,7 +710,7 @@ int multimpi_MPI_Allreduce(const void *sendbuf, void *recvbuf, int count,
   return func(sendbuf, recvbuf, count, datatype, op, comm);
 }
 
-int multimpi_MPI_Finalized(int *flag) {
+int MPI_Finalized(int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -737,7 +724,7 @@ int multimpi_MPI_Finalized(int *flag) {
   return func(flag);
 }
 
-int multimpi_MPI_T_category_changed(int *stamp) {
+int MPI_T_category_changed(int *stamp) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -751,9 +738,9 @@ int multimpi_MPI_T_category_changed(int *stamp) {
   return func(stamp);
 }
 
-int multimpi_MPI_Alltoall(const void *sendbuf, int sendcount,
-                          MPI_Datatype sendtype, void *recvbuf, int recvcount,
-                          MPI_Datatype recvtype, MPI_Comm comm) {
+int MPI_Alltoall(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                 void *recvbuf, int recvcount, MPI_Datatype recvtype,
+                 MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -768,7 +755,7 @@ int multimpi_MPI_Alltoall(const void *sendbuf, int sendcount,
   return func(sendbuf, sendcount, sendtype, recvbuf, recvcount, recvtype, comm);
 }
 
-int multimpi_MPI_Free_mem(void *base) {
+int MPI_Free_mem(void *base) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -782,8 +769,7 @@ int multimpi_MPI_Free_mem(void *base) {
   return func(base);
 }
 
-int multimpi_MPI_T_category_get_categories(int cat_index, int len,
-                                           int indices[]) {
+int MPI_T_category_get_categories(int cat_index, int len, int indices[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -797,11 +783,10 @@ int multimpi_MPI_T_category_get_categories(int cat_index, int len,
   return func(cat_index, len, indices);
 }
 
-int multimpi_MPI_Alltoallv(const void *sendbuf, const int *sendcounts,
-                           const int *sdispls, MPI_Datatype sendtype,
-                           void *recvbuf, const int *recvcounts,
-                           const int *rdispls, MPI_Datatype recvtype,
-                           MPI_Comm comm) {
+int MPI_Alltoallv(const void *sendbuf, const int *sendcounts,
+                  const int *sdispls, MPI_Datatype sendtype, void *recvbuf,
+                  const int *recvcounts, const int *rdispls,
+                  MPI_Datatype recvtype, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -817,9 +802,9 @@ int multimpi_MPI_Alltoallv(const void *sendbuf, const int *sendcounts,
               rdispls, recvtype, comm);
 }
 
-int multimpi_MPI_Gather(const void *sendbuf, int sendcount,
-                        MPI_Datatype sendtype, void *recvbuf, int recvcount,
-                        MPI_Datatype recvtype, int root, MPI_Comm comm) {
+int MPI_Gather(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+               void *recvbuf, int recvcount, MPI_Datatype recvtype, int root,
+               MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -835,7 +820,7 @@ int multimpi_MPI_Gather(const void *sendbuf, int sendcount,
               comm);
 }
 
-int multimpi_MPI_T_category_get_cvars(int cat_index, int len, int indices[]) {
+int MPI_T_category_get_cvars(int cat_index, int len, int indices[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -849,11 +834,10 @@ int multimpi_MPI_T_category_get_cvars(int cat_index, int len, int indices[]) {
   return func(cat_index, len, indices);
 }
 
-int multimpi_MPI_Alltoallw(const void *sendbuf, const int sendcounts[],
-                           const int sdispls[], const MPI_Datatype sendtypes[],
-                           void *recvbuf, const int recvcounts[],
-                           const int rdispls[], const MPI_Datatype recvtypes[],
-                           MPI_Comm comm) {
+int MPI_Alltoallw(const void *sendbuf, const int sendcounts[],
+                  const int sdispls[], const MPI_Datatype sendtypes[],
+                  void *recvbuf, const int recvcounts[], const int rdispls[],
+                  const MPI_Datatype recvtypes[], MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -870,10 +854,9 @@ int multimpi_MPI_Alltoallw(const void *sendbuf, const int sendcounts[],
               rdispls, recvtypes, comm);
 }
 
-int multimpi_MPI_Gatherv(const void *sendbuf, int sendcount,
-                         MPI_Datatype sendtype, void *recvbuf,
-                         const int *recvcounts, const int *displs,
-                         MPI_Datatype recvtype, int root, MPI_Comm comm) {
+int MPI_Gatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                void *recvbuf, const int *recvcounts, const int *displs,
+                MPI_Datatype recvtype, int root, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -889,9 +872,9 @@ int multimpi_MPI_Gatherv(const void *sendbuf, int sendcount,
               recvtype, root, comm);
 }
 
-int multimpi_MPI_T_category_get_info(int cat_index, char *name, int *name_len,
-                                     char *desc, int *desc_len, int *num_cvars,
-                                     int *num_pvars, int *num_categories) {
+int MPI_T_category_get_info(int cat_index, char *name, int *name_len,
+                            char *desc, int *desc_len, int *num_cvars,
+                            int *num_pvars, int *num_categories) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -906,7 +889,7 @@ int multimpi_MPI_T_category_get_info(int cat_index, char *name, int *name_len,
               num_categories);
 }
 
-int multimpi_MPI_Attr_delete(MPI_Comm comm, int keyval) {
+int MPI_Attr_delete(MPI_Comm comm, int keyval) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -920,10 +903,9 @@ int multimpi_MPI_Attr_delete(MPI_Comm comm, int keyval) {
   return func(comm, keyval);
 }
 
-int multimpi_MPI_Get(void *origin_addr, int origin_count,
-                     MPI_Datatype origin_datatype, int target_rank,
-                     MPI_Aint target_disp, int target_count,
-                     MPI_Datatype target_datatype, MPI_Win win) {
+int MPI_Get(void *origin_addr, int origin_count, MPI_Datatype origin_datatype,
+            int target_rank, MPI_Aint target_disp, int target_count,
+            MPI_Datatype target_datatype, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -939,7 +921,7 @@ int multimpi_MPI_Get(void *origin_addr, int origin_count,
               target_disp, target_count, target_datatype, win);
 }
 
-int multimpi_MPI_T_category_get_num(int *num_cat) {
+int MPI_T_category_get_num(int *num_cat) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -953,8 +935,7 @@ int multimpi_MPI_T_category_get_num(int *num_cat) {
   return func(num_cat);
 }
 
-int multimpi_MPI_Attr_get(MPI_Comm comm, int keyval, void *attribute_val,
-                          int *flag) {
+int MPI_Attr_get(MPI_Comm comm, int keyval, void *attribute_val, int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -968,12 +949,11 @@ int multimpi_MPI_Attr_get(MPI_Comm comm, int keyval, void *attribute_val,
   return func(comm, keyval, attribute_val, flag);
 }
 
-int multimpi_MPI_Get_accumulate(const void *origin_addr, int origin_count,
-                                MPI_Datatype origin_datatype, void *result_addr,
-                                int result_count, MPI_Datatype result_datatype,
-                                int target_rank, MPI_Aint target_disp,
-                                int target_count, MPI_Datatype target_datatype,
-                                MPI_Op op, MPI_Win win) {
+int MPI_Get_accumulate(const void *origin_addr, int origin_count,
+                       MPI_Datatype origin_datatype, void *result_addr,
+                       int result_count, MPI_Datatype result_datatype,
+                       int target_rank, MPI_Aint target_disp, int target_count,
+                       MPI_Datatype target_datatype, MPI_Op op, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -991,7 +971,7 @@ int multimpi_MPI_Get_accumulate(const void *origin_addr, int origin_count,
               target_count, target_datatype, op, win);
 }
 
-int multimpi_MPI_T_category_get_pvars(int cat_index, int len, int indices[]) {
+int MPI_T_category_get_pvars(int cat_index, int len, int indices[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1005,7 +985,7 @@ int multimpi_MPI_T_category_get_pvars(int cat_index, int len, int indices[]) {
   return func(cat_index, len, indices);
 }
 
-int multimpi_MPI_Attr_put(MPI_Comm comm, int keyval, void *attribute_val) {
+int MPI_Attr_put(MPI_Comm comm, int keyval, void *attribute_val) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1019,7 +999,7 @@ int multimpi_MPI_Attr_put(MPI_Comm comm, int keyval, void *attribute_val) {
   return func(comm, keyval, attribute_val);
 }
 
-int multimpi_MPI_Get_address(const void *location, MPI_Aint *address) {
+int MPI_Get_address(const void *location, MPI_Aint *address) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1033,10 +1013,10 @@ int multimpi_MPI_Get_address(const void *location, MPI_Aint *address) {
   return func(location, address);
 }
 
-int multimpi_MPI_T_cvar_get_info(int cvar_index, char *name, int *name_len,
-                                 int *verbosity, MPI_Datatype *datatype,
-                                 MPI_T_enum *enumtype, char *desc,
-                                 int *desc_len, int *binding, int *scope) {
+int MPI_T_cvar_get_info(int cvar_index, char *name, int *name_len,
+                        int *verbosity, MPI_Datatype *datatype,
+                        MPI_T_enum *enumtype, char *desc, int *desc_len,
+                        int *binding, int *scope) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1052,7 +1032,7 @@ int multimpi_MPI_T_cvar_get_info(int cvar_index, char *name, int *name_len,
               desc_len, binding, scope);
 }
 
-int multimpi_MPI_Barrier(MPI_Comm comm) {
+int MPI_Barrier(MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1066,8 +1046,7 @@ int multimpi_MPI_Barrier(MPI_Comm comm) {
   return func(comm);
 }
 
-int multimpi_MPI_Get_count(const MPI_Status *status, MPI_Datatype datatype,
-                           int *count) {
+int MPI_Get_count(const MPI_Status *status, MPI_Datatype datatype, int *count) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1081,7 +1060,7 @@ int multimpi_MPI_Get_count(const MPI_Status *status, MPI_Datatype datatype,
   return func(status, datatype, count);
 }
 
-int multimpi_MPI_T_cvar_get_num(int *num_cvar) {
+int MPI_T_cvar_get_num(int *num_cvar) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1095,8 +1074,8 @@ int multimpi_MPI_T_cvar_get_num(int *num_cvar) {
   return func(num_cvar);
 }
 
-int multimpi_MPI_Bcast(void *buffer, int count, MPI_Datatype datatype, int root,
-                       MPI_Comm comm) {
+int MPI_Bcast(void *buffer, int count, MPI_Datatype datatype, int root,
+              MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1110,8 +1089,8 @@ int multimpi_MPI_Bcast(void *buffer, int count, MPI_Datatype datatype, int root,
   return func(buffer, count, datatype, root, comm);
 }
 
-int multimpi_MPI_Get_elements(const MPI_Status *status, MPI_Datatype datatype,
-                              int *count) {
+int MPI_Get_elements(const MPI_Status *status, MPI_Datatype datatype,
+                     int *count) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1125,8 +1104,8 @@ int multimpi_MPI_Get_elements(const MPI_Status *status, MPI_Datatype datatype,
   return func(status, datatype, count);
 }
 
-int multimpi_MPI_T_cvar_handle_alloc(int cvar_index, void *obj_handle,
-                                     MPI_T_cvar_handle *handle, int *count) {
+int MPI_T_cvar_handle_alloc(int cvar_index, void *obj_handle,
+                            MPI_T_cvar_handle *handle, int *count) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1140,8 +1119,8 @@ int multimpi_MPI_T_cvar_handle_alloc(int cvar_index, void *obj_handle,
   return func(cvar_index, obj_handle, handle, count);
 }
 
-int multimpi_MPI_Bsend(const void *buf, int count, MPI_Datatype datatype,
-                       int dest, int tag, MPI_Comm comm) {
+int MPI_Bsend(const void *buf, int count, MPI_Datatype datatype, int dest,
+              int tag, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1155,8 +1134,8 @@ int multimpi_MPI_Bsend(const void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, dest, tag, comm);
 }
 
-int multimpi_MPI_Get_elements_x(const MPI_Status *status, MPI_Datatype datatype,
-                                MPI_Count *count) {
+int MPI_Get_elements_x(const MPI_Status *status, MPI_Datatype datatype,
+                       MPI_Count *count) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1170,7 +1149,7 @@ int multimpi_MPI_Get_elements_x(const MPI_Status *status, MPI_Datatype datatype,
   return func(status, datatype, count);
 }
 
-int multimpi_MPI_T_cvar_handle_free(MPI_T_cvar_handle *handle) {
+int MPI_T_cvar_handle_free(MPI_T_cvar_handle *handle) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1184,9 +1163,8 @@ int multimpi_MPI_T_cvar_handle_free(MPI_T_cvar_handle *handle) {
   return func(handle);
 }
 
-int multimpi_MPI_Bsend_init(const void *buf, int count, MPI_Datatype datatype,
-                            int dest, int tag, MPI_Comm comm,
-                            MPI_Request *request) {
+int MPI_Bsend_init(const void *buf, int count, MPI_Datatype datatype, int dest,
+                   int tag, MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1201,7 +1179,7 @@ int multimpi_MPI_Bsend_init(const void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, dest, tag, comm, request);
 }
 
-int multimpi_MPI_Get_library_version(char *version, int *resultlen) {
+int MPI_Get_library_version(char *version, int *resultlen) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1215,7 +1193,7 @@ int multimpi_MPI_Get_library_version(char *version, int *resultlen) {
   return func(version, resultlen);
 }
 
-int multimpi_MPI_T_cvar_read(MPI_T_cvar_handle handle, void *buf) {
+int MPI_T_cvar_read(MPI_T_cvar_handle handle, void *buf) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1229,7 +1207,7 @@ int multimpi_MPI_T_cvar_read(MPI_T_cvar_handle handle, void *buf) {
   return func(handle, buf);
 }
 
-int multimpi_MPI_Buffer_attach(void *buffer, int size) {
+int MPI_Buffer_attach(void *buffer, int size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1243,7 +1221,7 @@ int multimpi_MPI_Buffer_attach(void *buffer, int size) {
   return func(buffer, size);
 }
 
-int multimpi_MPI_Get_processor_name(char *name, int *resultlen) {
+int MPI_Get_processor_name(char *name, int *resultlen) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1257,7 +1235,7 @@ int multimpi_MPI_Get_processor_name(char *name, int *resultlen) {
   return func(name, resultlen);
 }
 
-int multimpi_MPI_T_cvar_write(MPI_T_cvar_handle handle, void *buf) {
+int MPI_T_cvar_write(MPI_T_cvar_handle handle, void *buf) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1271,7 +1249,7 @@ int multimpi_MPI_T_cvar_write(MPI_T_cvar_handle handle, void *buf) {
   return func(handle, buf);
 }
 
-int multimpi_MPI_Buffer_detach(void *buffer_addr, int *size) {
+int MPI_Buffer_detach(void *buffer_addr, int *size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1285,7 +1263,7 @@ int multimpi_MPI_Buffer_detach(void *buffer_addr, int *size) {
   return func(buffer_addr, size);
 }
 
-int multimpi_MPI_Get_version(int *version, int *subversion) {
+int MPI_Get_version(int *version, int *subversion) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1299,8 +1277,8 @@ int multimpi_MPI_Get_version(int *version, int *subversion) {
   return func(version, subversion);
 }
 
-int multimpi_MPI_T_enum_get_info(MPI_T_enum enumtype, int *num, char *name,
-                                 int *name_len) {
+int MPI_T_enum_get_info(MPI_T_enum enumtype, int *num, char *name,
+                        int *name_len) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1314,7 +1292,7 @@ int multimpi_MPI_T_enum_get_info(MPI_T_enum enumtype, int *num, char *name,
   return func(enumtype, num, name, name_len);
 }
 
-int multimpi_MPI_Cancel(MPI_Request *request) {
+int MPI_Cancel(MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1328,9 +1306,8 @@ int multimpi_MPI_Cancel(MPI_Request *request) {
   return func(request);
 }
 
-int multimpi_MPI_Graph_create(MPI_Comm comm_old, int nnodes, const int indx[],
-                              const int edges[], int reorder,
-                              MPI_Comm *comm_graph) {
+int MPI_Graph_create(MPI_Comm comm_old, int nnodes, const int indx[],
+                     const int edges[], int reorder, MPI_Comm *comm_graph) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1344,8 +1321,8 @@ int multimpi_MPI_Graph_create(MPI_Comm comm_old, int nnodes, const int indx[],
   return func(comm_old, nnodes, indx, edges, reorder, comm_graph);
 }
 
-int multimpi_MPI_T_enum_get_item(MPI_T_enum enumtype, int index, int *value,
-                                 char *name, int *name_len) {
+int MPI_T_enum_get_item(MPI_T_enum enumtype, int index, int *value, char *name,
+                        int *name_len) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1359,8 +1336,7 @@ int multimpi_MPI_T_enum_get_item(MPI_T_enum enumtype, int index, int *value,
   return func(enumtype, index, value, name, name_len);
 }
 
-int multimpi_MPI_Cart_coords(MPI_Comm comm, int rank, int maxdims,
-                             int coords[]) {
+int MPI_Cart_coords(MPI_Comm comm, int rank, int maxdims, int coords[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1374,8 +1350,8 @@ int multimpi_MPI_Cart_coords(MPI_Comm comm, int rank, int maxdims,
   return func(comm, rank, maxdims, coords);
 }
 
-int multimpi_MPI_Graph_get(MPI_Comm comm, int maxindex, int maxedges,
-                           int indx[], int edges[]) {
+int MPI_Graph_get(MPI_Comm comm, int maxindex, int maxedges, int indx[],
+                  int edges[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1389,7 +1365,7 @@ int multimpi_MPI_Graph_get(MPI_Comm comm, int maxindex, int maxedges,
   return func(comm, maxindex, maxedges, indx, edges);
 }
 
-int multimpi_MPI_T_finalize() {
+int MPI_T_finalize() {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1403,9 +1379,8 @@ int multimpi_MPI_T_finalize() {
   return func();
 }
 
-int multimpi_MPI_Cart_create(MPI_Comm comm_old, int ndims, const int dims[],
-                             const int periods[], int reorder,
-                             MPI_Comm *comm_cart) {
+int MPI_Cart_create(MPI_Comm comm_old, int ndims, const int dims[],
+                    const int periods[], int reorder, MPI_Comm *comm_cart) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1419,8 +1394,8 @@ int multimpi_MPI_Cart_create(MPI_Comm comm_old, int ndims, const int dims[],
   return func(comm_old, ndims, dims, periods, reorder, comm_cart);
 }
 
-int multimpi_MPI_Graph_map(MPI_Comm comm, int nnodes, const int indx[],
-                           const int edges[], int *newrank) {
+int MPI_Graph_map(MPI_Comm comm, int nnodes, const int indx[],
+                  const int edges[], int *newrank) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1434,7 +1409,7 @@ int multimpi_MPI_Graph_map(MPI_Comm comm, int nnodes, const int indx[],
   return func(comm, nnodes, indx, edges, newrank);
 }
 
-int multimpi_MPI_T_init_thread(int required, int *provided) {
+int MPI_T_init_thread(int required, int *provided) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1448,8 +1423,8 @@ int multimpi_MPI_T_init_thread(int required, int *provided) {
   return func(required, provided);
 }
 
-int multimpi_MPI_Cart_get(MPI_Comm comm, int maxdims, int dims[], int periods[],
-                          int coords[]) {
+int MPI_Cart_get(MPI_Comm comm, int maxdims, int dims[], int periods[],
+                 int coords[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1463,8 +1438,8 @@ int multimpi_MPI_Cart_get(MPI_Comm comm, int maxdims, int dims[], int periods[],
   return func(comm, maxdims, dims, periods, coords);
 }
 
-int multimpi_MPI_Graph_neighbors(MPI_Comm comm, int rank, int maxneighbors,
-                                 int neighbors[]) {
+int MPI_Graph_neighbors(MPI_Comm comm, int rank, int maxneighbors,
+                        int neighbors[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1478,11 +1453,11 @@ int multimpi_MPI_Graph_neighbors(MPI_Comm comm, int rank, int maxneighbors,
   return func(comm, rank, maxneighbors, neighbors);
 }
 
-int multimpi_MPI_T_pvar_get_info(int pvar_index, char *name, int *name_len,
-                                 int *verbosity, int *var_class,
-                                 MPI_Datatype *datatype, MPI_T_enum *enumtype,
-                                 char *desc, int *desc_len, int *binding,
-                                 int *readonly, int *continuous, int *atomic) {
+int MPI_T_pvar_get_info(int pvar_index, char *name, int *name_len,
+                        int *verbosity, int *var_class, MPI_Datatype *datatype,
+                        MPI_T_enum *enumtype, char *desc, int *desc_len,
+                        int *binding, int *readonly, int *continuous,
+                        int *atomic) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1498,8 +1473,8 @@ int multimpi_MPI_T_pvar_get_info(int pvar_index, char *name, int *name_len,
               enumtype, desc, desc_len, binding, readonly, continuous, atomic);
 }
 
-int multimpi_MPI_Cart_map(MPI_Comm comm, int ndims, const int dims[],
-                          const int periods[], int *newrank) {
+int MPI_Cart_map(MPI_Comm comm, int ndims, const int dims[],
+                 const int periods[], int *newrank) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1513,8 +1488,7 @@ int multimpi_MPI_Cart_map(MPI_Comm comm, int ndims, const int dims[],
   return func(comm, ndims, dims, periods, newrank);
 }
 
-int multimpi_MPI_Graph_neighbors_count(MPI_Comm comm, int rank,
-                                       int *nneighbors) {
+int MPI_Graph_neighbors_count(MPI_Comm comm, int rank, int *nneighbors) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1528,7 +1502,7 @@ int multimpi_MPI_Graph_neighbors_count(MPI_Comm comm, int rank,
   return func(comm, rank, nneighbors);
 }
 
-int multimpi_MPI_T_pvar_get_num(int *num_pvar) {
+int MPI_T_pvar_get_num(int *num_pvar) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1542,7 +1516,7 @@ int multimpi_MPI_T_pvar_get_num(int *num_pvar) {
   return func(num_pvar);
 }
 
-int multimpi_MPI_Cart_rank(MPI_Comm comm, const int coords[], int *rank) {
+int MPI_Cart_rank(MPI_Comm comm, const int coords[], int *rank) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1556,7 +1530,7 @@ int multimpi_MPI_Cart_rank(MPI_Comm comm, const int coords[], int *rank) {
   return func(comm, coords, rank);
 }
 
-int multimpi_MPI_Graphdims_get(MPI_Comm comm, int *nnodes, int *nedges) {
+int MPI_Graphdims_get(MPI_Comm comm, int *nnodes, int *nedges) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1570,9 +1544,9 @@ int multimpi_MPI_Graphdims_get(MPI_Comm comm, int *nnodes, int *nedges) {
   return func(comm, nnodes, nedges);
 }
 
-int multimpi_MPI_T_pvar_handle_alloc(MPI_T_pvar_session session, int pvar_index,
-                                     void *obj_handle,
-                                     MPI_T_pvar_handle *handle, int *count) {
+int MPI_T_pvar_handle_alloc(MPI_T_pvar_session session, int pvar_index,
+                            void *obj_handle, MPI_T_pvar_handle *handle,
+                            int *count) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1587,8 +1561,8 @@ int multimpi_MPI_T_pvar_handle_alloc(MPI_T_pvar_session session, int pvar_index,
   return func(session, pvar_index, obj_handle, handle, count);
 }
 
-int multimpi_MPI_Cart_shift(MPI_Comm comm, int direction, int disp,
-                            int *rank_source, int *rank_dest) {
+int MPI_Cart_shift(MPI_Comm comm, int direction, int disp, int *rank_source,
+                   int *rank_dest) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1602,7 +1576,7 @@ int multimpi_MPI_Cart_shift(MPI_Comm comm, int direction, int disp,
   return func(comm, direction, disp, rank_source, rank_dest);
 }
 
-int multimpi_MPI_Grequest_complete(MPI_Request request) {
+int MPI_Grequest_complete(MPI_Request request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1616,8 +1590,8 @@ int multimpi_MPI_Grequest_complete(MPI_Request request) {
   return func(request);
 }
 
-int multimpi_MPI_T_pvar_handle_free(MPI_T_pvar_session session,
-                                    MPI_T_pvar_handle *handle) {
+int MPI_T_pvar_handle_free(MPI_T_pvar_session session,
+                           MPI_T_pvar_handle *handle) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1631,8 +1605,7 @@ int multimpi_MPI_T_pvar_handle_free(MPI_T_pvar_session session,
   return func(session, handle);
 }
 
-int multimpi_MPI_Cart_sub(MPI_Comm comm, const int remain_dims[],
-                          MPI_Comm *newcomm) {
+int MPI_Cart_sub(MPI_Comm comm, const int remain_dims[], MPI_Comm *newcomm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1646,10 +1619,10 @@ int multimpi_MPI_Cart_sub(MPI_Comm comm, const int remain_dims[],
   return func(comm, remain_dims, newcomm);
 }
 
-int multimpi_MPI_Grequest_start(MPI_Grequest_query_function *query_fn,
-                                MPI_Grequest_free_function *free_fn,
-                                MPI_Grequest_cancel_function *cancel_fn,
-                                void *extra_state, MPI_Request *request) {
+int MPI_Grequest_start(MPI_Grequest_query_function *query_fn,
+                       MPI_Grequest_free_function *free_fn,
+                       MPI_Grequest_cancel_function *cancel_fn,
+                       void *extra_state, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1665,8 +1638,8 @@ int multimpi_MPI_Grequest_start(MPI_Grequest_query_function *query_fn,
   return func(query_fn, free_fn, cancel_fn, extra_state, request);
 }
 
-int multimpi_MPI_T_pvar_read(MPI_T_pvar_session session,
-                             MPI_T_pvar_handle handle, void *buf) {
+int MPI_T_pvar_read(MPI_T_pvar_session session, MPI_T_pvar_handle handle,
+                    void *buf) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1680,7 +1653,7 @@ int multimpi_MPI_T_pvar_read(MPI_T_pvar_session session,
   return func(session, handle, buf);
 }
 
-int multimpi_MPI_Cartdim_get(MPI_Comm comm, int *ndims) {
+int MPI_Cartdim_get(MPI_Comm comm, int *ndims) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1694,8 +1667,7 @@ int multimpi_MPI_Cartdim_get(MPI_Comm comm, int *ndims) {
   return func(comm, ndims);
 }
 
-int multimpi_MPI_Group_compare(MPI_Group group1, MPI_Group group2,
-                               int *result) {
+int MPI_Group_compare(MPI_Group group1, MPI_Group group2, int *result) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1709,8 +1681,8 @@ int multimpi_MPI_Group_compare(MPI_Group group1, MPI_Group group2,
   return func(group1, group2, result);
 }
 
-int multimpi_MPI_T_pvar_readreset(MPI_T_pvar_session session,
-                                  MPI_T_pvar_handle handle, void *buf) {
+int MPI_T_pvar_readreset(MPI_T_pvar_session session, MPI_T_pvar_handle handle,
+                         void *buf) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1724,7 +1696,7 @@ int multimpi_MPI_T_pvar_readreset(MPI_T_pvar_session session,
   return func(session, handle, buf);
 }
 
-int multimpi_MPI_Close_port(const char *port_name) {
+int MPI_Close_port(const char *port_name) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1738,8 +1710,8 @@ int multimpi_MPI_Close_port(const char *port_name) {
   return func(port_name);
 }
 
-int multimpi_MPI_Group_difference(MPI_Group group1, MPI_Group group2,
-                                  MPI_Group *newgroup) {
+int MPI_Group_difference(MPI_Group group1, MPI_Group group2,
+                         MPI_Group *newgroup) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1753,8 +1725,7 @@ int multimpi_MPI_Group_difference(MPI_Group group1, MPI_Group group2,
   return func(group1, group2, newgroup);
 }
 
-int multimpi_MPI_T_pvar_reset(MPI_T_pvar_session session,
-                              MPI_T_pvar_handle handle) {
+int MPI_T_pvar_reset(MPI_T_pvar_session session, MPI_T_pvar_handle handle) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1768,8 +1739,8 @@ int multimpi_MPI_T_pvar_reset(MPI_T_pvar_session session,
   return func(session, handle);
 }
 
-int multimpi_MPI_Comm_accept(const char *port_name, MPI_Info info, int root,
-                             MPI_Comm comm, MPI_Comm *newcomm) {
+int MPI_Comm_accept(const char *port_name, MPI_Info info, int root,
+                    MPI_Comm comm, MPI_Comm *newcomm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1783,8 +1754,8 @@ int multimpi_MPI_Comm_accept(const char *port_name, MPI_Info info, int root,
   return func(port_name, info, root, comm, newcomm);
 }
 
-int multimpi_MPI_Group_excl(MPI_Group group, int n, const int ranks[],
-                            MPI_Group *newgroup) {
+int MPI_Group_excl(MPI_Group group, int n, const int ranks[],
+                   MPI_Group *newgroup) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1798,7 +1769,7 @@ int multimpi_MPI_Group_excl(MPI_Group group, int n, const int ranks[],
   return func(group, n, ranks, newgroup);
 }
 
-int multimpi_MPI_T_pvar_session_create(MPI_T_pvar_session *session) {
+int MPI_T_pvar_session_create(MPI_T_pvar_session *session) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1812,7 +1783,7 @@ int multimpi_MPI_T_pvar_session_create(MPI_T_pvar_session *session) {
   return func(session);
 }
 
-int multimpi_MPI_Comm_call_errhandler(MPI_Comm comm, int errorcode) {
+int MPI_Comm_call_errhandler(MPI_Comm comm, int errorcode) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1826,7 +1797,7 @@ int multimpi_MPI_Comm_call_errhandler(MPI_Comm comm, int errorcode) {
   return func(comm, errorcode);
 }
 
-int multimpi_MPI_Group_free(MPI_Group *group) {
+int MPI_Group_free(MPI_Group *group) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1840,7 +1811,7 @@ int multimpi_MPI_Group_free(MPI_Group *group) {
   return func(group);
 }
 
-int multimpi_MPI_T_pvar_session_free(MPI_T_pvar_session *session) {
+int MPI_T_pvar_session_free(MPI_T_pvar_session *session) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1854,7 +1825,7 @@ int multimpi_MPI_T_pvar_session_free(MPI_T_pvar_session *session) {
   return func(session);
 }
 
-int multimpi_MPI_Comm_compare(MPI_Comm comm1, MPI_Comm comm2, int *result) {
+int MPI_Comm_compare(MPI_Comm comm1, MPI_Comm comm2, int *result) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1868,8 +1839,8 @@ int multimpi_MPI_Comm_compare(MPI_Comm comm1, MPI_Comm comm2, int *result) {
   return func(comm1, comm2, result);
 }
 
-int multimpi_MPI_Group_incl(MPI_Group group, int n, const int ranks[],
-                            MPI_Group *newgroup) {
+int MPI_Group_incl(MPI_Group group, int n, const int ranks[],
+                   MPI_Group *newgroup) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1883,8 +1854,7 @@ int multimpi_MPI_Group_incl(MPI_Group group, int n, const int ranks[],
   return func(group, n, ranks, newgroup);
 }
 
-int multimpi_MPI_T_pvar_start(MPI_T_pvar_session session,
-                              MPI_T_pvar_handle handle) {
+int MPI_T_pvar_start(MPI_T_pvar_session session, MPI_T_pvar_handle handle) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1898,8 +1868,8 @@ int multimpi_MPI_T_pvar_start(MPI_T_pvar_session session,
   return func(session, handle);
 }
 
-int multimpi_MPI_Comm_connect(const char *port_name, MPI_Info info, int root,
-                              MPI_Comm comm, MPI_Comm *newcomm) {
+int MPI_Comm_connect(const char *port_name, MPI_Info info, int root,
+                     MPI_Comm comm, MPI_Comm *newcomm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1913,8 +1883,8 @@ int multimpi_MPI_Comm_connect(const char *port_name, MPI_Info info, int root,
   return func(port_name, info, root, comm, newcomm);
 }
 
-int multimpi_MPI_Group_intersection(MPI_Group group1, MPI_Group group2,
-                                    MPI_Group *newgroup) {
+int MPI_Group_intersection(MPI_Group group1, MPI_Group group2,
+                           MPI_Group *newgroup) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1928,8 +1898,7 @@ int multimpi_MPI_Group_intersection(MPI_Group group1, MPI_Group group2,
   return func(group1, group2, newgroup);
 }
 
-int multimpi_MPI_T_pvar_stop(MPI_T_pvar_session session,
-                             MPI_T_pvar_handle handle) {
+int MPI_T_pvar_stop(MPI_T_pvar_session session, MPI_T_pvar_handle handle) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1943,8 +1912,7 @@ int multimpi_MPI_T_pvar_stop(MPI_T_pvar_session session,
   return func(session, handle);
 }
 
-int multimpi_MPI_Comm_create(MPI_Comm comm, MPI_Group group,
-                             MPI_Comm *newcomm) {
+int MPI_Comm_create(MPI_Comm comm, MPI_Group group, MPI_Comm *newcomm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1958,8 +1926,8 @@ int multimpi_MPI_Comm_create(MPI_Comm comm, MPI_Group group,
   return func(comm, group, newcomm);
 }
 
-int multimpi_MPI_Group_range_excl(MPI_Group group, int n, int ranges[][3],
-                                  MPI_Group *newgroup) {
+int MPI_Group_range_excl(MPI_Group group, int n, int ranges[][3],
+                         MPI_Group *newgroup) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1973,8 +1941,8 @@ int multimpi_MPI_Group_range_excl(MPI_Group group, int n, int ranges[][3],
   return func(group, n, ranges, newgroup);
 }
 
-int multimpi_MPI_T_pvar_write(MPI_T_pvar_session session,
-                              MPI_T_pvar_handle handle, void *buf) {
+int MPI_T_pvar_write(MPI_T_pvar_session session, MPI_T_pvar_handle handle,
+                     void *buf) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -1988,9 +1956,8 @@ int multimpi_MPI_T_pvar_write(MPI_T_pvar_session session,
   return func(session, handle, buf);
 }
 
-int multimpi_MPI_Comm_create_errhandler(
-    MPI_Comm_errhandler_function *comm_errhandler_fn,
-    MPI_Errhandler *errhandler) {
+int MPI_Comm_create_errhandler(MPI_Comm_errhandler_function *comm_errhandler_fn,
+                               MPI_Errhandler *errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2004,8 +1971,8 @@ int multimpi_MPI_Comm_create_errhandler(
   return func(comm_errhandler_fn, errhandler);
 }
 
-int multimpi_MPI_Group_range_incl(MPI_Group group, int n, int ranges[][3],
-                                  MPI_Group *newgroup) {
+int MPI_Group_range_incl(MPI_Group group, int n, int ranges[][3],
+                         MPI_Group *newgroup) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2019,7 +1986,7 @@ int multimpi_MPI_Group_range_incl(MPI_Group group, int n, int ranges[][3],
   return func(group, n, ranges, newgroup);
 }
 
-int multimpi_MPI_Test(MPI_Request *request, int *flag, MPI_Status *status) {
+int MPI_Test(MPI_Request *request, int *flag, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2033,8 +2000,8 @@ int multimpi_MPI_Test(MPI_Request *request, int *flag, MPI_Status *status) {
   return func(request, flag, status);
 }
 
-int multimpi_MPI_Comm_create_group(MPI_Comm comm, MPI_Group group, int tag,
-                                   MPI_Comm *newcomm) {
+int MPI_Comm_create_group(MPI_Comm comm, MPI_Group group, int tag,
+                          MPI_Comm *newcomm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2048,7 +2015,7 @@ int multimpi_MPI_Comm_create_group(MPI_Comm comm, MPI_Group group, int tag,
   return func(comm, group, tag, newcomm);
 }
 
-int multimpi_MPI_Group_rank(MPI_Group group, int *rank) {
+int MPI_Group_rank(MPI_Group group, int *rank) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2062,7 +2029,7 @@ int multimpi_MPI_Group_rank(MPI_Group group, int *rank) {
   return func(group, rank);
 }
 
-int multimpi_MPI_Test_cancelled(const MPI_Status *status, int *flag) {
+int MPI_Test_cancelled(const MPI_Status *status, int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2076,10 +2043,9 @@ int multimpi_MPI_Test_cancelled(const MPI_Status *status, int *flag) {
   return func(status, flag);
 }
 
-int multimpi_MPI_Comm_create_keyval(
-    MPI_Comm_copy_attr_function *comm_copy_attr_fn,
-    MPI_Comm_delete_attr_function *comm_delete_attr_fn, int *comm_keyval,
-    void *extra_state) {
+int MPI_Comm_create_keyval(MPI_Comm_copy_attr_function *comm_copy_attr_fn,
+                           MPI_Comm_delete_attr_function *comm_delete_attr_fn,
+                           int *comm_keyval, void *extra_state) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2094,7 +2060,7 @@ int multimpi_MPI_Comm_create_keyval(
   return func(comm_copy_attr_fn, comm_delete_attr_fn, comm_keyval, extra_state);
 }
 
-int multimpi_MPI_Group_size(MPI_Group group, int *size) {
+int MPI_Group_size(MPI_Group group, int *size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2108,8 +2074,8 @@ int multimpi_MPI_Group_size(MPI_Group group, int *size) {
   return func(group, size);
 }
 
-int multimpi_MPI_Testall(int count, MPI_Request array_of_requests[], int *flag,
-                         MPI_Status array_of_statuses[]) {
+int MPI_Testall(int count, MPI_Request array_of_requests[], int *flag,
+                MPI_Status array_of_statuses[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2123,7 +2089,7 @@ int multimpi_MPI_Testall(int count, MPI_Request array_of_requests[], int *flag,
   return func(count, array_of_requests, flag, array_of_statuses);
 }
 
-int multimpi_MPI_Comm_delete_attr(MPI_Comm comm, int comm_keyval) {
+int MPI_Comm_delete_attr(MPI_Comm comm, int comm_keyval) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2137,9 +2103,8 @@ int multimpi_MPI_Comm_delete_attr(MPI_Comm comm, int comm_keyval) {
   return func(comm, comm_keyval);
 }
 
-int multimpi_MPI_Group_translate_ranks(MPI_Group group1, int n,
-                                       const int ranks1[], MPI_Group group2,
-                                       int ranks2[]) {
+int MPI_Group_translate_ranks(MPI_Group group1, int n, const int ranks1[],
+                              MPI_Group group2, int ranks2[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2153,8 +2118,8 @@ int multimpi_MPI_Group_translate_ranks(MPI_Group group1, int n,
   return func(group1, n, ranks1, group2, ranks2);
 }
 
-int multimpi_MPI_Testany(int count, MPI_Request array_of_requests[], int *indx,
-                         int *flag, MPI_Status *status) {
+int MPI_Testany(int count, MPI_Request array_of_requests[], int *indx,
+                int *flag, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2168,7 +2133,7 @@ int multimpi_MPI_Testany(int count, MPI_Request array_of_requests[], int *indx,
   return func(count, array_of_requests, indx, flag, status);
 }
 
-int multimpi_MPI_Comm_disconnect(MPI_Comm *comm) {
+int MPI_Comm_disconnect(MPI_Comm *comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2182,8 +2147,7 @@ int multimpi_MPI_Comm_disconnect(MPI_Comm *comm) {
   return func(comm);
 }
 
-int multimpi_MPI_Group_union(MPI_Group group1, MPI_Group group2,
-                             MPI_Group *newgroup) {
+int MPI_Group_union(MPI_Group group1, MPI_Group group2, MPI_Group *newgroup) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2197,9 +2161,8 @@ int multimpi_MPI_Group_union(MPI_Group group1, MPI_Group group2,
   return func(group1, group2, newgroup);
 }
 
-int multimpi_MPI_Testsome(int incount, MPI_Request array_of_requests[],
-                          int *outcount, int array_of_indices[],
-                          MPI_Status array_of_statuses[]) {
+int MPI_Testsome(int incount, MPI_Request array_of_requests[], int *outcount,
+                 int array_of_indices[], MPI_Status array_of_statuses[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2214,7 +2177,7 @@ int multimpi_MPI_Testsome(int incount, MPI_Request array_of_requests[],
               array_of_statuses);
 }
 
-int multimpi_MPI_Comm_dup(MPI_Comm comm, MPI_Comm *newcomm) {
+int MPI_Comm_dup(MPI_Comm comm, MPI_Comm *newcomm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2228,10 +2191,9 @@ int multimpi_MPI_Comm_dup(MPI_Comm comm, MPI_Comm *newcomm) {
   return func(comm, newcomm);
 }
 
-int multimpi_MPI_Iallgather(const void *sendbuf, int sendcount,
-                            MPI_Datatype sendtype, void *recvbuf, int recvcount,
-                            MPI_Datatype recvtype, MPI_Comm comm,
-                            MPI_Request *request) {
+int MPI_Iallgather(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                   void *recvbuf, int recvcount, MPI_Datatype recvtype,
+                   MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2247,7 +2209,7 @@ int multimpi_MPI_Iallgather(const void *sendbuf, int sendcount,
               request);
 }
 
-int multimpi_MPI_Topo_test(MPI_Comm comm, int *status) {
+int MPI_Topo_test(MPI_Comm comm, int *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2261,8 +2223,7 @@ int multimpi_MPI_Topo_test(MPI_Comm comm, int *status) {
   return func(comm, status);
 }
 
-int multimpi_MPI_Comm_dup_with_info(MPI_Comm comm, MPI_Info info,
-                                    MPI_Comm *newcomm) {
+int MPI_Comm_dup_with_info(MPI_Comm comm, MPI_Info info, MPI_Comm *newcomm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2276,11 +2237,10 @@ int multimpi_MPI_Comm_dup_with_info(MPI_Comm comm, MPI_Info info,
   return func(comm, info, newcomm);
 }
 
-int multimpi_MPI_Iallgatherv(const void *sendbuf, int sendcount,
-                             MPI_Datatype sendtype, void *recvbuf,
-                             const int recvcounts[], const int displs[],
-                             MPI_Datatype recvtype, MPI_Comm comm,
-                             MPI_Request *request) {
+int MPI_Iallgatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                    void *recvbuf, const int recvcounts[], const int displs[],
+                    MPI_Datatype recvtype, MPI_Comm comm,
+                    MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2296,7 +2256,7 @@ int multimpi_MPI_Iallgatherv(const void *sendbuf, int sendcount,
               recvtype, comm, request);
 }
 
-int multimpi_MPI_Type_commit(MPI_Datatype *datatype) {
+int MPI_Type_commit(MPI_Datatype *datatype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2310,7 +2270,7 @@ int multimpi_MPI_Type_commit(MPI_Datatype *datatype) {
   return func(datatype);
 }
 
-int multimpi_MPI_Comm_free(MPI_Comm *comm) {
+int MPI_Comm_free(MPI_Comm *comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2324,9 +2284,9 @@ int multimpi_MPI_Comm_free(MPI_Comm *comm) {
   return func(comm);
 }
 
-int multimpi_MPI_Iallreduce(const void *sendbuf, void *recvbuf, int count,
-                            MPI_Datatype datatype, MPI_Op op, MPI_Comm comm,
-                            MPI_Request *request) {
+int MPI_Iallreduce(const void *sendbuf, void *recvbuf, int count,
+                   MPI_Datatype datatype, MPI_Op op, MPI_Comm comm,
+                   MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2341,8 +2301,8 @@ int multimpi_MPI_Iallreduce(const void *sendbuf, void *recvbuf, int count,
   return func(sendbuf, recvbuf, count, datatype, op, comm, request);
 }
 
-int multimpi_MPI_Type_contiguous(int count, MPI_Datatype oldtype,
-                                 MPI_Datatype *newtype) {
+int MPI_Type_contiguous(int count, MPI_Datatype oldtype,
+                        MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2356,7 +2316,7 @@ int multimpi_MPI_Type_contiguous(int count, MPI_Datatype oldtype,
   return func(count, oldtype, newtype);
 }
 
-int multimpi_MPI_Comm_free_keyval(int *comm_keyval) {
+int MPI_Comm_free_keyval(int *comm_keyval) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2370,10 +2330,9 @@ int multimpi_MPI_Comm_free_keyval(int *comm_keyval) {
   return func(comm_keyval);
 }
 
-int multimpi_MPI_Ialltoall(const void *sendbuf, int sendcount,
-                           MPI_Datatype sendtype, void *recvbuf, int recvcount,
-                           MPI_Datatype recvtype, MPI_Comm comm,
-                           MPI_Request *request) {
+int MPI_Ialltoall(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                  void *recvbuf, int recvcount, MPI_Datatype recvtype,
+                  MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2389,13 +2348,12 @@ int multimpi_MPI_Ialltoall(const void *sendbuf, int sendcount,
               request);
 }
 
-int multimpi_MPI_Type_create_darray(int size, int rank, int ndims,
-                                    const int array_of_gsizes[],
-                                    const int array_of_distribs[],
-                                    const int array_of_dargs[],
-                                    const int array_of_psizes[], int order,
-                                    MPI_Datatype oldtype,
-                                    MPI_Datatype *newtype) {
+int MPI_Type_create_darray(int size, int rank, int ndims,
+                           const int array_of_gsizes[],
+                           const int array_of_distribs[],
+                           const int array_of_dargs[],
+                           const int array_of_psizes[], int order,
+                           MPI_Datatype oldtype, MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2411,8 +2369,8 @@ int multimpi_MPI_Type_create_darray(int size, int rank, int ndims,
               array_of_dargs, array_of_psizes, order, oldtype, newtype);
 }
 
-int multimpi_MPI_Comm_get_attr(MPI_Comm comm, int comm_keyval,
-                               void *attribute_val, int *flag) {
+int MPI_Comm_get_attr(MPI_Comm comm, int comm_keyval, void *attribute_val,
+                      int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2426,11 +2384,10 @@ int multimpi_MPI_Comm_get_attr(MPI_Comm comm, int comm_keyval,
   return func(comm, comm_keyval, attribute_val, flag);
 }
 
-int multimpi_MPI_Ialltoallv(const void *sendbuf, const int sendcounts[],
-                            const int sdispls[], MPI_Datatype sendtype,
-                            void *recvbuf, const int recvcounts[],
-                            const int rdispls[], MPI_Datatype recvtype,
-                            MPI_Comm comm, MPI_Request *request) {
+int MPI_Ialltoallv(const void *sendbuf, const int sendcounts[],
+                   const int sdispls[], MPI_Datatype sendtype, void *recvbuf,
+                   const int recvcounts[], const int rdispls[],
+                   MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2447,8 +2404,8 @@ int multimpi_MPI_Ialltoallv(const void *sendbuf, const int sendcounts[],
               rdispls, recvtype, comm, request);
 }
 
-int multimpi_MPI_Type_create_f90_complex(int precision, int range,
-                                         MPI_Datatype *newtype) {
+int MPI_Type_create_f90_complex(int precision, int range,
+                                MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2462,8 +2419,7 @@ int multimpi_MPI_Type_create_f90_complex(int precision, int range,
   return func(precision, range, newtype);
 }
 
-int multimpi_MPI_Comm_get_errhandler(MPI_Comm comm,
-                                     MPI_Errhandler *errhandler) {
+int MPI_Comm_get_errhandler(MPI_Comm comm, MPI_Errhandler *errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2477,11 +2433,11 @@ int multimpi_MPI_Comm_get_errhandler(MPI_Comm comm,
   return func(comm, errhandler);
 }
 
-int multimpi_MPI_Ialltoallw(const void *sendbuf, const int sendcounts[],
-                            const int sdispls[], const MPI_Datatype sendtypes[],
-                            void *recvbuf, const int recvcounts[],
-                            const int rdispls[], const MPI_Datatype recvtypes[],
-                            MPI_Comm comm, MPI_Request *request) {
+int MPI_Ialltoallw(const void *sendbuf, const int sendcounts[],
+                   const int sdispls[], const MPI_Datatype sendtypes[],
+                   void *recvbuf, const int recvcounts[], const int rdispls[],
+                   const MPI_Datatype recvtypes[], MPI_Comm comm,
+                   MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2498,7 +2454,7 @@ int multimpi_MPI_Ialltoallw(const void *sendbuf, const int sendcounts[],
               rdispls, recvtypes, comm, request);
 }
 
-int multimpi_MPI_Type_create_f90_integer(int range, MPI_Datatype *newtype) {
+int MPI_Type_create_f90_integer(int range, MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2512,7 +2468,7 @@ int multimpi_MPI_Type_create_f90_integer(int range, MPI_Datatype *newtype) {
   return func(range, newtype);
 }
 
-int multimpi_MPI_Comm_get_info(MPI_Comm comm, MPI_Info *info_used) {
+int MPI_Comm_get_info(MPI_Comm comm, MPI_Info *info_used) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2526,7 +2482,7 @@ int multimpi_MPI_Comm_get_info(MPI_Comm comm, MPI_Info *info_used) {
   return func(comm, info_used);
 }
 
-int multimpi_MPI_Ibarrier(MPI_Comm comm, MPI_Request *request) {
+int MPI_Ibarrier(MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2540,8 +2496,7 @@ int multimpi_MPI_Ibarrier(MPI_Comm comm, MPI_Request *request) {
   return func(comm, request);
 }
 
-int multimpi_MPI_Type_create_f90_real(int precision, int range,
-                                      MPI_Datatype *newtype) {
+int MPI_Type_create_f90_real(int precision, int range, MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2555,7 +2510,7 @@ int multimpi_MPI_Type_create_f90_real(int precision, int range,
   return func(precision, range, newtype);
 }
 
-int multimpi_MPI_Comm_get_name(MPI_Comm comm, char *comm_name, int *resultlen) {
+int MPI_Comm_get_name(MPI_Comm comm, char *comm_name, int *resultlen) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2569,8 +2524,8 @@ int multimpi_MPI_Comm_get_name(MPI_Comm comm, char *comm_name, int *resultlen) {
   return func(comm, comm_name, resultlen);
 }
 
-int multimpi_MPI_Ibcast(void *buffer, int count, MPI_Datatype datatype,
-                        int root, MPI_Comm comm, MPI_Request *request) {
+int MPI_Ibcast(void *buffer, int count, MPI_Datatype datatype, int root,
+               MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2584,11 +2539,9 @@ int multimpi_MPI_Ibcast(void *buffer, int count, MPI_Datatype datatype,
   return func(buffer, count, datatype, root, comm, request);
 }
 
-int multimpi_MPI_Type_create_hindexed(int count,
-                                      const int array_of_blocklengths[],
-                                      const MPI_Aint array_of_displacements[],
-                                      MPI_Datatype oldtype,
-                                      MPI_Datatype *newtype) {
+int MPI_Type_create_hindexed(int count, const int array_of_blocklengths[],
+                             const MPI_Aint array_of_displacements[],
+                             MPI_Datatype oldtype, MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2604,7 +2557,7 @@ int multimpi_MPI_Type_create_hindexed(int count,
               newtype);
 }
 
-int multimpi_MPI_Comm_get_parent(MPI_Comm *parent) {
+int MPI_Comm_get_parent(MPI_Comm *parent) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2618,9 +2571,8 @@ int multimpi_MPI_Comm_get_parent(MPI_Comm *parent) {
   return func(parent);
 }
 
-int multimpi_MPI_Ibsend(const void *buf, int count, MPI_Datatype datatype,
-                        int dest, int tag, MPI_Comm comm,
-                        MPI_Request *request) {
+int MPI_Ibsend(const void *buf, int count, MPI_Datatype datatype, int dest,
+               int tag, MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2635,9 +2587,10 @@ int multimpi_MPI_Ibsend(const void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, dest, tag, comm, request);
 }
 
-int multimpi_MPI_Type_create_hindexed_block(
-    int count, int blocklength, const MPI_Aint array_of_displacements[],
-    MPI_Datatype oldtype, MPI_Datatype *newtype) {
+int MPI_Type_create_hindexed_block(int count, int blocklength,
+                                   const MPI_Aint array_of_displacements[],
+                                   MPI_Datatype oldtype,
+                                   MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2651,7 +2604,7 @@ int multimpi_MPI_Type_create_hindexed_block(
   return func(count, blocklength, array_of_displacements, oldtype, newtype);
 }
 
-int multimpi_MPI_Comm_group(MPI_Comm comm, MPI_Group *group) {
+int MPI_Comm_group(MPI_Comm comm, MPI_Group *group) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2665,9 +2618,9 @@ int multimpi_MPI_Comm_group(MPI_Comm comm, MPI_Group *group) {
   return func(comm, group);
 }
 
-int multimpi_MPI_Iexscan(const void *sendbuf, void *recvbuf, int count,
-                         MPI_Datatype datatype, MPI_Op op, MPI_Comm comm,
-                         MPI_Request *request) {
+int MPI_Iexscan(const void *sendbuf, void *recvbuf, int count,
+                MPI_Datatype datatype, MPI_Op op, MPI_Comm comm,
+                MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2682,9 +2635,8 @@ int multimpi_MPI_Iexscan(const void *sendbuf, void *recvbuf, int count,
   return func(sendbuf, recvbuf, count, datatype, op, comm, request);
 }
 
-int multimpi_MPI_Type_create_hvector(int count, int blocklength,
-                                     MPI_Aint stride, MPI_Datatype oldtype,
-                                     MPI_Datatype *newtype) {
+int MPI_Type_create_hvector(int count, int blocklength, MPI_Aint stride,
+                            MPI_Datatype oldtype, MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2698,8 +2650,7 @@ int multimpi_MPI_Type_create_hvector(int count, int blocklength,
   return func(count, blocklength, stride, oldtype, newtype);
 }
 
-int multimpi_MPI_Comm_idup(MPI_Comm comm, MPI_Comm *newcomm,
-                           MPI_Request *request) {
+int MPI_Comm_idup(MPI_Comm comm, MPI_Comm *newcomm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2713,10 +2664,9 @@ int multimpi_MPI_Comm_idup(MPI_Comm comm, MPI_Comm *newcomm,
   return func(comm, newcomm, request);
 }
 
-int multimpi_MPI_Igather(const void *sendbuf, int sendcount,
-                         MPI_Datatype sendtype, void *recvbuf, int recvcount,
-                         MPI_Datatype recvtype, int root, MPI_Comm comm,
-                         MPI_Request *request) {
+int MPI_Igather(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                void *recvbuf, int recvcount, MPI_Datatype recvtype, int root,
+                MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2732,10 +2682,9 @@ int multimpi_MPI_Igather(const void *sendbuf, int sendcount,
               comm, request);
 }
 
-int multimpi_MPI_Type_create_indexed_block(int count, int blocklength,
-                                           const int array_of_displacements[],
-                                           MPI_Datatype oldtype,
-                                           MPI_Datatype *newtype) {
+int MPI_Type_create_indexed_block(int count, int blocklength,
+                                  const int array_of_displacements[],
+                                  MPI_Datatype oldtype, MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2749,7 +2698,7 @@ int multimpi_MPI_Type_create_indexed_block(int count, int blocklength,
   return func(count, blocklength, array_of_displacements, oldtype, newtype);
 }
 
-int multimpi_MPI_Comm_join(int fd, MPI_Comm *intercomm) {
+int MPI_Comm_join(int fd, MPI_Comm *intercomm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2763,11 +2712,10 @@ int multimpi_MPI_Comm_join(int fd, MPI_Comm *intercomm) {
   return func(fd, intercomm);
 }
 
-int multimpi_MPI_Igatherv(const void *sendbuf, int sendcount,
-                          MPI_Datatype sendtype, void *recvbuf,
-                          const int recvcounts[], const int displs[],
-                          MPI_Datatype recvtype, int root, MPI_Comm comm,
-                          MPI_Request *request) {
+int MPI_Igatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                 void *recvbuf, const int recvcounts[], const int displs[],
+                 MPI_Datatype recvtype, int root, MPI_Comm comm,
+                 MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2783,10 +2731,9 @@ int multimpi_MPI_Igatherv(const void *sendbuf, int sendcount,
               recvtype, root, comm, request);
 }
 
-int multimpi_MPI_Type_create_keyval(
-    MPI_Type_copy_attr_function *type_copy_attr_fn,
-    MPI_Type_delete_attr_function *type_delete_attr_fn, int *type_keyval,
-    void *extra_state) {
+int MPI_Type_create_keyval(MPI_Type_copy_attr_function *type_copy_attr_fn,
+                           MPI_Type_delete_attr_function *type_delete_attr_fn,
+                           int *type_keyval, void *extra_state) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2801,7 +2748,7 @@ int multimpi_MPI_Type_create_keyval(
   return func(type_copy_attr_fn, type_delete_attr_fn, type_keyval, extra_state);
 }
 
-int multimpi_MPI_Comm_rank(MPI_Comm comm, int *rank) {
+int MPI_Comm_rank(MPI_Comm comm, int *rank) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2815,8 +2762,8 @@ int multimpi_MPI_Comm_rank(MPI_Comm comm, int *rank) {
   return func(comm, rank);
 }
 
-int multimpi_MPI_Improbe(int source, int tag, MPI_Comm comm, int *flag,
-                         MPI_Message *message, MPI_Status *status) {
+int MPI_Improbe(int source, int tag, MPI_Comm comm, int *flag,
+                MPI_Message *message, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2830,8 +2777,8 @@ int multimpi_MPI_Improbe(int source, int tag, MPI_Comm comm, int *flag,
   return func(source, tag, comm, flag, message, status);
 }
 
-int multimpi_MPI_Type_create_resized(MPI_Datatype oldtype, MPI_Aint lb,
-                                     MPI_Aint extent, MPI_Datatype *newtype) {
+int MPI_Type_create_resized(MPI_Datatype oldtype, MPI_Aint lb, MPI_Aint extent,
+                            MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2845,7 +2792,7 @@ int multimpi_MPI_Type_create_resized(MPI_Datatype oldtype, MPI_Aint lb,
   return func(oldtype, lb, extent, newtype);
 }
 
-int multimpi_MPI_Comm_remote_group(MPI_Comm comm, MPI_Group *group) {
+int MPI_Comm_remote_group(MPI_Comm comm, MPI_Group *group) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2859,8 +2806,8 @@ int multimpi_MPI_Comm_remote_group(MPI_Comm comm, MPI_Group *group) {
   return func(comm, group);
 }
 
-int multimpi_MPI_Imrecv(void *buf, int count, MPI_Datatype datatype,
-                        MPI_Message *message, MPI_Request *request) {
+int MPI_Imrecv(void *buf, int count, MPI_Datatype datatype,
+               MPI_Message *message, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2874,11 +2821,10 @@ int multimpi_MPI_Imrecv(void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, message, request);
 }
 
-int multimpi_MPI_Type_create_struct(int count,
-                                    const int array_of_blocklengths[],
-                                    const MPI_Aint array_of_displacements[],
-                                    const MPI_Datatype array_of_types[],
-                                    MPI_Datatype *newtype) {
+int MPI_Type_create_struct(int count, const int array_of_blocklengths[],
+                           const MPI_Aint array_of_displacements[],
+                           const MPI_Datatype array_of_types[],
+                           MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2894,7 +2840,7 @@ int multimpi_MPI_Type_create_struct(int count,
               array_of_types, newtype);
 }
 
-int multimpi_MPI_Comm_remote_size(MPI_Comm comm, int *size) {
+int MPI_Comm_remote_size(MPI_Comm comm, int *size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2908,10 +2854,10 @@ int multimpi_MPI_Comm_remote_size(MPI_Comm comm, int *size) {
   return func(comm, size);
 }
 
-int multimpi_MPI_Ineighbor_allgather(const void *sendbuf, int sendcount,
-                                     MPI_Datatype sendtype, void *recvbuf,
-                                     int recvcount, MPI_Datatype recvtype,
-                                     MPI_Comm comm, MPI_Request *request) {
+int MPI_Ineighbor_allgather(const void *sendbuf, int sendcount,
+                            MPI_Datatype sendtype, void *recvbuf, int recvcount,
+                            MPI_Datatype recvtype, MPI_Comm comm,
+                            MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2927,11 +2873,10 @@ int multimpi_MPI_Ineighbor_allgather(const void *sendbuf, int sendcount,
               request);
 }
 
-int multimpi_MPI_Type_create_subarray(int ndims, const int array_of_sizes[],
-                                      const int array_of_subsizes[],
-                                      const int array_of_starts[], int order,
-                                      MPI_Datatype oldtype,
-                                      MPI_Datatype *newtype) {
+int MPI_Type_create_subarray(int ndims, const int array_of_sizes[],
+                             const int array_of_subsizes[],
+                             const int array_of_starts[], int order,
+                             MPI_Datatype oldtype, MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2947,8 +2892,7 @@ int multimpi_MPI_Type_create_subarray(int ndims, const int array_of_sizes[],
               oldtype, newtype);
 }
 
-int multimpi_MPI_Comm_set_attr(MPI_Comm comm, int comm_keyval,
-                               void *attribute_val) {
+int MPI_Comm_set_attr(MPI_Comm comm, int comm_keyval, void *attribute_val) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2962,11 +2906,11 @@ int multimpi_MPI_Comm_set_attr(MPI_Comm comm, int comm_keyval,
   return func(comm, comm_keyval, attribute_val);
 }
 
-int multimpi_MPI_Ineighbor_allgatherv(const void *sendbuf, int sendcount,
-                                      MPI_Datatype sendtype, void *recvbuf,
-                                      const int recvcounts[],
-                                      const int displs[], MPI_Datatype recvtype,
-                                      MPI_Comm comm, MPI_Request *request) {
+int MPI_Ineighbor_allgatherv(const void *sendbuf, int sendcount,
+                             MPI_Datatype sendtype, void *recvbuf,
+                             const int recvcounts[], const int displs[],
+                             MPI_Datatype recvtype, MPI_Comm comm,
+                             MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2982,7 +2926,7 @@ int multimpi_MPI_Ineighbor_allgatherv(const void *sendbuf, int sendcount,
               recvtype, comm, request);
 }
 
-int multimpi_MPI_Type_delete_attr(MPI_Datatype datatype, int type_keyval) {
+int MPI_Type_delete_attr(MPI_Datatype datatype, int type_keyval) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -2996,7 +2940,7 @@ int multimpi_MPI_Type_delete_attr(MPI_Datatype datatype, int type_keyval) {
   return func(datatype, type_keyval);
 }
 
-int multimpi_MPI_Comm_set_errhandler(MPI_Comm comm, MPI_Errhandler errhandler) {
+int MPI_Comm_set_errhandler(MPI_Comm comm, MPI_Errhandler errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3010,10 +2954,10 @@ int multimpi_MPI_Comm_set_errhandler(MPI_Comm comm, MPI_Errhandler errhandler) {
   return func(comm, errhandler);
 }
 
-int multimpi_MPI_Ineighbor_alltoall(const void *sendbuf, int sendcount,
-                                    MPI_Datatype sendtype, void *recvbuf,
-                                    int recvcount, MPI_Datatype recvtype,
-                                    MPI_Comm comm, MPI_Request *request) {
+int MPI_Ineighbor_alltoall(const void *sendbuf, int sendcount,
+                           MPI_Datatype sendtype, void *recvbuf, int recvcount,
+                           MPI_Datatype recvtype, MPI_Comm comm,
+                           MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3029,7 +2973,7 @@ int multimpi_MPI_Ineighbor_alltoall(const void *sendbuf, int sendcount,
               request);
 }
 
-int multimpi_MPI_Type_dup(MPI_Datatype oldtype, MPI_Datatype *newtype) {
+int MPI_Type_dup(MPI_Datatype oldtype, MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3043,7 +2987,7 @@ int multimpi_MPI_Type_dup(MPI_Datatype oldtype, MPI_Datatype *newtype) {
   return func(oldtype, newtype);
 }
 
-int multimpi_MPI_Comm_set_info(MPI_Comm comm, MPI_Info info) {
+int MPI_Comm_set_info(MPI_Comm comm, MPI_Info info) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3057,12 +3001,11 @@ int multimpi_MPI_Comm_set_info(MPI_Comm comm, MPI_Info info) {
   return func(comm, info);
 }
 
-int multimpi_MPI_Ineighbor_alltoallv(const void *sendbuf,
-                                     const int sendcounts[],
-                                     const int sdispls[], MPI_Datatype sendtype,
-                                     void *recvbuf, const int recvcounts[],
-                                     const int rdispls[], MPI_Datatype recvtype,
-                                     MPI_Comm comm, MPI_Request *request) {
+int MPI_Ineighbor_alltoallv(const void *sendbuf, const int sendcounts[],
+                            const int sdispls[], MPI_Datatype sendtype,
+                            void *recvbuf, const int recvcounts[],
+                            const int rdispls[], MPI_Datatype recvtype,
+                            MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3079,7 +3022,7 @@ int multimpi_MPI_Ineighbor_alltoallv(const void *sendbuf,
               rdispls, recvtype, comm, request);
 }
 
-int multimpi_MPI_Type_extent(MPI_Datatype datatype, MPI_Aint *extent) {
+int MPI_Type_extent(MPI_Datatype datatype, MPI_Aint *extent) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3093,7 +3036,7 @@ int multimpi_MPI_Type_extent(MPI_Datatype datatype, MPI_Aint *extent) {
   return func(datatype, extent);
 }
 
-int multimpi_MPI_Comm_set_name(MPI_Comm comm, const char *comm_name) {
+int MPI_Comm_set_name(MPI_Comm comm, const char *comm_name) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3107,11 +3050,12 @@ int multimpi_MPI_Comm_set_name(MPI_Comm comm, const char *comm_name) {
   return func(comm, comm_name);
 }
 
-int multimpi_MPI_Ineighbor_alltoallw(
-    const void *sendbuf, const int sendcounts[], const MPI_Aint sdispls[],
-    const MPI_Datatype sendtypes[], void *recvbuf, const int recvcounts[],
-    const MPI_Aint rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm,
-    MPI_Request *request) {
+int MPI_Ineighbor_alltoallw(const void *sendbuf, const int sendcounts[],
+                            const MPI_Aint sdispls[],
+                            const MPI_Datatype sendtypes[], void *recvbuf,
+                            const int recvcounts[], const MPI_Aint rdispls[],
+                            const MPI_Datatype recvtypes[], MPI_Comm comm,
+                            MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3129,7 +3073,7 @@ int multimpi_MPI_Ineighbor_alltoallw(
               rdispls, recvtypes, comm, request);
 }
 
-int multimpi_MPI_Type_free(MPI_Datatype *datatype) {
+int MPI_Type_free(MPI_Datatype *datatype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3143,7 +3087,7 @@ int multimpi_MPI_Type_free(MPI_Datatype *datatype) {
   return func(datatype);
 }
 
-int multimpi_MPI_Comm_size(MPI_Comm comm, int *size) {
+int MPI_Comm_size(MPI_Comm comm, int *size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3157,7 +3101,7 @@ int multimpi_MPI_Comm_size(MPI_Comm comm, int *size) {
   return func(comm, size);
 }
 
-int multimpi_MPI_Info_create(MPI_Info *info) {
+int MPI_Info_create(MPI_Info *info) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3171,7 +3115,7 @@ int multimpi_MPI_Info_create(MPI_Info *info) {
   return func(info);
 }
 
-int multimpi_MPI_Type_free_keyval(int *type_keyval) {
+int MPI_Type_free_keyval(int *type_keyval) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3185,9 +3129,9 @@ int multimpi_MPI_Type_free_keyval(int *type_keyval) {
   return func(type_keyval);
 }
 
-int multimpi_MPI_Comm_spawn(const char *command, char *argv[], int maxprocs,
-                            MPI_Info info, int root, MPI_Comm comm,
-                            MPI_Comm *intercomm, int array_of_errcodes[]) {
+int MPI_Comm_spawn(const char *command, char *argv[], int maxprocs,
+                   MPI_Info info, int root, MPI_Comm comm, MPI_Comm *intercomm,
+                   int array_of_errcodes[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3203,7 +3147,7 @@ int multimpi_MPI_Comm_spawn(const char *command, char *argv[], int maxprocs,
               array_of_errcodes);
 }
 
-int multimpi_MPI_Info_delete(MPI_Info info, const char *key) {
+int MPI_Info_delete(MPI_Info info, const char *key) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3217,8 +3161,8 @@ int multimpi_MPI_Info_delete(MPI_Info info, const char *key) {
   return func(info, key);
 }
 
-int multimpi_MPI_Type_get_attr(MPI_Datatype datatype, int type_keyval,
-                               void *attribute_val, int *flag) {
+int MPI_Type_get_attr(MPI_Datatype datatype, int type_keyval,
+                      void *attribute_val, int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3232,12 +3176,12 @@ int multimpi_MPI_Type_get_attr(MPI_Datatype datatype, int type_keyval,
   return func(datatype, type_keyval, attribute_val, flag);
 }
 
-int multimpi_MPI_Comm_spawn_multiple(int count, char *array_of_commands[],
-                                     char **array_of_argv[],
-                                     const int array_of_maxprocs[],
-                                     const MPI_Info array_of_info[], int root,
-                                     MPI_Comm comm, MPI_Comm *intercomm,
-                                     int array_of_errcodes[]) {
+int MPI_Comm_spawn_multiple(int count, char *array_of_commands[],
+                            char **array_of_argv[],
+                            const int array_of_maxprocs[],
+                            const MPI_Info array_of_info[], int root,
+                            MPI_Comm comm, MPI_Comm *intercomm,
+                            int array_of_errcodes[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3253,7 +3197,7 @@ int multimpi_MPI_Comm_spawn_multiple(int count, char *array_of_commands[],
               array_of_info, root, comm, intercomm, array_of_errcodes);
 }
 
-int multimpi_MPI_Info_dup(MPI_Info info, MPI_Info *newinfo) {
+int MPI_Info_dup(MPI_Info info, MPI_Info *newinfo) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3267,11 +3211,11 @@ int multimpi_MPI_Info_dup(MPI_Info info, MPI_Info *newinfo) {
   return func(info, newinfo);
 }
 
-int multimpi_MPI_Type_get_contents(MPI_Datatype datatype, int max_integers,
-                                   int max_addresses, int max_datatypes,
-                                   int array_of_integers[],
-                                   MPI_Aint array_of_addresses[],
-                                   MPI_Datatype array_of_datatypes[]) {
+int MPI_Type_get_contents(MPI_Datatype datatype, int max_integers,
+                          int max_addresses, int max_datatypes,
+                          int array_of_integers[],
+                          MPI_Aint array_of_addresses[],
+                          MPI_Datatype array_of_datatypes[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3287,8 +3231,7 @@ int multimpi_MPI_Type_get_contents(MPI_Datatype datatype, int max_integers,
               array_of_integers, array_of_addresses, array_of_datatypes);
 }
 
-int multimpi_MPI_Comm_split(MPI_Comm comm, int color, int key,
-                            MPI_Comm *newcomm) {
+int MPI_Comm_split(MPI_Comm comm, int color, int key, MPI_Comm *newcomm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3302,7 +3245,7 @@ int multimpi_MPI_Comm_split(MPI_Comm comm, int color, int key,
   return func(comm, color, key, newcomm);
 }
 
-int multimpi_MPI_Info_free(MPI_Info *info) {
+int MPI_Info_free(MPI_Info *info) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3316,9 +3259,9 @@ int multimpi_MPI_Info_free(MPI_Info *info) {
   return func(info);
 }
 
-int multimpi_MPI_Type_get_envelope(MPI_Datatype datatype, int *num_integers,
-                                   int *num_addresses, int *num_datatypes,
-                                   int *combiner) {
+int MPI_Type_get_envelope(MPI_Datatype datatype, int *num_integers,
+                          int *num_addresses, int *num_datatypes,
+                          int *combiner) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3332,8 +3275,8 @@ int multimpi_MPI_Type_get_envelope(MPI_Datatype datatype, int *num_integers,
   return func(datatype, num_integers, num_addresses, num_datatypes, combiner);
 }
 
-int multimpi_MPI_Comm_split_type(MPI_Comm comm, int split_type, int key,
-                                 MPI_Info info, MPI_Comm *newcomm) {
+int MPI_Comm_split_type(MPI_Comm comm, int split_type, int key, MPI_Info info,
+                        MPI_Comm *newcomm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3347,8 +3290,8 @@ int multimpi_MPI_Comm_split_type(MPI_Comm comm, int split_type, int key,
   return func(comm, split_type, key, info, newcomm);
 }
 
-int multimpi_MPI_Info_get(MPI_Info info, const char *key, int valuelen,
-                          char *value, int *flag) {
+int MPI_Info_get(MPI_Info info, const char *key, int valuelen, char *value,
+                 int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3362,8 +3305,7 @@ int multimpi_MPI_Info_get(MPI_Info info, const char *key, int valuelen,
   return func(info, key, valuelen, value, flag);
 }
 
-int multimpi_MPI_Type_get_extent(MPI_Datatype datatype, MPI_Aint *lb,
-                                 MPI_Aint *extent) {
+int MPI_Type_get_extent(MPI_Datatype datatype, MPI_Aint *lb, MPI_Aint *extent) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3377,7 +3319,7 @@ int multimpi_MPI_Type_get_extent(MPI_Datatype datatype, MPI_Aint *lb,
   return func(datatype, lb, extent);
 }
 
-int multimpi_MPI_Comm_test_inter(MPI_Comm comm, int *flag) {
+int MPI_Comm_test_inter(MPI_Comm comm, int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3391,7 +3333,7 @@ int multimpi_MPI_Comm_test_inter(MPI_Comm comm, int *flag) {
   return func(comm, flag);
 }
 
-int multimpi_MPI_Info_get_nkeys(MPI_Info info, int *nkeys) {
+int MPI_Info_get_nkeys(MPI_Info info, int *nkeys) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3405,8 +3347,8 @@ int multimpi_MPI_Info_get_nkeys(MPI_Info info, int *nkeys) {
   return func(info, nkeys);
 }
 
-int multimpi_MPI_Type_get_extent_x(MPI_Datatype datatype, MPI_Count *lb,
-                                   MPI_Count *extent) {
+int MPI_Type_get_extent_x(MPI_Datatype datatype, MPI_Count *lb,
+                          MPI_Count *extent) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3420,10 +3362,9 @@ int multimpi_MPI_Type_get_extent_x(MPI_Datatype datatype, MPI_Count *lb,
   return func(datatype, lb, extent);
 }
 
-int multimpi_MPI_Compare_and_swap(const void *origin_addr,
-                                  const void *compare_addr, void *result_addr,
-                                  MPI_Datatype datatype, int target_rank,
-                                  MPI_Aint target_disp, MPI_Win win) {
+int MPI_Compare_and_swap(const void *origin_addr, const void *compare_addr,
+                         void *result_addr, MPI_Datatype datatype,
+                         int target_rank, MPI_Aint target_disp, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3439,7 +3380,7 @@ int multimpi_MPI_Compare_and_swap(const void *origin_addr,
               target_disp, win);
 }
 
-int multimpi_MPI_Info_get_nthkey(MPI_Info info, int n, char *key) {
+int MPI_Info_get_nthkey(MPI_Info info, int n, char *key) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3453,8 +3394,7 @@ int multimpi_MPI_Info_get_nthkey(MPI_Info info, int n, char *key) {
   return func(info, n, key);
 }
 
-int multimpi_MPI_Type_get_name(MPI_Datatype datatype, char *type_name,
-                               int *resultlen) {
+int MPI_Type_get_name(MPI_Datatype datatype, char *type_name, int *resultlen) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3468,7 +3408,7 @@ int multimpi_MPI_Type_get_name(MPI_Datatype datatype, char *type_name,
   return func(datatype, type_name, resultlen);
 }
 
-int multimpi_MPI_Dims_create(int nnodes, int ndims, int dims[]) {
+int MPI_Dims_create(int nnodes, int ndims, int dims[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3482,8 +3422,8 @@ int multimpi_MPI_Dims_create(int nnodes, int ndims, int dims[]) {
   return func(nnodes, ndims, dims);
 }
 
-int multimpi_MPI_Info_get_valuelen(MPI_Info info, const char *key,
-                                   int *valuelen, int *flag) {
+int MPI_Info_get_valuelen(MPI_Info info, const char *key, int *valuelen,
+                          int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3497,8 +3437,8 @@ int multimpi_MPI_Info_get_valuelen(MPI_Info info, const char *key,
   return func(info, key, valuelen, flag);
 }
 
-int multimpi_MPI_Type_get_true_extent(MPI_Datatype datatype, MPI_Aint *true_lb,
-                                      MPI_Aint *true_extent) {
+int MPI_Type_get_true_extent(MPI_Datatype datatype, MPI_Aint *true_lb,
+                             MPI_Aint *true_extent) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3512,11 +3452,10 @@ int multimpi_MPI_Type_get_true_extent(MPI_Datatype datatype, MPI_Aint *true_lb,
   return func(datatype, true_lb, true_extent);
 }
 
-int multimpi_MPI_Dist_graph_create(MPI_Comm comm_old, int n,
-                                   const int sources[], const int degrees[],
-                                   const int destinations[],
-                                   const int weights[], MPI_Info info,
-                                   int reorder, MPI_Comm *comm_dist_graph) {
+int MPI_Dist_graph_create(MPI_Comm comm_old, int n, const int sources[],
+                          const int degrees[], const int destinations[],
+                          const int weights[], MPI_Info info, int reorder,
+                          MPI_Comm *comm_dist_graph) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3532,7 +3471,7 @@ int multimpi_MPI_Dist_graph_create(MPI_Comm comm_old, int n,
               reorder, comm_dist_graph);
 }
 
-int multimpi_MPI_Info_set(MPI_Info info, const char *key, const char *value) {
+int MPI_Info_set(MPI_Info info, const char *key, const char *value) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3546,9 +3485,8 @@ int multimpi_MPI_Info_set(MPI_Info info, const char *key, const char *value) {
   return func(info, key, value);
 }
 
-int multimpi_MPI_Type_get_true_extent_x(MPI_Datatype datatype,
-                                        MPI_Count *true_lb,
-                                        MPI_Count *true_extent) {
+int MPI_Type_get_true_extent_x(MPI_Datatype datatype, MPI_Count *true_lb,
+                               MPI_Count *true_extent) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3562,11 +3500,12 @@ int multimpi_MPI_Type_get_true_extent_x(MPI_Datatype datatype,
   return func(datatype, true_lb, true_extent);
 }
 
-int multimpi_MPI_Dist_graph_create_adjacent(
-    MPI_Comm comm_old, int indegree, const int sources[],
-    const int sourceweights[], int outdegree, const int destinations[],
-    const int destweights[], MPI_Info info, int reorder,
-    MPI_Comm *comm_dist_graph) {
+int MPI_Dist_graph_create_adjacent(MPI_Comm comm_old, int indegree,
+                                   const int sources[],
+                                   const int sourceweights[], int outdegree,
+                                   const int destinations[],
+                                   const int destweights[], MPI_Info info,
+                                   int reorder, MPI_Comm *comm_dist_graph) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3582,9 +3521,9 @@ int multimpi_MPI_Dist_graph_create_adjacent(
               destinations, destweights, info, reorder, comm_dist_graph);
 }
 
-int multimpi_MPI_Type_hindexed(int count, const int *array_of_blocklengths,
-                               const MPI_Aint *array_of_displacements,
-                               MPI_Datatype oldtype, MPI_Datatype *newtype) {
+int MPI_Type_hindexed(int count, const int *array_of_blocklengths,
+                      const MPI_Aint *array_of_displacements,
+                      MPI_Datatype oldtype, MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3600,10 +3539,9 @@ int multimpi_MPI_Type_hindexed(int count, const int *array_of_blocklengths,
               newtype);
 }
 
-int multimpi_MPI_Dist_graph_neighbors(MPI_Comm comm, int maxindegree,
-                                      int sources[], int sourceweights[],
-                                      int maxoutdegree, int destinations[],
-                                      int destweights[]) {
+int MPI_Dist_graph_neighbors(MPI_Comm comm, int maxindegree, int sources[],
+                             int sourceweights[], int maxoutdegree,
+                             int destinations[], int destweights[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3618,8 +3556,7 @@ int multimpi_MPI_Dist_graph_neighbors(MPI_Comm comm, int maxindegree,
               destinations, destweights);
 }
 
-int multimpi_MPI_Init_thread(int *argc, char ***argv, int required,
-                             int *provided) {
+int MPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3633,8 +3570,8 @@ int multimpi_MPI_Init_thread(int *argc, char ***argv, int required,
   return func(argc, argv, required, provided);
 }
 
-int multimpi_MPI_Type_hvector(int count, int blocklength, MPI_Aint stride,
-                              MPI_Datatype oldtype, MPI_Datatype *newtype) {
+int MPI_Type_hvector(int count, int blocklength, MPI_Aint stride,
+                     MPI_Datatype oldtype, MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3648,8 +3585,8 @@ int multimpi_MPI_Type_hvector(int count, int blocklength, MPI_Aint stride,
   return func(count, blocklength, stride, oldtype, newtype);
 }
 
-int multimpi_MPI_Dist_graph_neighbors_count(MPI_Comm comm, int *indegree,
-                                            int *outdegree, int *weighted) {
+int MPI_Dist_graph_neighbors_count(MPI_Comm comm, int *indegree, int *outdegree,
+                                   int *weighted) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3663,7 +3600,7 @@ int multimpi_MPI_Dist_graph_neighbors_count(MPI_Comm comm, int *indegree,
   return func(comm, indegree, outdegree, weighted);
 }
 
-int multimpi_MPI_Initialized(int *flag) {
+int MPI_Initialized(int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3677,9 +3614,9 @@ int multimpi_MPI_Initialized(int *flag) {
   return func(flag);
 }
 
-int multimpi_MPI_Type_indexed(int count, const int *array_of_blocklengths,
-                              const int *array_of_displacements,
-                              MPI_Datatype oldtype, MPI_Datatype *newtype) {
+int MPI_Type_indexed(int count, const int *array_of_blocklengths,
+                     const int *array_of_displacements, MPI_Datatype oldtype,
+                     MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3695,8 +3632,8 @@ int multimpi_MPI_Type_indexed(int count, const int *array_of_blocklengths,
               newtype);
 }
 
-int multimpi_MPI_Errhandler_create(MPI_Handler_function *function,
-                                   MPI_Errhandler *errhandler) {
+int MPI_Errhandler_create(MPI_Handler_function *function,
+                          MPI_Errhandler *errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3710,9 +3647,9 @@ int multimpi_MPI_Errhandler_create(MPI_Handler_function *function,
   return func(function, errhandler);
 }
 
-int multimpi_MPI_Intercomm_create(MPI_Comm local_comm, int local_leader,
-                                  MPI_Comm peer_comm, int remote_leader,
-                                  int tag, MPI_Comm *newintercomm) {
+int MPI_Intercomm_create(MPI_Comm local_comm, int local_leader,
+                         MPI_Comm peer_comm, int remote_leader, int tag,
+                         MPI_Comm *newintercomm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3727,7 +3664,7 @@ int multimpi_MPI_Intercomm_create(MPI_Comm local_comm, int local_leader,
               newintercomm);
 }
 
-int multimpi_MPI_Type_lb(MPI_Datatype datatype, MPI_Aint *displacement) {
+int MPI_Type_lb(MPI_Datatype datatype, MPI_Aint *displacement) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3741,7 +3678,7 @@ int multimpi_MPI_Type_lb(MPI_Datatype datatype, MPI_Aint *displacement) {
   return func(datatype, displacement);
 }
 
-int multimpi_MPI_Errhandler_free(MPI_Errhandler *errhandler) {
+int MPI_Errhandler_free(MPI_Errhandler *errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3755,8 +3692,7 @@ int multimpi_MPI_Errhandler_free(MPI_Errhandler *errhandler) {
   return func(errhandler);
 }
 
-int multimpi_MPI_Intercomm_merge(MPI_Comm intercomm, int high,
-                                 MPI_Comm *newintracomm) {
+int MPI_Intercomm_merge(MPI_Comm intercomm, int high, MPI_Comm *newintracomm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3770,8 +3706,7 @@ int multimpi_MPI_Intercomm_merge(MPI_Comm intercomm, int high,
   return func(intercomm, high, newintracomm);
 }
 
-int multimpi_MPI_Type_match_size(int typeclass, int size,
-                                 MPI_Datatype *datatype) {
+int MPI_Type_match_size(int typeclass, int size, MPI_Datatype *datatype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3785,7 +3720,7 @@ int multimpi_MPI_Type_match_size(int typeclass, int size,
   return func(typeclass, size, datatype);
 }
 
-int multimpi_MPI_Errhandler_get(MPI_Comm comm, MPI_Errhandler *errhandler) {
+int MPI_Errhandler_get(MPI_Comm comm, MPI_Errhandler *errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3799,8 +3734,8 @@ int multimpi_MPI_Errhandler_get(MPI_Comm comm, MPI_Errhandler *errhandler) {
   return func(comm, errhandler);
 }
 
-int multimpi_MPI_Iprobe(int source, int tag, MPI_Comm comm, int *flag,
-                        MPI_Status *status) {
+int MPI_Iprobe(int source, int tag, MPI_Comm comm, int *flag,
+               MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3814,8 +3749,8 @@ int multimpi_MPI_Iprobe(int source, int tag, MPI_Comm comm, int *flag,
   return func(source, tag, comm, flag, status);
 }
 
-int multimpi_MPI_Type_set_attr(MPI_Datatype datatype, int type_keyval,
-                               void *attribute_val) {
+int MPI_Type_set_attr(MPI_Datatype datatype, int type_keyval,
+                      void *attribute_val) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3829,7 +3764,7 @@ int multimpi_MPI_Type_set_attr(MPI_Datatype datatype, int type_keyval,
   return func(datatype, type_keyval, attribute_val);
 }
 
-int multimpi_MPI_Errhandler_set(MPI_Comm comm, MPI_Errhandler errhandler) {
+int MPI_Errhandler_set(MPI_Comm comm, MPI_Errhandler errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3843,8 +3778,8 @@ int multimpi_MPI_Errhandler_set(MPI_Comm comm, MPI_Errhandler errhandler) {
   return func(comm, errhandler);
 }
 
-int multimpi_MPI_Irecv(void *buf, int count, MPI_Datatype datatype, int source,
-                       int tag, MPI_Comm comm, MPI_Request *request) {
+int MPI_Irecv(void *buf, int count, MPI_Datatype datatype, int source, int tag,
+              MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3859,7 +3794,7 @@ int multimpi_MPI_Irecv(void *buf, int count, MPI_Datatype datatype, int source,
   return func(buf, count, datatype, source, tag, comm, request);
 }
 
-int multimpi_MPI_Type_set_name(MPI_Datatype datatype, const char *type_name) {
+int MPI_Type_set_name(MPI_Datatype datatype, const char *type_name) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3873,7 +3808,7 @@ int multimpi_MPI_Type_set_name(MPI_Datatype datatype, const char *type_name) {
   return func(datatype, type_name);
 }
 
-int multimpi_MPI_Error_class(int errorcode, int *errorclass) {
+int MPI_Error_class(int errorcode, int *errorclass) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3887,9 +3822,9 @@ int multimpi_MPI_Error_class(int errorcode, int *errorclass) {
   return func(errorcode, errorclass);
 }
 
-int multimpi_MPI_Ireduce(const void *sendbuf, void *recvbuf, int count,
-                         MPI_Datatype datatype, MPI_Op op, int root,
-                         MPI_Comm comm, MPI_Request *request) {
+int MPI_Ireduce(const void *sendbuf, void *recvbuf, int count,
+                MPI_Datatype datatype, MPI_Op op, int root, MPI_Comm comm,
+                MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3904,7 +3839,7 @@ int multimpi_MPI_Ireduce(const void *sendbuf, void *recvbuf, int count,
   return func(sendbuf, recvbuf, count, datatype, op, root, comm, request);
 }
 
-int multimpi_MPI_Type_size(MPI_Datatype datatype, int *size) {
+int MPI_Type_size(MPI_Datatype datatype, int *size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3918,7 +3853,7 @@ int multimpi_MPI_Type_size(MPI_Datatype datatype, int *size) {
   return func(datatype, size);
 }
 
-int multimpi_MPI_Error_string(int errorcode, char *string, int *resultlen) {
+int MPI_Error_string(int errorcode, char *string, int *resultlen) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3932,10 +3867,9 @@ int multimpi_MPI_Error_string(int errorcode, char *string, int *resultlen) {
   return func(errorcode, string, resultlen);
 }
 
-int multimpi_MPI_Ireduce_scatter(const void *sendbuf, void *recvbuf,
-                                 const int recvcounts[], MPI_Datatype datatype,
-                                 MPI_Op op, MPI_Comm comm,
-                                 MPI_Request *request) {
+int MPI_Ireduce_scatter(const void *sendbuf, void *recvbuf,
+                        const int recvcounts[], MPI_Datatype datatype,
+                        MPI_Op op, MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3950,7 +3884,7 @@ int multimpi_MPI_Ireduce_scatter(const void *sendbuf, void *recvbuf,
   return func(sendbuf, recvbuf, recvcounts, datatype, op, comm, request);
 }
 
-int multimpi_MPI_Type_size_x(MPI_Datatype datatype, MPI_Count *size) {
+int MPI_Type_size_x(MPI_Datatype datatype, MPI_Count *size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3964,8 +3898,8 @@ int multimpi_MPI_Type_size_x(MPI_Datatype datatype, MPI_Count *size) {
   return func(datatype, size);
 }
 
-int multimpi_MPI_Exscan(const void *sendbuf, void *recvbuf, int count,
-                        MPI_Datatype datatype, MPI_Op op, MPI_Comm comm) {
+int MPI_Exscan(const void *sendbuf, void *recvbuf, int count,
+               MPI_Datatype datatype, MPI_Op op, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3980,10 +3914,9 @@ int multimpi_MPI_Exscan(const void *sendbuf, void *recvbuf, int count,
   return func(sendbuf, recvbuf, count, datatype, op, comm);
 }
 
-int multimpi_MPI_Ireduce_scatter_block(const void *sendbuf, void *recvbuf,
-                                       int recvcount, MPI_Datatype datatype,
-                                       MPI_Op op, MPI_Comm comm,
-                                       MPI_Request *request) {
+int MPI_Ireduce_scatter_block(const void *sendbuf, void *recvbuf, int recvcount,
+                              MPI_Datatype datatype, MPI_Op op, MPI_Comm comm,
+                              MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -3998,10 +3931,9 @@ int multimpi_MPI_Ireduce_scatter_block(const void *sendbuf, void *recvbuf,
   return func(sendbuf, recvbuf, recvcount, datatype, op, comm, request);
 }
 
-int multimpi_MPI_Type_struct(int count, const int *array_of_blocklengths,
-                             const MPI_Aint *array_of_displacements,
-                             const MPI_Datatype *array_of_types,
-                             MPI_Datatype *newtype) {
+int MPI_Type_struct(int count, const int *array_of_blocklengths,
+                    const MPI_Aint *array_of_displacements,
+                    const MPI_Datatype *array_of_types, MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4017,9 +3949,9 @@ int multimpi_MPI_Type_struct(int count, const int *array_of_blocklengths,
               array_of_types, newtype);
 }
 
-int multimpi_MPI_Fetch_and_op(const void *origin_addr, void *result_addr,
-                              MPI_Datatype datatype, int target_rank,
-                              MPI_Aint target_disp, MPI_Op op, MPI_Win win) {
+int MPI_Fetch_and_op(const void *origin_addr, void *result_addr,
+                     MPI_Datatype datatype, int target_rank,
+                     MPI_Aint target_disp, MPI_Op op, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4035,9 +3967,8 @@ int multimpi_MPI_Fetch_and_op(const void *origin_addr, void *result_addr,
               win);
 }
 
-int multimpi_MPI_Irsend(const void *buf, int count, MPI_Datatype datatype,
-                        int dest, int tag, MPI_Comm comm,
-                        MPI_Request *request) {
+int MPI_Irsend(const void *buf, int count, MPI_Datatype datatype, int dest,
+               int tag, MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4052,7 +3983,7 @@ int multimpi_MPI_Irsend(const void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, dest, tag, comm, request);
 }
 
-int multimpi_MPI_Type_ub(MPI_Datatype datatype, MPI_Aint *displacement) {
+int MPI_Type_ub(MPI_Datatype datatype, MPI_Aint *displacement) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4066,7 +3997,7 @@ int multimpi_MPI_Type_ub(MPI_Datatype datatype, MPI_Aint *displacement) {
   return func(datatype, displacement);
 }
 
-MPI_Fint multimpi_MPI_File_c2f(MPI_File fh) {
+MPI_Fint MPI_File_c2f(MPI_File fh) {
   if (multimpi_static_init()) {
     return NULL;
   }
@@ -4080,7 +4011,7 @@ MPI_Fint multimpi_MPI_File_c2f(MPI_File fh) {
   return func(fh);
 }
 
-int multimpi_MPI_Is_thread_main(int *flag) {
+int MPI_Is_thread_main(int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4094,8 +4025,8 @@ int multimpi_MPI_Is_thread_main(int *flag) {
   return func(flag);
 }
 
-int multimpi_MPI_Type_vector(int count, int blocklength, int stride,
-                             MPI_Datatype oldtype, MPI_Datatype *newtype) {
+int MPI_Type_vector(int count, int blocklength, int stride,
+                    MPI_Datatype oldtype, MPI_Datatype *newtype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4109,7 +4040,7 @@ int multimpi_MPI_Type_vector(int count, int blocklength, int stride,
   return func(count, blocklength, stride, oldtype, newtype);
 }
 
-int multimpi_MPI_File_call_errhandler(MPI_File fh, int errorcode) {
+int MPI_File_call_errhandler(MPI_File fh, int errorcode) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4123,9 +4054,9 @@ int multimpi_MPI_File_call_errhandler(MPI_File fh, int errorcode) {
   return func(fh, errorcode);
 }
 
-int multimpi_MPI_Iscan(const void *sendbuf, void *recvbuf, int count,
-                       MPI_Datatype datatype, MPI_Op op, MPI_Comm comm,
-                       MPI_Request *request) {
+int MPI_Iscan(const void *sendbuf, void *recvbuf, int count,
+              MPI_Datatype datatype, MPI_Op op, MPI_Comm comm,
+              MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4140,9 +4071,8 @@ int multimpi_MPI_Iscan(const void *sendbuf, void *recvbuf, int count,
   return func(sendbuf, recvbuf, count, datatype, op, comm, request);
 }
 
-int multimpi_MPI_Unpack(const void *inbuf, int insize, int *position,
-                        void *outbuf, int outcount, MPI_Datatype datatype,
-                        MPI_Comm comm) {
+int MPI_Unpack(const void *inbuf, int insize, int *position, void *outbuf,
+               int outcount, MPI_Datatype datatype, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4157,7 +4087,7 @@ int multimpi_MPI_Unpack(const void *inbuf, int insize, int *position,
   return func(inbuf, insize, position, outbuf, outcount, datatype, comm);
 }
 
-int multimpi_MPI_File_close(MPI_File *fh) {
+int MPI_File_close(MPI_File *fh) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4171,10 +4101,9 @@ int multimpi_MPI_File_close(MPI_File *fh) {
   return func(fh);
 }
 
-int multimpi_MPI_Iscatter(const void *sendbuf, int sendcount,
-                          MPI_Datatype sendtype, void *recvbuf, int recvcount,
-                          MPI_Datatype recvtype, int root, MPI_Comm comm,
-                          MPI_Request *request) {
+int MPI_Iscatter(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                 void *recvbuf, int recvcount, MPI_Datatype recvtype, int root,
+                 MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4190,10 +4119,9 @@ int multimpi_MPI_Iscatter(const void *sendbuf, int sendcount,
               comm, request);
 }
 
-int multimpi_MPI_Unpack_external(const char datarep[], const void *inbuf,
-                                 MPI_Aint insize, MPI_Aint *position,
-                                 void *outbuf, int outcount,
-                                 MPI_Datatype datatype) {
+int MPI_Unpack_external(const char datarep[], const void *inbuf,
+                        MPI_Aint insize, MPI_Aint *position, void *outbuf,
+                        int outcount, MPI_Datatype datatype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4208,9 +4136,8 @@ int multimpi_MPI_Unpack_external(const char datarep[], const void *inbuf,
   return func(datarep, inbuf, insize, position, outbuf, outcount, datatype);
 }
 
-int multimpi_MPI_File_create_errhandler(
-    MPI_File_errhandler_function *file_errhandler_fn,
-    MPI_Errhandler *errhandler) {
+int MPI_File_create_errhandler(MPI_File_errhandler_function *file_errhandler_fn,
+                               MPI_Errhandler *errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4224,10 +4151,10 @@ int multimpi_MPI_File_create_errhandler(
   return func(file_errhandler_fn, errhandler);
 }
 
-int multimpi_MPI_Iscatterv(const void *sendbuf, const int sendcounts[],
-                           const int displs[], MPI_Datatype sendtype,
-                           void *recvbuf, int recvcount, MPI_Datatype recvtype,
-                           int root, MPI_Comm comm, MPI_Request *request) {
+int MPI_Iscatterv(const void *sendbuf, const int sendcounts[],
+                  const int displs[], MPI_Datatype sendtype, void *recvbuf,
+                  int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm,
+                  MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4243,8 +4170,8 @@ int multimpi_MPI_Iscatterv(const void *sendbuf, const int sendcounts[],
               recvtype, root, comm, request);
 }
 
-int multimpi_MPI_Unpublish_name(const char *service_name, MPI_Info info,
-                                const char *port_name) {
+int MPI_Unpublish_name(const char *service_name, MPI_Info info,
+                       const char *port_name) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4258,7 +4185,7 @@ int multimpi_MPI_Unpublish_name(const char *service_name, MPI_Info info,
   return func(service_name, info, port_name);
 }
 
-int multimpi_MPI_File_delete(char *filename, MPI_Info info) {
+int MPI_File_delete(char *filename, MPI_Info info) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4272,8 +4199,8 @@ int multimpi_MPI_File_delete(char *filename, MPI_Info info) {
   return func(filename, info);
 }
 
-int multimpi_MPI_Isend(const void *buf, int count, MPI_Datatype datatype,
-                       int dest, int tag, MPI_Comm comm, MPI_Request *request) {
+int MPI_Isend(const void *buf, int count, MPI_Datatype datatype, int dest,
+              int tag, MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4288,7 +4215,7 @@ int multimpi_MPI_Isend(const void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, dest, tag, comm, request);
 }
 
-int multimpi_MPI_Wait(MPI_Request *request, MPI_Status *status) {
+int MPI_Wait(MPI_Request *request, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4302,7 +4229,7 @@ int multimpi_MPI_Wait(MPI_Request *request, MPI_Status *status) {
   return func(request, status);
 }
 
-MPI_File multimpi_MPI_File_f2c(MPI_Fint fh) {
+MPI_File MPI_File_f2c(MPI_Fint fh) {
   if (multimpi_static_init()) {
     return NULL;
   }
@@ -4316,9 +4243,8 @@ MPI_File multimpi_MPI_File_f2c(MPI_Fint fh) {
   return func(fh);
 }
 
-int multimpi_MPI_Issend(const void *buf, int count, MPI_Datatype datatype,
-                        int dest, int tag, MPI_Comm comm,
-                        MPI_Request *request) {
+int MPI_Issend(const void *buf, int count, MPI_Datatype datatype, int dest,
+               int tag, MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4333,8 +4259,8 @@ int multimpi_MPI_Issend(const void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, dest, tag, comm, request);
 }
 
-int multimpi_MPI_Waitall(int count, MPI_Request array_of_requests[],
-                         MPI_Status array_of_statuses[]) {
+int MPI_Waitall(int count, MPI_Request array_of_requests[],
+                MPI_Status array_of_statuses[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4348,7 +4274,7 @@ int multimpi_MPI_Waitall(int count, MPI_Request array_of_requests[],
   return func(count, array_of_requests, array_of_statuses);
 }
 
-int multimpi_MPI_File_get_amode(MPI_File fh, int *amode) {
+int MPI_File_get_amode(MPI_File fh, int *amode) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4362,9 +4288,9 @@ int multimpi_MPI_File_get_amode(MPI_File fh, int *amode) {
   return func(fh, amode);
 }
 
-int multimpi_MPI_Keyval_create(MPI_Copy_function *copy_fn,
-                               MPI_Delete_function *delete_fn, int *keyval,
-                               void *extra_state) {
+int MPI_Keyval_create(MPI_Copy_function *copy_fn,
+                      MPI_Delete_function *delete_fn, int *keyval,
+                      void *extra_state) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4379,8 +4305,8 @@ int multimpi_MPI_Keyval_create(MPI_Copy_function *copy_fn,
   return func(copy_fn, delete_fn, keyval, extra_state);
 }
 
-int multimpi_MPI_Waitany(int count, MPI_Request array_of_requests[], int *indx,
-                         MPI_Status *status) {
+int MPI_Waitany(int count, MPI_Request array_of_requests[], int *indx,
+                MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4394,7 +4320,7 @@ int multimpi_MPI_Waitany(int count, MPI_Request array_of_requests[], int *indx,
   return func(count, array_of_requests, indx, status);
 }
 
-int multimpi_MPI_File_get_atomicity(MPI_File fh, int *flag) {
+int MPI_File_get_atomicity(MPI_File fh, int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4408,7 +4334,7 @@ int multimpi_MPI_File_get_atomicity(MPI_File fh, int *flag) {
   return func(fh, flag);
 }
 
-int multimpi_MPI_Keyval_free(int *keyval) {
+int MPI_Keyval_free(int *keyval) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4422,9 +4348,8 @@ int multimpi_MPI_Keyval_free(int *keyval) {
   return func(keyval);
 }
 
-int multimpi_MPI_Waitsome(int incount, MPI_Request array_of_requests[],
-                          int *outcount, int array_of_indices[],
-                          MPI_Status array_of_statuses[]) {
+int MPI_Waitsome(int incount, MPI_Request array_of_requests[], int *outcount,
+                 int array_of_indices[], MPI_Status array_of_statuses[]) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4439,8 +4364,7 @@ int multimpi_MPI_Waitsome(int incount, MPI_Request array_of_requests[],
               array_of_statuses);
 }
 
-int multimpi_MPI_File_get_byte_offset(MPI_File fh, MPI_Offset offset,
-                                      MPI_Offset *disp) {
+int MPI_File_get_byte_offset(MPI_File fh, MPI_Offset offset, MPI_Offset *disp) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4454,8 +4378,7 @@ int multimpi_MPI_File_get_byte_offset(MPI_File fh, MPI_Offset offset,
   return func(fh, offset, disp);
 }
 
-int multimpi_MPI_Lookup_name(const char *service_name, MPI_Info info,
-                             char *port_name) {
+int MPI_Lookup_name(const char *service_name, MPI_Info info, char *port_name) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4469,8 +4392,8 @@ int multimpi_MPI_Lookup_name(const char *service_name, MPI_Info info,
   return func(service_name, info, port_name);
 }
 
-int multimpi_MPI_Win_allocate(MPI_Aint size, int disp_unit, MPI_Info info,
-                              MPI_Comm comm, void *baseptr, MPI_Win *win) {
+int MPI_Win_allocate(MPI_Aint size, int disp_unit, MPI_Info info, MPI_Comm comm,
+                     void *baseptr, MPI_Win *win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4484,8 +4407,7 @@ int multimpi_MPI_Win_allocate(MPI_Aint size, int disp_unit, MPI_Info info,
   return func(size, disp_unit, info, comm, baseptr, win);
 }
 
-int multimpi_MPI_File_get_errhandler(MPI_File file,
-                                     MPI_Errhandler *errhandler) {
+int MPI_File_get_errhandler(MPI_File file, MPI_Errhandler *errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4499,8 +4421,8 @@ int multimpi_MPI_File_get_errhandler(MPI_File file,
   return func(file, errhandler);
 }
 
-int multimpi_MPI_Mprobe(int source, int tag, MPI_Comm comm,
-                        MPI_Message *message, MPI_Status *status) {
+int MPI_Mprobe(int source, int tag, MPI_Comm comm, MPI_Message *message,
+               MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4514,9 +4436,8 @@ int multimpi_MPI_Mprobe(int source, int tag, MPI_Comm comm,
   return func(source, tag, comm, message, status);
 }
 
-int multimpi_MPI_Win_allocate_shared(MPI_Aint size, int disp_unit,
-                                     MPI_Info info, MPI_Comm comm,
-                                     void *baseptr, MPI_Win *win) {
+int MPI_Win_allocate_shared(MPI_Aint size, int disp_unit, MPI_Info info,
+                            MPI_Comm comm, void *baseptr, MPI_Win *win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4530,7 +4451,7 @@ int multimpi_MPI_Win_allocate_shared(MPI_Aint size, int disp_unit,
   return func(size, disp_unit, info, comm, baseptr, win);
 }
 
-int multimpi_MPI_File_get_group(MPI_File fh, MPI_Group *group) {
+int MPI_File_get_group(MPI_File fh, MPI_Group *group) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4544,8 +4465,8 @@ int multimpi_MPI_File_get_group(MPI_File fh, MPI_Group *group) {
   return func(fh, group);
 }
 
-int multimpi_MPI_Mrecv(void *buf, int count, MPI_Datatype datatype,
-                       MPI_Message *message, MPI_Status *status) {
+int MPI_Mrecv(void *buf, int count, MPI_Datatype datatype, MPI_Message *message,
+              MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4559,7 +4480,7 @@ int multimpi_MPI_Mrecv(void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, message, status);
 }
 
-int multimpi_MPI_Win_attach(MPI_Win win, void *base, MPI_Aint size) {
+int MPI_Win_attach(MPI_Win win, void *base, MPI_Aint size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4573,7 +4494,7 @@ int multimpi_MPI_Win_attach(MPI_Win win, void *base, MPI_Aint size) {
   return func(win, base, size);
 }
 
-int multimpi_MPI_File_get_info(MPI_File fh, MPI_Info *info_used) {
+int MPI_File_get_info(MPI_File fh, MPI_Info *info_used) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4587,10 +4508,9 @@ int multimpi_MPI_File_get_info(MPI_File fh, MPI_Info *info_used) {
   return func(fh, info_used);
 }
 
-int multimpi_MPI_Neighbor_allgather(const void *sendbuf, int sendcount,
-                                    MPI_Datatype sendtype, void *recvbuf,
-                                    int recvcount, MPI_Datatype recvtype,
-                                    MPI_Comm comm) {
+int MPI_Neighbor_allgather(const void *sendbuf, int sendcount,
+                           MPI_Datatype sendtype, void *recvbuf, int recvcount,
+                           MPI_Datatype recvtype, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4605,7 +4525,7 @@ int multimpi_MPI_Neighbor_allgather(const void *sendbuf, int sendcount,
   return func(sendbuf, sendcount, sendtype, recvbuf, recvcount, recvtype, comm);
 }
 
-int multimpi_MPI_Win_call_errhandler(MPI_Win win, int errorcode) {
+int MPI_Win_call_errhandler(MPI_Win win, int errorcode) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4619,7 +4539,7 @@ int multimpi_MPI_Win_call_errhandler(MPI_Win win, int errorcode) {
   return func(win, errorcode);
 }
 
-int multimpi_MPI_File_get_position(MPI_File fh, MPI_Offset *offset) {
+int MPI_File_get_position(MPI_File fh, MPI_Offset *offset) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4633,10 +4553,10 @@ int multimpi_MPI_File_get_position(MPI_File fh, MPI_Offset *offset) {
   return func(fh, offset);
 }
 
-int multimpi_MPI_Neighbor_allgatherv(const void *sendbuf, int sendcount,
-                                     MPI_Datatype sendtype, void *recvbuf,
-                                     const int recvcounts[], const int displs[],
-                                     MPI_Datatype recvtype, MPI_Comm comm) {
+int MPI_Neighbor_allgatherv(const void *sendbuf, int sendcount,
+                            MPI_Datatype sendtype, void *recvbuf,
+                            const int recvcounts[], const int displs[],
+                            MPI_Datatype recvtype, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4652,7 +4572,7 @@ int multimpi_MPI_Neighbor_allgatherv(const void *sendbuf, int sendcount,
               recvtype, comm);
 }
 
-int multimpi_MPI_Win_complete(MPI_Win win) {
+int MPI_Win_complete(MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4666,7 +4586,7 @@ int multimpi_MPI_Win_complete(MPI_Win win) {
   return func(win);
 }
 
-int multimpi_MPI_File_get_position_shared(MPI_File fh, MPI_Offset *offset) {
+int MPI_File_get_position_shared(MPI_File fh, MPI_Offset *offset) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4680,10 +4600,9 @@ int multimpi_MPI_File_get_position_shared(MPI_File fh, MPI_Offset *offset) {
   return func(fh, offset);
 }
 
-int multimpi_MPI_Neighbor_alltoall(const void *sendbuf, int sendcount,
-                                   MPI_Datatype sendtype, void *recvbuf,
-                                   int recvcount, MPI_Datatype recvtype,
-                                   MPI_Comm comm) {
+int MPI_Neighbor_alltoall(const void *sendbuf, int sendcount,
+                          MPI_Datatype sendtype, void *recvbuf, int recvcount,
+                          MPI_Datatype recvtype, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4698,8 +4617,8 @@ int multimpi_MPI_Neighbor_alltoall(const void *sendbuf, int sendcount,
   return func(sendbuf, sendcount, sendtype, recvbuf, recvcount, recvtype, comm);
 }
 
-int multimpi_MPI_Win_create(void *base, MPI_Aint size, int disp_unit,
-                            MPI_Info info, MPI_Comm comm, MPI_Win *win) {
+int MPI_Win_create(void *base, MPI_Aint size, int disp_unit, MPI_Info info,
+                   MPI_Comm comm, MPI_Win *win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4713,7 +4632,7 @@ int multimpi_MPI_Win_create(void *base, MPI_Aint size, int disp_unit,
   return func(base, size, disp_unit, info, comm, win);
 }
 
-int multimpi_MPI_File_get_size(MPI_File fh, MPI_Offset *size) {
+int MPI_File_get_size(MPI_File fh, MPI_Offset *size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4727,11 +4646,11 @@ int multimpi_MPI_File_get_size(MPI_File fh, MPI_Offset *size) {
   return func(fh, size);
 }
 
-int multimpi_MPI_Neighbor_alltoallv(const void *sendbuf, const int sendcounts[],
-                                    const int sdispls[], MPI_Datatype sendtype,
-                                    void *recvbuf, const int recvcounts[],
-                                    const int rdispls[], MPI_Datatype recvtype,
-                                    MPI_Comm comm) {
+int MPI_Neighbor_alltoallv(const void *sendbuf, const int sendcounts[],
+                           const int sdispls[], MPI_Datatype sendtype,
+                           void *recvbuf, const int recvcounts[],
+                           const int rdispls[], MPI_Datatype recvtype,
+                           MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4747,8 +4666,7 @@ int multimpi_MPI_Neighbor_alltoallv(const void *sendbuf, const int sendcounts[],
               rdispls, recvtype, comm);
 }
 
-int multimpi_MPI_Win_create_dynamic(MPI_Info info, MPI_Comm comm,
-                                    MPI_Win *win) {
+int MPI_Win_create_dynamic(MPI_Info info, MPI_Comm comm, MPI_Win *win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4762,8 +4680,8 @@ int multimpi_MPI_Win_create_dynamic(MPI_Info info, MPI_Comm comm,
   return func(info, comm, win);
 }
 
-int multimpi_MPI_File_get_type_extent(MPI_File fh, MPI_Datatype datatype,
-                                      MPI_Aint *extent) {
+int MPI_File_get_type_extent(MPI_File fh, MPI_Datatype datatype,
+                             MPI_Aint *extent) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4777,10 +4695,11 @@ int multimpi_MPI_File_get_type_extent(MPI_File fh, MPI_Datatype datatype,
   return func(fh, datatype, extent);
 }
 
-int multimpi_MPI_Neighbor_alltoallw(
-    const void *sendbuf, const int sendcounts[], const MPI_Aint sdispls[],
-    const MPI_Datatype sendtypes[], void *recvbuf, const int recvcounts[],
-    const MPI_Aint rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm) {
+int MPI_Neighbor_alltoallw(const void *sendbuf, const int sendcounts[],
+                           const MPI_Aint sdispls[],
+                           const MPI_Datatype sendtypes[], void *recvbuf,
+                           const int recvcounts[], const MPI_Aint rdispls[],
+                           const MPI_Datatype recvtypes[], MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4797,9 +4716,8 @@ int multimpi_MPI_Neighbor_alltoallw(
               rdispls, recvtypes, comm);
 }
 
-int multimpi_MPI_Win_create_errhandler(
-    MPI_Win_errhandler_function *win_errhandler_fn,
-    MPI_Errhandler *errhandler) {
+int MPI_Win_create_errhandler(MPI_Win_errhandler_function *win_errhandler_fn,
+                              MPI_Errhandler *errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4813,9 +4731,8 @@ int multimpi_MPI_Win_create_errhandler(
   return func(win_errhandler_fn, errhandler);
 }
 
-int multimpi_MPI_File_get_view(MPI_File fh, MPI_Offset *disp,
-                               MPI_Datatype *etype, MPI_Datatype *filetype,
-                               char *datarep) {
+int MPI_File_get_view(MPI_File fh, MPI_Offset *disp, MPI_Datatype *etype,
+                      MPI_Datatype *filetype, char *datarep) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4830,7 +4747,7 @@ int multimpi_MPI_File_get_view(MPI_File fh, MPI_Offset *disp,
   return func(fh, disp, etype, filetype, datarep);
 }
 
-int multimpi_MPI_Op_commutative(MPI_Op op, int *commute) {
+int MPI_Op_commutative(MPI_Op op, int *commute) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4844,10 +4761,9 @@ int multimpi_MPI_Op_commutative(MPI_Op op, int *commute) {
   return func(op, commute);
 }
 
-int multimpi_MPI_Win_create_keyval(
-    MPI_Win_copy_attr_function *win_copy_attr_fn,
-    MPI_Win_delete_attr_function *win_delete_attr_fn, int *win_keyval,
-    void *extra_state) {
+int MPI_Win_create_keyval(MPI_Win_copy_attr_function *win_copy_attr_fn,
+                          MPI_Win_delete_attr_function *win_delete_attr_fn,
+                          int *win_keyval, void *extra_state) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4862,8 +4778,8 @@ int multimpi_MPI_Win_create_keyval(
   return func(win_copy_attr_fn, win_delete_attr_fn, win_keyval, extra_state);
 }
 
-int multimpi_MPI_File_iread(MPI_File fh, void *buf, int count,
-                            MPI_Datatype datatype, MPI_Request *request) {
+int MPI_File_iread(MPI_File fh, void *buf, int count, MPI_Datatype datatype,
+                   MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4877,8 +4793,7 @@ int multimpi_MPI_File_iread(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype, request);
 }
 
-int multimpi_MPI_Op_create(MPI_User_function *user_fn, int commute,
-                           MPI_Op *op) {
+int MPI_Op_create(MPI_User_function *user_fn, int commute, MPI_Op *op) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4892,7 +4807,7 @@ int multimpi_MPI_Op_create(MPI_User_function *user_fn, int commute,
   return func(user_fn, commute, op);
 }
 
-int multimpi_MPI_Win_delete_attr(MPI_Win win, int win_keyval) {
+int MPI_Win_delete_attr(MPI_Win win, int win_keyval) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4906,9 +4821,8 @@ int multimpi_MPI_Win_delete_attr(MPI_Win win, int win_keyval) {
   return func(win, win_keyval);
 }
 
-int multimpi_MPI_File_iread_at(MPI_File fh, MPI_Offset offset, void *buf,
-                               int count, MPI_Datatype datatype,
-                               MPIO_Request *request) {
+int MPI_File_iread_at(MPI_File fh, MPI_Offset offset, void *buf, int count,
+                      MPI_Datatype datatype, MPIO_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4923,7 +4837,7 @@ int multimpi_MPI_File_iread_at(MPI_File fh, MPI_Offset offset, void *buf,
   return func(fh, offset, buf, count, datatype, request);
 }
 
-int multimpi_MPI_Op_free(MPI_Op *op) {
+int MPI_Op_free(MPI_Op *op) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4937,7 +4851,7 @@ int multimpi_MPI_Op_free(MPI_Op *op) {
   return func(op);
 }
 
-int multimpi_MPI_Win_detach(MPI_Win win, const void *base) {
+int MPI_Win_detach(MPI_Win win, const void *base) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4951,9 +4865,8 @@ int multimpi_MPI_Win_detach(MPI_Win win, const void *base) {
   return func(win, base);
 }
 
-int multimpi_MPI_File_iread_shared(MPI_File fh, void *buf, int count,
-                                   MPI_Datatype datatype,
-                                   MPI_Request *request) {
+int MPI_File_iread_shared(MPI_File fh, void *buf, int count,
+                          MPI_Datatype datatype, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4967,7 +4880,7 @@ int multimpi_MPI_File_iread_shared(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype, request);
 }
 
-int multimpi_MPI_Open_port(MPI_Info info, char *port_name) {
+int MPI_Open_port(MPI_Info info, char *port_name) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4981,7 +4894,7 @@ int multimpi_MPI_Open_port(MPI_Info info, char *port_name) {
   return func(info, port_name);
 }
 
-int multimpi_MPI_Win_fence(int assert, MPI_Win win) {
+int MPI_Win_fence(int assert, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -4995,8 +4908,8 @@ int multimpi_MPI_Win_fence(int assert, MPI_Win win) {
   return func(assert, win);
 }
 
-int multimpi_MPI_File_iwrite(MPI_File fh, void *buf, int count,
-                             MPI_Datatype datatype, MPI_Request *request) {
+int MPI_File_iwrite(MPI_File fh, void *buf, int count, MPI_Datatype datatype,
+                    MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5010,8 +4923,8 @@ int multimpi_MPI_File_iwrite(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype, request);
 }
 
-int multimpi_MPI_Pack(const void *inbuf, int incount, MPI_Datatype datatype,
-                      void *outbuf, int outsize, int *position, MPI_Comm comm) {
+int MPI_Pack(const void *inbuf, int incount, MPI_Datatype datatype,
+             void *outbuf, int outsize, int *position, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5026,7 +4939,7 @@ int multimpi_MPI_Pack(const void *inbuf, int incount, MPI_Datatype datatype,
   return func(inbuf, incount, datatype, outbuf, outsize, position, comm);
 }
 
-int multimpi_MPI_Win_flush(int rank, MPI_Win win) {
+int MPI_Win_flush(int rank, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5040,9 +4953,8 @@ int multimpi_MPI_Win_flush(int rank, MPI_Win win) {
   return func(rank, win);
 }
 
-int multimpi_MPI_File_iwrite_at(MPI_File fh, MPI_Offset offset, void *buf,
-                                int count, MPI_Datatype datatype,
-                                MPIO_Request *request) {
+int MPI_File_iwrite_at(MPI_File fh, MPI_Offset offset, void *buf, int count,
+                       MPI_Datatype datatype, MPIO_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5057,9 +4969,9 @@ int multimpi_MPI_File_iwrite_at(MPI_File fh, MPI_Offset offset, void *buf,
   return func(fh, offset, buf, count, datatype, request);
 }
 
-int multimpi_MPI_Pack_external(const char datarep[], const void *inbuf,
-                               int incount, MPI_Datatype datatype, void *outbuf,
-                               MPI_Aint outsize, MPI_Aint *position) {
+int MPI_Pack_external(const char datarep[], const void *inbuf, int incount,
+                      MPI_Datatype datatype, void *outbuf, MPI_Aint outsize,
+                      MPI_Aint *position) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5074,7 +4986,7 @@ int multimpi_MPI_Pack_external(const char datarep[], const void *inbuf,
   return func(datarep, inbuf, incount, datatype, outbuf, outsize, position);
 }
 
-int multimpi_MPI_Win_flush_all(MPI_Win win) {
+int MPI_Win_flush_all(MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5088,9 +5000,8 @@ int multimpi_MPI_Win_flush_all(MPI_Win win) {
   return func(win);
 }
 
-int multimpi_MPI_File_iwrite_shared(MPI_File fh, void *buf, int count,
-                                    MPI_Datatype datatype,
-                                    MPIO_Request *request) {
+int MPI_File_iwrite_shared(MPI_File fh, void *buf, int count,
+                           MPI_Datatype datatype, MPIO_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5104,8 +5015,8 @@ int multimpi_MPI_File_iwrite_shared(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype, request);
 }
 
-int multimpi_MPI_Pack_external_size(const char datarep[], int incount,
-                                    MPI_Datatype datatype, MPI_Aint *size) {
+int MPI_Pack_external_size(const char datarep[], int incount,
+                           MPI_Datatype datatype, MPI_Aint *size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5119,7 +5030,7 @@ int multimpi_MPI_Pack_external_size(const char datarep[], int incount,
   return func(datarep, incount, datatype, size);
 }
 
-int multimpi_MPI_Win_flush_local(int rank, MPI_Win win) {
+int MPI_Win_flush_local(int rank, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5133,8 +5044,8 @@ int multimpi_MPI_Win_flush_local(int rank, MPI_Win win) {
   return func(rank, win);
 }
 
-int multimpi_MPI_File_open(MPI_Comm comm, char *filename, int amode,
-                           MPI_Info info, MPI_File *fh) {
+int MPI_File_open(MPI_Comm comm, char *filename, int amode, MPI_Info info,
+                  MPI_File *fh) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5148,8 +5059,8 @@ int multimpi_MPI_File_open(MPI_Comm comm, char *filename, int amode,
   return func(comm, filename, amode, info, fh);
 }
 
-int multimpi_MPI_Pack_size(int incount, MPI_Datatype datatype, MPI_Comm comm,
-                           int *size) {
+int MPI_Pack_size(int incount, MPI_Datatype datatype, MPI_Comm comm,
+                  int *size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5163,7 +5074,7 @@ int multimpi_MPI_Pack_size(int incount, MPI_Datatype datatype, MPI_Comm comm,
   return func(incount, datatype, comm, size);
 }
 
-int multimpi_MPI_Win_flush_local_all(MPI_Win win) {
+int MPI_Win_flush_local_all(MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5177,7 +5088,7 @@ int multimpi_MPI_Win_flush_local_all(MPI_Win win) {
   return func(win);
 }
 
-int multimpi_MPI_File_preallocate(MPI_File fh, MPI_Offset size) {
+int MPI_File_preallocate(MPI_File fh, MPI_Offset size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5191,7 +5102,7 @@ int multimpi_MPI_File_preallocate(MPI_File fh, MPI_Offset size) {
   return func(fh, size);
 }
 
-int multimpi_MPI_Win_free(MPI_Win *win) {
+int MPI_Win_free(MPI_Win *win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5205,8 +5116,8 @@ int multimpi_MPI_Win_free(MPI_Win *win) {
   return func(win);
 }
 
-int multimpi_MPI_File_read(MPI_File fh, void *buf, int count,
-                           MPI_Datatype datatype, MPI_Status *status) {
+int MPI_File_read(MPI_File fh, void *buf, int count, MPI_Datatype datatype,
+                  MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5220,7 +5131,7 @@ int multimpi_MPI_File_read(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype, status);
 }
 
-int multimpi_MPI_Probe(int source, int tag, MPI_Comm comm, MPI_Status *status) {
+int MPI_Probe(int source, int tag, MPI_Comm comm, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5234,7 +5145,7 @@ int multimpi_MPI_Probe(int source, int tag, MPI_Comm comm, MPI_Status *status) {
   return func(source, tag, comm, status);
 }
 
-int multimpi_MPI_Win_free_keyval(int *win_keyval) {
+int MPI_Win_free_keyval(int *win_keyval) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5248,8 +5159,8 @@ int multimpi_MPI_Win_free_keyval(int *win_keyval) {
   return func(win_keyval);
 }
 
-int multimpi_MPI_File_read_all(MPI_File fh, void *buf, int count,
-                               MPI_Datatype datatype, MPI_Status *status) {
+int MPI_File_read_all(MPI_File fh, void *buf, int count, MPI_Datatype datatype,
+                      MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5263,8 +5174,8 @@ int multimpi_MPI_File_read_all(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype, status);
 }
 
-int multimpi_MPI_Publish_name(const char *service_name, MPI_Info info,
-                              const char *port_name) {
+int MPI_Publish_name(const char *service_name, MPI_Info info,
+                     const char *port_name) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5278,8 +5189,8 @@ int multimpi_MPI_Publish_name(const char *service_name, MPI_Info info,
   return func(service_name, info, port_name);
 }
 
-int multimpi_MPI_Win_get_attr(MPI_Win win, int win_keyval, void *attribute_val,
-                              int *flag) {
+int MPI_Win_get_attr(MPI_Win win, int win_keyval, void *attribute_val,
+                     int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5293,8 +5204,8 @@ int multimpi_MPI_Win_get_attr(MPI_Win win, int win_keyval, void *attribute_val,
   return func(win, win_keyval, attribute_val, flag);
 }
 
-int multimpi_MPI_File_read_all_begin(MPI_File fh, void *buf, int count,
-                                     MPI_Datatype datatype) {
+int MPI_File_read_all_begin(MPI_File fh, void *buf, int count,
+                            MPI_Datatype datatype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5308,10 +5219,9 @@ int multimpi_MPI_File_read_all_begin(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype);
 }
 
-int multimpi_MPI_Put(const void *origin_addr, int origin_count,
-                     MPI_Datatype origin_datatype, int target_rank,
-                     MPI_Aint target_disp, int target_count,
-                     MPI_Datatype target_datatype, MPI_Win win) {
+int MPI_Put(const void *origin_addr, int origin_count,
+            MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp,
+            int target_count, MPI_Datatype target_datatype, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5327,7 +5237,7 @@ int multimpi_MPI_Put(const void *origin_addr, int origin_count,
               target_disp, target_count, target_datatype, win);
 }
 
-int multimpi_MPI_Win_get_errhandler(MPI_Win win, MPI_Errhandler *errhandler) {
+int MPI_Win_get_errhandler(MPI_Win win, MPI_Errhandler *errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5341,7 +5251,7 @@ int multimpi_MPI_Win_get_errhandler(MPI_Win win, MPI_Errhandler *errhandler) {
   return func(win, errhandler);
 }
 
-int multimpi_MPI_File_read_all_end(MPI_File fh, void *buf, MPI_Status *status) {
+int MPI_File_read_all_end(MPI_File fh, void *buf, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5355,7 +5265,7 @@ int multimpi_MPI_File_read_all_end(MPI_File fh, void *buf, MPI_Status *status) {
   return func(fh, buf, status);
 }
 
-int multimpi_MPI_Query_thread(int *provided) {
+int MPI_Query_thread(int *provided) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5369,7 +5279,7 @@ int multimpi_MPI_Query_thread(int *provided) {
   return func(provided);
 }
 
-int multimpi_MPI_Win_get_group(MPI_Win win, MPI_Group *group) {
+int MPI_Win_get_group(MPI_Win win, MPI_Group *group) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5383,9 +5293,8 @@ int multimpi_MPI_Win_get_group(MPI_Win win, MPI_Group *group) {
   return func(win, group);
 }
 
-int multimpi_MPI_File_read_at(MPI_File fh, MPI_Offset offset, void *buf,
-                              int count, MPI_Datatype datatype,
-                              MPI_Status *status) {
+int MPI_File_read_at(MPI_File fh, MPI_Offset offset, void *buf, int count,
+                     MPI_Datatype datatype, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5400,11 +5309,11 @@ int multimpi_MPI_File_read_at(MPI_File fh, MPI_Offset offset, void *buf,
   return func(fh, offset, buf, count, datatype, status);
 }
 
-int multimpi_MPI_Raccumulate(const void *origin_addr, int origin_count,
-                             MPI_Datatype origin_datatype, int target_rank,
-                             MPI_Aint target_disp, int target_count,
-                             MPI_Datatype target_datatype, MPI_Op op,
-                             MPI_Win win, MPI_Request *request) {
+int MPI_Raccumulate(const void *origin_addr, int origin_count,
+                    MPI_Datatype origin_datatype, int target_rank,
+                    MPI_Aint target_disp, int target_count,
+                    MPI_Datatype target_datatype, MPI_Op op, MPI_Win win,
+                    MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5420,7 +5329,7 @@ int multimpi_MPI_Raccumulate(const void *origin_addr, int origin_count,
               target_disp, target_count, target_datatype, op, win, request);
 }
 
-int multimpi_MPI_Win_get_info(MPI_Win win, MPI_Info *info_used) {
+int MPI_Win_get_info(MPI_Win win, MPI_Info *info_used) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5434,9 +5343,8 @@ int multimpi_MPI_Win_get_info(MPI_Win win, MPI_Info *info_used) {
   return func(win, info_used);
 }
 
-int multimpi_MPI_File_read_at_all(MPI_File fh, MPI_Offset offset, void *buf,
-                                  int count, MPI_Datatype datatype,
-                                  MPI_Status *status) {
+int MPI_File_read_at_all(MPI_File fh, MPI_Offset offset, void *buf, int count,
+                         MPI_Datatype datatype, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5451,8 +5359,8 @@ int multimpi_MPI_File_read_at_all(MPI_File fh, MPI_Offset offset, void *buf,
   return func(fh, offset, buf, count, datatype, status);
 }
 
-int multimpi_MPI_Recv(void *buf, int count, MPI_Datatype datatype, int source,
-                      int tag, MPI_Comm comm, MPI_Status *status) {
+int MPI_Recv(void *buf, int count, MPI_Datatype datatype, int source, int tag,
+             MPI_Comm comm, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5467,7 +5375,7 @@ int multimpi_MPI_Recv(void *buf, int count, MPI_Datatype datatype, int source,
   return func(buf, count, datatype, source, tag, comm, status);
 }
 
-int multimpi_MPI_Win_get_name(MPI_Win win, char *win_name, int *resultlen) {
+int MPI_Win_get_name(MPI_Win win, char *win_name, int *resultlen) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5481,9 +5389,8 @@ int multimpi_MPI_Win_get_name(MPI_Win win, char *win_name, int *resultlen) {
   return func(win, win_name, resultlen);
 }
 
-int multimpi_MPI_File_read_at_all_begin(MPI_File fh, MPI_Offset offset,
-                                        void *buf, int count,
-                                        MPI_Datatype datatype) {
+int MPI_File_read_at_all_begin(MPI_File fh, MPI_Offset offset, void *buf,
+                               int count, MPI_Datatype datatype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5497,9 +5404,8 @@ int multimpi_MPI_File_read_at_all_begin(MPI_File fh, MPI_Offset offset,
   return func(fh, offset, buf, count, datatype);
 }
 
-int multimpi_MPI_Recv_init(void *buf, int count, MPI_Datatype datatype,
-                           int source, int tag, MPI_Comm comm,
-                           MPI_Request *request) {
+int MPI_Recv_init(void *buf, int count, MPI_Datatype datatype, int source,
+                  int tag, MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5514,7 +5420,7 @@ int multimpi_MPI_Recv_init(void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, source, tag, comm, request);
 }
 
-int multimpi_MPI_Win_lock(int lock_type, int rank, int assert, MPI_Win win) {
+int MPI_Win_lock(int lock_type, int rank, int assert, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5528,8 +5434,7 @@ int multimpi_MPI_Win_lock(int lock_type, int rank, int assert, MPI_Win win) {
   return func(lock_type, rank, assert, win);
 }
 
-int multimpi_MPI_File_read_at_all_end(MPI_File fh, void *buf,
-                                      MPI_Status *status) {
+int MPI_File_read_at_all_end(MPI_File fh, void *buf, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5543,9 +5448,8 @@ int multimpi_MPI_File_read_at_all_end(MPI_File fh, void *buf,
   return func(fh, buf, status);
 }
 
-int multimpi_MPI_Reduce(const void *sendbuf, void *recvbuf, int count,
-                        MPI_Datatype datatype, MPI_Op op, int root,
-                        MPI_Comm comm) {
+int MPI_Reduce(const void *sendbuf, void *recvbuf, int count,
+               MPI_Datatype datatype, MPI_Op op, int root, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5560,7 +5464,7 @@ int multimpi_MPI_Reduce(const void *sendbuf, void *recvbuf, int count,
   return func(sendbuf, recvbuf, count, datatype, op, root, comm);
 }
 
-int multimpi_MPI_Win_lock_all(int assert, MPI_Win win) {
+int MPI_Win_lock_all(int assert, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5574,8 +5478,8 @@ int multimpi_MPI_Win_lock_all(int assert, MPI_Win win) {
   return func(assert, win);
 }
 
-int multimpi_MPI_File_read_ordered(MPI_File fh, void *buf, int count,
-                                   MPI_Datatype datatype, MPI_Status *status) {
+int MPI_File_read_ordered(MPI_File fh, void *buf, int count,
+                          MPI_Datatype datatype, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5589,8 +5493,8 @@ int multimpi_MPI_File_read_ordered(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype, status);
 }
 
-int multimpi_MPI_Reduce_local(const void *inbuf, void *inoutbuf, int count,
-                              MPI_Datatype datatype, MPI_Op op) {
+int MPI_Reduce_local(const void *inbuf, void *inoutbuf, int count,
+                     MPI_Datatype datatype, MPI_Op op) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5604,7 +5508,7 @@ int multimpi_MPI_Reduce_local(const void *inbuf, void *inoutbuf, int count,
   return func(inbuf, inoutbuf, count, datatype, op);
 }
 
-int multimpi_MPI_Win_post(MPI_Group group, int assert, MPI_Win win) {
+int MPI_Win_post(MPI_Group group, int assert, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5618,8 +5522,8 @@ int multimpi_MPI_Win_post(MPI_Group group, int assert, MPI_Win win) {
   return func(group, assert, win);
 }
 
-int multimpi_MPI_File_read_ordered_begin(MPI_File fh, void *buf, int count,
-                                         MPI_Datatype datatype) {
+int MPI_File_read_ordered_begin(MPI_File fh, void *buf, int count,
+                                MPI_Datatype datatype) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5633,9 +5537,9 @@ int multimpi_MPI_File_read_ordered_begin(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype);
 }
 
-int multimpi_MPI_Reduce_scatter(const void *sendbuf, void *recvbuf,
-                                const int recvcounts[], MPI_Datatype datatype,
-                                MPI_Op op, MPI_Comm comm) {
+int MPI_Reduce_scatter(const void *sendbuf, void *recvbuf,
+                       const int recvcounts[], MPI_Datatype datatype, MPI_Op op,
+                       MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5650,8 +5554,7 @@ int multimpi_MPI_Reduce_scatter(const void *sendbuf, void *recvbuf,
   return func(sendbuf, recvbuf, recvcounts, datatype, op, comm);
 }
 
-int multimpi_MPI_Win_set_attr(MPI_Win win, int win_keyval,
-                              void *attribute_val) {
+int MPI_Win_set_attr(MPI_Win win, int win_keyval, void *attribute_val) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5665,8 +5568,7 @@ int multimpi_MPI_Win_set_attr(MPI_Win win, int win_keyval,
   return func(win, win_keyval, attribute_val);
 }
 
-int multimpi_MPI_File_read_ordered_end(MPI_File fh, void *buf,
-                                       MPI_Status *status) {
+int MPI_File_read_ordered_end(MPI_File fh, void *buf, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5680,9 +5582,8 @@ int multimpi_MPI_File_read_ordered_end(MPI_File fh, void *buf,
   return func(fh, buf, status);
 }
 
-int multimpi_MPI_Reduce_scatter_block(const void *sendbuf, void *recvbuf,
-                                      int recvcount, MPI_Datatype datatype,
-                                      MPI_Op op, MPI_Comm comm) {
+int MPI_Reduce_scatter_block(const void *sendbuf, void *recvbuf, int recvcount,
+                             MPI_Datatype datatype, MPI_Op op, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5697,7 +5598,7 @@ int multimpi_MPI_Reduce_scatter_block(const void *sendbuf, void *recvbuf,
   return func(sendbuf, recvbuf, recvcount, datatype, op, comm);
 }
 
-int multimpi_MPI_Win_set_errhandler(MPI_Win win, MPI_Errhandler errhandler) {
+int MPI_Win_set_errhandler(MPI_Win win, MPI_Errhandler errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5711,8 +5612,8 @@ int multimpi_MPI_Win_set_errhandler(MPI_Win win, MPI_Errhandler errhandler) {
   return func(win, errhandler);
 }
 
-int multimpi_MPI_File_read_shared(MPI_File fh, void *buf, int count,
-                                  MPI_Datatype datatype, MPI_Status *status) {
+int MPI_File_read_shared(MPI_File fh, void *buf, int count,
+                         MPI_Datatype datatype, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5726,10 +5627,11 @@ int multimpi_MPI_File_read_shared(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype, status);
 }
 
-int multimpi_MPI_Register_datarep(
-    char *datarep, MPI_Datarep_conversion_function *read_conversion_fn,
-    MPI_Datarep_conversion_function *write_conversion_fn,
-    MPI_Datarep_extent_function *dtype_file_extent_fn, void *extra_state) {
+int MPI_Register_datarep(char *datarep,
+                         MPI_Datarep_conversion_function *read_conversion_fn,
+                         MPI_Datarep_conversion_function *write_conversion_fn,
+                         MPI_Datarep_extent_function *dtype_file_extent_fn,
+                         void *extra_state) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5746,7 +5648,7 @@ int multimpi_MPI_Register_datarep(
               dtype_file_extent_fn, extra_state);
 }
 
-int multimpi_MPI_Win_set_info(MPI_Win win, MPI_Info info) {
+int MPI_Win_set_info(MPI_Win win, MPI_Info info) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5760,7 +5662,7 @@ int multimpi_MPI_Win_set_info(MPI_Win win, MPI_Info info) {
   return func(win, info);
 }
 
-int multimpi_MPI_File_seek(MPI_File fh, MPI_Offset offset, int whence) {
+int MPI_File_seek(MPI_File fh, MPI_Offset offset, int whence) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5774,7 +5676,7 @@ int multimpi_MPI_File_seek(MPI_File fh, MPI_Offset offset, int whence) {
   return func(fh, offset, whence);
 }
 
-int multimpi_MPI_Request_free(MPI_Request *request) {
+int MPI_Request_free(MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5788,7 +5690,7 @@ int multimpi_MPI_Request_free(MPI_Request *request) {
   return func(request);
 }
 
-int multimpi_MPI_Win_set_name(MPI_Win win, const char *win_name) {
+int MPI_Win_set_name(MPI_Win win, const char *win_name) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5802,7 +5704,7 @@ int multimpi_MPI_Win_set_name(MPI_Win win, const char *win_name) {
   return func(win, win_name);
 }
 
-int multimpi_MPI_File_seek_shared(MPI_File fh, MPI_Offset offset, int whence) {
+int MPI_File_seek_shared(MPI_File fh, MPI_Offset offset, int whence) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5816,8 +5718,7 @@ int multimpi_MPI_File_seek_shared(MPI_File fh, MPI_Offset offset, int whence) {
   return func(fh, offset, whence);
 }
 
-int multimpi_MPI_Request_get_status(MPI_Request request, int *flag,
-                                    MPI_Status *status) {
+int MPI_Request_get_status(MPI_Request request, int *flag, MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5831,8 +5732,8 @@ int multimpi_MPI_Request_get_status(MPI_Request request, int *flag,
   return func(request, flag, status);
 }
 
-int multimpi_MPI_Win_shared_query(MPI_Win win, int rank, MPI_Aint *size,
-                                  int *disp_unit, void *baseptr) {
+int MPI_Win_shared_query(MPI_Win win, int rank, MPI_Aint *size, int *disp_unit,
+                         void *baseptr) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5846,7 +5747,7 @@ int multimpi_MPI_Win_shared_query(MPI_Win win, int rank, MPI_Aint *size,
   return func(win, rank, size, disp_unit, baseptr);
 }
 
-int multimpi_MPI_File_set_atomicity(MPI_File fh, int flag) {
+int MPI_File_set_atomicity(MPI_File fh, int flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5860,11 +5761,9 @@ int multimpi_MPI_File_set_atomicity(MPI_File fh, int flag) {
   return func(fh, flag);
 }
 
-int multimpi_MPI_Rget(void *origin_addr, int origin_count,
-                      MPI_Datatype origin_datatype, int target_rank,
-                      MPI_Aint target_disp, int target_count,
-                      MPI_Datatype target_datatype, MPI_Win win,
-                      MPI_Request *request) {
+int MPI_Rget(void *origin_addr, int origin_count, MPI_Datatype origin_datatype,
+             int target_rank, MPI_Aint target_disp, int target_count,
+             MPI_Datatype target_datatype, MPI_Win win, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5880,7 +5779,7 @@ int multimpi_MPI_Rget(void *origin_addr, int origin_count,
               target_disp, target_count, target_datatype, win, request);
 }
 
-int multimpi_MPI_Win_start(MPI_Group group, int assert, MPI_Win win) {
+int MPI_Win_start(MPI_Group group, int assert, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5894,7 +5793,7 @@ int multimpi_MPI_Win_start(MPI_Group group, int assert, MPI_Win win) {
   return func(group, assert, win);
 }
 
-int multimpi_MPI_File_set_errhandler(MPI_File file, MPI_Errhandler errhandler) {
+int MPI_File_set_errhandler(MPI_File file, MPI_Errhandler errhandler) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5908,13 +5807,12 @@ int multimpi_MPI_File_set_errhandler(MPI_File file, MPI_Errhandler errhandler) {
   return func(file, errhandler);
 }
 
-int multimpi_MPI_Rget_accumulate(const void *origin_addr, int origin_count,
-                                 MPI_Datatype origin_datatype,
-                                 void *result_addr, int result_count,
-                                 MPI_Datatype result_datatype, int target_rank,
-                                 MPI_Aint target_disp, int target_count,
-                                 MPI_Datatype target_datatype, MPI_Op op,
-                                 MPI_Win win, MPI_Request *request) {
+int MPI_Rget_accumulate(const void *origin_addr, int origin_count,
+                        MPI_Datatype origin_datatype, void *result_addr,
+                        int result_count, MPI_Datatype result_datatype,
+                        int target_rank, MPI_Aint target_disp, int target_count,
+                        MPI_Datatype target_datatype, MPI_Op op, MPI_Win win,
+                        MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5932,7 +5830,7 @@ int multimpi_MPI_Rget_accumulate(const void *origin_addr, int origin_count,
               target_count, target_datatype, op, win, request);
 }
 
-int multimpi_MPI_Win_sync(MPI_Win win) {
+int MPI_Win_sync(MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5946,7 +5844,7 @@ int multimpi_MPI_Win_sync(MPI_Win win) {
   return func(win);
 }
 
-int multimpi_MPI_File_set_info(MPI_File fh, MPI_Info info) {
+int MPI_File_set_info(MPI_File fh, MPI_Info info) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5960,11 +5858,10 @@ int multimpi_MPI_File_set_info(MPI_File fh, MPI_Info info) {
   return func(fh, info);
 }
 
-int multimpi_MPI_Rput(const void *origin_addr, int origin_count,
-                      MPI_Datatype origin_datatype, int target_rank,
-                      MPI_Aint target_disp, int target_count,
-                      MPI_Datatype target_datatype, MPI_Win win,
-                      MPI_Request *request) {
+int MPI_Rput(const void *origin_addr, int origin_count,
+             MPI_Datatype origin_datatype, int target_rank,
+             MPI_Aint target_disp, int target_count,
+             MPI_Datatype target_datatype, MPI_Win win, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5980,7 +5877,7 @@ int multimpi_MPI_Rput(const void *origin_addr, int origin_count,
               target_disp, target_count, target_datatype, win, request);
 }
 
-int multimpi_MPI_Win_test(MPI_Win win, int *flag) {
+int MPI_Win_test(MPI_Win win, int *flag) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -5994,7 +5891,7 @@ int multimpi_MPI_Win_test(MPI_Win win, int *flag) {
   return func(win, flag);
 }
 
-int multimpi_MPI_File_set_size(MPI_File fh, MPI_Offset size) {
+int MPI_File_set_size(MPI_File fh, MPI_Offset size) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -6008,8 +5905,8 @@ int multimpi_MPI_File_set_size(MPI_File fh, MPI_Offset size) {
   return func(fh, size);
 }
 
-int multimpi_MPI_Rsend(const void *buf, int count, MPI_Datatype datatype,
-                       int dest, int tag, MPI_Comm comm) {
+int MPI_Rsend(const void *buf, int count, MPI_Datatype datatype, int dest,
+              int tag, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -6023,7 +5920,7 @@ int multimpi_MPI_Rsend(const void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, dest, tag, comm);
 }
 
-int multimpi_MPI_Win_unlock(int rank, MPI_Win win) {
+int MPI_Win_unlock(int rank, MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -6037,9 +5934,8 @@ int multimpi_MPI_Win_unlock(int rank, MPI_Win win) {
   return func(rank, win);
 }
 
-int multimpi_MPI_File_set_view(MPI_File fh, MPI_Offset disp, MPI_Datatype etype,
-                               MPI_Datatype filetype, char *datarep,
-                               MPI_Info info) {
+int MPI_File_set_view(MPI_File fh, MPI_Offset disp, MPI_Datatype etype,
+                      MPI_Datatype filetype, char *datarep, MPI_Info info) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -6054,9 +5950,8 @@ int multimpi_MPI_File_set_view(MPI_File fh, MPI_Offset disp, MPI_Datatype etype,
   return func(fh, disp, etype, filetype, datarep, info);
 }
 
-int multimpi_MPI_Rsend_init(const void *buf, int count, MPI_Datatype datatype,
-                            int dest, int tag, MPI_Comm comm,
-                            MPI_Request *request) {
+int MPI_Rsend_init(const void *buf, int count, MPI_Datatype datatype, int dest,
+                   int tag, MPI_Comm comm, MPI_Request *request) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -6071,7 +5966,7 @@ int multimpi_MPI_Rsend_init(const void *buf, int count, MPI_Datatype datatype,
   return func(buf, count, datatype, dest, tag, comm, request);
 }
 
-int multimpi_MPI_Win_unlock_all(MPI_Win win) {
+int MPI_Win_unlock_all(MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -6085,7 +5980,7 @@ int multimpi_MPI_Win_unlock_all(MPI_Win win) {
   return func(win);
 }
 
-int multimpi_MPI_File_sync(MPI_File fh) {
+int MPI_File_sync(MPI_File fh) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -6099,8 +5994,8 @@ int multimpi_MPI_File_sync(MPI_File fh) {
   return func(fh);
 }
 
-int multimpi_MPI_Scan(const void *sendbuf, void *recvbuf, int count,
-                      MPI_Datatype datatype, MPI_Op op, MPI_Comm comm) {
+int MPI_Scan(const void *sendbuf, void *recvbuf, int count,
+             MPI_Datatype datatype, MPI_Op op, MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -6115,7 +6010,7 @@ int multimpi_MPI_Scan(const void *sendbuf, void *recvbuf, int count,
   return func(sendbuf, recvbuf, count, datatype, op, comm);
 }
 
-int multimpi_MPI_Win_wait(MPI_Win win) {
+int MPI_Win_wait(MPI_Win win) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -6129,8 +6024,8 @@ int multimpi_MPI_Win_wait(MPI_Win win) {
   return func(win);
 }
 
-int multimpi_MPI_File_write(MPI_File fh, void *buf, int count,
-                            MPI_Datatype datatype, MPI_Status *status) {
+int MPI_File_write(MPI_File fh, void *buf, int count, MPI_Datatype datatype,
+                   MPI_Status *status) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -6144,9 +6039,9 @@ int multimpi_MPI_File_write(MPI_File fh, void *buf, int count,
   return func(fh, buf, count, datatype, status);
 }
 
-int multimpi_MPI_Scatter(const void *sendbuf, int sendcount,
-                         MPI_Datatype sendtype, void *recvbuf, int recvcount,
-                         MPI_Datatype recvtype, int root, MPI_Comm comm) {
+int MPI_Scatter(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                void *recvbuf, int recvcount, MPI_Datatype recvtype, int root,
+                MPI_Comm comm) {
   if (multimpi_static_init()) {
     return 1;
   }
@@ -6162,7 +6057,7 @@ int multimpi_MPI_Scatter(const void *sendbuf, int sendcount,
               comm);
 }
 
-double multimpi_MPI_Wtick() {
+double MPI_Wtick() {
   if (multimpi_static_init()) {
     return 0;
   }
@@ -6176,7 +6071,7 @@ double multimpi_MPI_Wtick() {
   return func();
 }
 
-double multimpi_MPI_Wtime() {
+double MPI_Wtime() {
   if (multimpi_static_init()) {
     return 0;
   }

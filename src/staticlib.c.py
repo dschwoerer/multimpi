@@ -52,7 +52,7 @@ print(
   return 0;
 }
 
-int multimpi_MPI_Init(int *argc, char ***argv) {
+int MPI_Init(int *argc, char ***argv) {
   if (multimpi_static_init()){
     printf("return early\n");
     return 1;
@@ -98,7 +98,7 @@ for fun in funcs:
         errret = 0
     print(
         f"""
-{fun.ret} multimpi_{fun.name}({fun.args}) {{
+{fun.ret} {fun.name}({fun.args}) {{
   if (multimpi_static_init()){{
     return {errret};
   }}
